@@ -1,7 +1,11 @@
 # CSE112-Neon
 
-Installing
-Run npm i
+## Installing
+```bash
+npm i
+```
 
-Running 
-Run npm start
+## Running 
+```bash
+npm start
+```
