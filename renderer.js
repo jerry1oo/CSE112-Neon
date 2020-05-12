@@ -1,6 +1,8 @@
 //vscode - status
 const psList = require('ps-list');
 
+const WIN_VS_CODE_PROCESS_NAME = "Code.exe";
+
 var intervalVar
 var vsCodeStatus = false
 
@@ -16,10 +18,21 @@ async function isVSCodeOpen() {
     var codes = []
     for (var i = 0; i < list.length; i++) {
         names.push(list[i].name)
-        var lowercase = list[i].name.toLowerCase()
-        if (lowercase.indexOf("applications") >= 0) {
-            if (list[i].cmd.split("/")[2] === "Visual Studio Code.app") {
-                codes.push(list[i].cmd.split("/")[2])
+
+        // Windows does not support cmd key returned by ps-list
+        // darwin means we are on macOS
+        if (process.platform == "darwin") {
+            var lowercase = list[i].name.toLowerCase()
+            if (lowercase.indexOf("applications") >= 0) {
+                if (list[i].cmd.split("/")[2] === "Visual Studio Code.app") {
+                    codes.push(list[i].cmd.split("/")[2])
+                }
+            }
+        }
+        // Even if we're not on 32-bit, the key is still win-32 lol
+        else if (process.platform == "win32") {
+            if (list[i].name == WIN_VS_CODE_PROCESS_NAME) {
+                codes.push(list[i].name);
             }
         }
     }
