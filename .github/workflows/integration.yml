@@ -25,4 +25,4 @@ jobs:
         with:
           run: |
             npm install
-            npm run test:int
+            mocha ./test/integration_testing/*.js
