@@ -24,4 +24,6 @@ jobs:
         uses: GabrielBB/xvfb-action@v1.2
         with:
           working-directory: ./ #optional
-          run: npm run test:int
+          run: |
+            npm install
+            npm run test:int
