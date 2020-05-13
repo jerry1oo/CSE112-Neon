@@ -1,16 +1,7 @@
 name: integration
 
-# Controls when the action will run. Triggers the workflow on push or pull request
-# events but only for the master branch
-
 on: [push]
 
-#on:
- # push:
-  #  branches: [ master ]
- # pull_request:
-  #  branches: [ master ]
-    
 jobs:
   build:
     strategy:
@@ -23,6 +14,9 @@ jobs:
       - name: Run headless test
         uses: GabrielBB/xvfb-action@v1.2
         with:
-          run: |
-            npm install
-            mocha ./test/integration_testing/*.js
+          working-directory: ./ #optional
+          run: npm test
+      - name: Install
+        run: npm ci
+      - name: Test
+        run: npm test:int
