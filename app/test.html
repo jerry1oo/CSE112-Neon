@@ -27,14 +27,16 @@
         var logOutBtn = document.getElementById('logOutBtn');
         
         logOutBtn.addEventListener('click', function(){
-        firebase.auth().signOut().then(function() {
-            document.location.href = 'index.html'
-        }).catch(function(error) {
-            // Handle Errors
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            console.log(errorCode);
-            console.log(errorMessage);
+            firebase.auth().signOut().then(function() {
+                document.location.href = 'index.html'
+            }).catch(function(error) {
+                // Handle errors
+                dialog.showMessageBox({
+                    type: 'error',
+                    title: 'Error',
+                    message: error.message
+                });
+                console.log(error);
             })
         });
 

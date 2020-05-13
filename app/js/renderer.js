@@ -1,3 +1,5 @@
+const { dialog } = require('electron').remote;
+
 var firebaseConfig = {
     apiKey: "AIzaSyBmn_tDSlm4lLdrvSqj8Yb00KkYae8cL-Y",
     authDomain: "neon-pulse-development.firebaseapp.com",
@@ -20,13 +22,19 @@ signUpBtn.addEventListener('click', function(){
     console.log(email);
     console.log(password);
     firebase.auth().createUserWithEmailAndPassword(email, password).then(function() {
-        alert("User Created");
+        dialog.showMessageBox({
+            title: 'Message',
+            message: 'User created successfully! Logging in.'
+        });
+        document.location.href = 'test.html';
     }).catch(function(error){
         // Handle errors
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        console.log(errorCode);
-        console.log(errorMessage);
+        dialog.showMessageBox({
+            type: 'error',
+            title: 'Error',
+            message: error.message
+        });
+        console.log(error);
     });
 });
 
@@ -37,11 +45,13 @@ logInBtn.addEventListener('click', function(){
     firebase.auth().signInWithEmailAndPassword(email, password).then(function() {
         document.location.href = 'test.html';
     }).catch(function(error) {
-        // Handle Errors
-         var errorCode = error.code;
-         var errorMessage = error.message;
-         console.log(errorCode);
-         console.log(errorMessage);
+        // Handle errors
+        dialog.showMessageBox({
+            type: 'error',
+            title: 'Error',
+            message: error.message
+        });
+        console.log(error);
       });
 });
 
