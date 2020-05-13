@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>test</title>
+    <!-- https://electronjs.org/docs/tutorial/security#csp-meta-tag -->
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' https://www.gstatic.com 'unsafe-inline';" />
+    <script src="https://www.gstatic.com/firebasejs/7.14.3/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.3/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.3/firebase-firestore.js"></script>
+</head>
+<body>
+    <button type="button" id="logOutBtn">Log out</button>
+    <script>
+        var firebaseConfig = {
+        apiKey: "AIzaSyBmn_tDSlm4lLdrvSqj8Yb00KkYae8cL-Y",
+        authDomain: "neon-pulse-development.firebaseapp.com",
+        databaseURL: "https://neon-pulse-development.firebaseio.com",
+        projectId: "neon-pulse-development",
+        storageBucket: "neon-pulse-development.appspot.com",
+        messagingSenderId: "240091062123",
+        appId: "1:240091062123:web:babe11f5f03ced38fbb62e",
+        measurementId: "G-VMS6JL8H4S"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        var logOutBtn = document.getElementById('logOutBtn');
+        
+        logOutBtn.addEventListener('click', function(){
+        firebase.auth().signOut().then(function() {
+            document.location.href = 'index.html'
+        }).catch(function(error) {
+            // Handle Errors
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            console.log(errorCode);
+            console.log(errorMessage);
+            })
+        });
+
+    </script>
+</body>
+</html>

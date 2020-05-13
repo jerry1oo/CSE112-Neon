@@ -1,3 +1,50 @@
+var firebaseConfig = {
+    apiKey: "AIzaSyBmn_tDSlm4lLdrvSqj8Yb00KkYae8cL-Y",
+    authDomain: "neon-pulse-development.firebaseapp.com",
+    databaseURL: "https://neon-pulse-development.firebaseio.com",
+    projectId: "neon-pulse-development",
+    storageBucket: "neon-pulse-development.appspot.com",
+    messagingSenderId: "240091062123",
+    appId: "1:240091062123:web:babe11f5f03ced38fbb62e",
+    measurementId: "G-VMS6JL8H4S"
+};
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+
+var signUpBtn = document.getElementById('signUpBtn');
+var logInBtn = document.getElementById('logInBtn');
+
+signUpBtn.addEventListener('click', function(){
+    var email = document.getElementById('email').value;
+    var password = document.getElementById('password').value;
+    console.log(email);
+    console.log(password);
+    firebase.auth().createUserWithEmailAndPassword(email, password).then(function() {
+        alert("User Created");
+    }).catch(function(error){
+        // Handle errors
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        console.log(errorCode);
+        console.log(errorMessage);
+    });
+});
+
+logInBtn.addEventListener('click', function(){
+    var email = document.getElementById('email').value;
+    var password = document.getElementById('password').value;
+
+    firebase.auth().signInWithEmailAndPassword(email, password).then(function() {
+        document.location.href = 'test.html';
+    }).catch(function(error) {
+        // Handle Errors
+         var errorCode = error.code;
+         var errorMessage = error.message;
+         console.log(errorCode);
+         console.log(errorMessage);
+      });
+});
+
 //vscode - status
 const psList = require('ps-list');
 
