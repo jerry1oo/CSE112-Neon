@@ -37,11 +37,11 @@ describe('Application launch', function () {
     }
   })
 
-  it('shows an initial window', function () {
+  it('creates the main window and the check-in window', function () {
     return this.app.client.getWindowCount().then(function (count) {
-      assert.equal(count, 1)
+      assert.equal(count, 2)
       // Please note that getWindowCount() will return 2 if `dev tools` are opened.
-      // assert.equal(count, 2)
+      // assert.equal(count, 3)
     })
   })
 })

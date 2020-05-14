@@ -34,6 +34,6 @@ function createWindow() {
 
 app.whenReady().then(createWindow)
 
-ipcMain.on('check-in-modal-trigger', (e, args) => {
+ipcMain.on('check-in-modal-trigger', () => {
     checkInWin.show();
 });
