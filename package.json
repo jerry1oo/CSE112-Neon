@@ -10,6 +10,16 @@
         "test:unit": "mocha ./test/unit_testing/*.js",
         "test:int": "mocha ./test/integration_testing/*.js"
     },
+    "lint-staged": {
+        "*.js": [
+            "npm run lint","git add"
+        ]
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "lint-staged"
+        }
+    },
     "keywords": [],
     "author": "",
     "license": "ISC",
@@ -23,6 +33,7 @@
         "spectron": "^10.0.1"
     },
     "dependencies": {
+        "lint-staged": "^10.2.2",
         "ps-list": "^7.0.0"
     }
 }
