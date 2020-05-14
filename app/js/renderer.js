@@ -1,5 +1,6 @@
 //vscode - status
 const psList = require('ps-list');
+const {ipcRenderer} = require('electron')
 
 const WIN_VS_CODE_PROCESS_NAME = "Code.exe";
 
@@ -61,6 +62,7 @@ async function isVSCodeOpen() {
 
 function vsCodeOpened() {
     console.log("VSCode has just been opened")
+    ipcRenderer.send('check-in-modal-trigger');
 }
 
 function vsCodeClosed() {
