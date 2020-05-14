@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Overlay</title>
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
+</head>
+
+<script> let $ = require('jquery'); </script>
+<script> require('popper.js'); </script>
+<script> require('bootstrap'); </script>
+
+<body style="background: none;">
+    <button class="btn btn-primary" data-toggle="collapse" data-target="#team_list">My Team</button>
+    <div id="team_list" class="collapse container">
+        <div class="row" style="background: white">
+            <ul style="list-style-type:none;" id="name_list" class="col">
+                <li> Alan M </li>
+                <li> Chen M </li>
+                <li> Swapnil P </li>
+                <li> Justin O </li>
+                <li> Derek S </li>
+                <li> Juan G </li>
+            </ul>
+            <ul style="list-style-type:none;" id="status_list" class="col">
+                <li> Online </li>
+                <li> Online </li>
+                <li> Online </li>
+                <li> Online </li>
+                <li> Online </li>
+                <li> Online </li>
+            </ul>
+        </div>
+    </div>
+</body>
+
+</html>
