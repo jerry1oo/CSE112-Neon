@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <title>test</title>
@@ -9,26 +10,32 @@
     <script src="https://www.gstatic.com/firebasejs/7.14.3/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.14.3/firebase-firestore.js"></script>
 </head>
+
 <body>
     <button type="button" id="logOutBtn">Log out</button>
+    <p>Visual studio:</p>
+    <p id="vscode-status"></p>
+    <p>Number of visual studio processes open</p>
+    <p id="vscode-num"></p>
     <script>
         var firebaseConfig = {
-        apiKey: "AIzaSyBmn_tDSlm4lLdrvSqj8Yb00KkYae8cL-Y",
-        authDomain: "neon-pulse-development.firebaseapp.com",
-        databaseURL: "https://neon-pulse-development.firebaseio.com",
-        projectId: "neon-pulse-development",
-        storageBucket: "neon-pulse-development.appspot.com",
-        messagingSenderId: "240091062123",
-        appId: "1:240091062123:web:babe11f5f03ced38fbb62e",
-        measurementId: "G-VMS6JL8H4S"
+            apiKey: "AIzaSyBmn_tDSlm4lLdrvSqj8Yb00KkYae8cL-Y",
+            authDomain: "neon-pulse-development.firebaseapp.com",
+            databaseURL: "https://neon-pulse-development.firebaseio.com",
+            projectId: "neon-pulse-development",
+            storageBucket: "neon-pulse-development.appspot.com",
+            messagingSenderId: "240091062123",
+            appId: "1:240091062123:web:babe11f5f03ced38fbb62e",
+            measurementId: "G-VMS6JL8H4S"
         };
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
         var logOutBtn = document.getElementById('logOutBtn');
-        
-        logOutBtn.addEventListener('click', function(){
+
+        logOutBtn.addEventListener('click', function() {
             firebase.auth().signOut().then(function() {
-                document.location.href = 'index.html'
+                localStorage.removeItem('userid')
+                document.location.href = 'login.html'
             }).catch(function(error) {
                 // Handle errors
                 dialog.showMessageBox({
@@ -39,7 +46,10 @@
                 console.log(error);
             })
         });
-
+    </script>
+    <script>
+        require('./js/dashboard.js')
     </script>
 </body>
+
 </html>

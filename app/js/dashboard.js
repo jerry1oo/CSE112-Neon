@@ -1,60 +1,3 @@
-const { dialog } = require('electron').remote;
-
-var firebaseConfig = {
-    apiKey: "AIzaSyBmn_tDSlm4lLdrvSqj8Yb00KkYae8cL-Y",
-    authDomain: "neon-pulse-development.firebaseapp.com",
-    databaseURL: "https://neon-pulse-development.firebaseio.com",
-    projectId: "neon-pulse-development",
-    storageBucket: "neon-pulse-development.appspot.com",
-    messagingSenderId: "240091062123",
-    appId: "1:240091062123:web:babe11f5f03ced38fbb62e",
-    measurementId: "G-VMS6JL8H4S"
-};
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-
-var signUpBtn = document.getElementById('signUpBtn');
-var logInBtn = document.getElementById('logInBtn');
-
-signUpBtn.addEventListener('click', function(){
-    var email = document.getElementById('email').value;
-    var password = document.getElementById('password').value;
-    console.log(email);
-    console.log(password);
-    firebase.auth().createUserWithEmailAndPassword(email, password).then(function() {
-        dialog.showMessageBox({
-            title: 'Message',
-            message: 'User created successfully! Logging in.'
-        });
-        document.location.href = 'test.html';
-    }).catch(function(error){
-        // Handle errors
-        dialog.showMessageBox({
-            type: 'error',
-            title: 'Error',
-            message: error.message
-        });
-        console.log(error);
-    });
-});
-
-logInBtn.addEventListener('click', function(){
-    var email = document.getElementById('email').value;
-    var password = document.getElementById('password').value;
-
-    firebase.auth().signInWithEmailAndPassword(email, password).then(function() {
-        document.location.href = 'test.html';
-    }).catch(function(error) {
-        // Handle errors
-        dialog.showMessageBox({
-            type: 'error',
-            title: 'Error',
-            message: error.message
-        });
-        console.log(error);
-      });
-});
-
 //vscode - status
 const psList = require('ps-list');
 
@@ -68,6 +11,8 @@ let numText = document.querySelector('#vscode-num')
 console.log(pText)
 
 intervalVar = setInterval(isVSCodeOpen, 50)
+
+var db = firebase.firestore();
 
 async function isVSCodeOpen() {
     var list = await psList()
@@ -118,8 +63,29 @@ async function isVSCodeOpen() {
 
 function vsCodeOpened() {
     console.log("VSCode has just been opened")
+    var userid = localStorage.getItem('userid')
+    console.log("Userid is: ", userid)
+    db.collection("vscode").doc(userid).set({
+            loggedin: true
+        }).then(function(docRef) {
+            console.log(docRef)
+            console.log("Document written with ID: ", docRef.id);
+        })
+        .catch(function(error) {
+            console.error("Error adding document: ", error);
+        });
 }
 
 function vsCodeClosed() {
     console.log("VSCode has just been closed")
+    var userid = localStorage.getItem('userid')
+    console.log("Userid is: ", userid)
+    db.collection("vscode").doc(userid).set({
+            loggedin: false
+        }).then(function(docRef) {
+            console.log("Document written with ID: ", docRef.id);
+        })
+        .catch(function(error) {
+            console.error("Error adding document: ", error);
+        });
 }
