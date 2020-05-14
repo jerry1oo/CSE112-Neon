@@ -1,0 +1,91 @@
+  
+@font-face{
+    font-family: Montserrat;
+    src: url(assets/font/montserrat-regular.woff);
+}
+body {
+    background-color: white;
+    color: black;
+    font-family: Monserrat;
+}
+
+.container{
+    width: 70%;
+    margin: auto;
+    /* margin-bottom: 5%; */
+    /* height: 100%; */
+}
+
+  /* Control the left side */
+  .left {
+    width: 50%;
+    height: 100%;
+    float: left;
+    background-color: #d5defd;
+    text-align: center;
+  }
+  
+  /* Control the right side */
+  .right {
+    width: 50%;
+    height: 100%;
+    float: right;
+    background-color: #edf1fe;
+    text-align: center;
+  }
+
+  .user{
+    display: inline-flex;
+    justify-content: center;
+    height: 30%;
+    width: 100%;  
+    /* margin-right: 10%;   */
+    /* padding-right: 10%; */
+    /* background-color: yellow; */
+    /* margin-bottom: 30px; */
+  }
+  .img{
+      /* display: flex; */
+      justify-content: center;
+  }
+  .status{
+      /* padding-left: 8%; */
+      margin-top: 1%;
+      padding-top: 15px;
+      padding-bottom: 15px;
+      padding-right: 8%;
+  }
+  h2{
+      margin-top: 10%;
+      margin-bottom: 15%;
+  }
+
+  ul.list{
+    list-style-type: none;
+    text-align: center;
+    margin-right: 10%;
+    padding-bottom: 4%;
+    /* margin-bottom: 30px; */
+}
+ul.list li{
+    margin-bottom: 10px;
+    font-size: 10px;
+}
+ul.list li input{
+    /* width: 90%; */
+    padding: 10px 0px;
+    border: none;
+    border-radius: 5px;
+    /* padding-left: 20px; */
+}
+ul.list li input[type="button"]{
+    background-color: #0076ff;
+    color: white;
+    font-weight: bold;
+    width: 90%;
+    border-radius: 5px;
+    /* padding-right: 20px; */
+}
+ul.list li:nth-child(1){
+    margin-top: 20%;
+}

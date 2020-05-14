@@ -1,0 +1,49 @@
+body {
+    background-color: #EFF1F8;
+    color:black;
+    font-family: 'Times New Roman', Times, serif;
+  }
+  
+@font-face{
+    font-family: Montserrat;
+    src: url(assets/font/montserrat-regular.woff);
+}
+
+h1{
+    margin-top: 10%;
+    text-align: center;
+    margin-bottom: 10%;
+    font-size: 70px;
+    font-family: Montserrat;
+    font-weight: bolder;
+
+}
+
+ul.list{
+    list-style-type: none;
+    text-align: center;
+    margin-right: 6%;
+}
+ul.list li{
+    margin-bottom: 10px;
+    font-size: 10px;
+}
+ul.list li input{
+    width: 65%;
+    padding: 10px 0px;
+    border: none;
+    border-radius: 5px;
+    padding-left: 20px;
+}
+ul.list li input[type="button"]{
+    background-color: #687089;
+    color: white;
+    font-weight: bold;
+    width: 40%;
+    border-radius: 15px;
+    padding-right: 20px;
+}
+  
+ul.list li:nth-child(3){
+    margin-top: 10%;
+}
