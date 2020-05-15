@@ -1,7 +1,7 @@
   
 @font-face{
     font-family: Montserrat;
-    src: url(assets/font/montserrat-regular.woff);
+    src: url(../assets/font/montserrat-regular.woff);
 }
 body {
     background-color: white;
