@@ -18,23 +18,35 @@ var signUpBtn = document.getElementById('signUpBtn');
 signUpBtn.addEventListener('click', function() {
     var email = document.getElementById('email').value;
     var password = document.getElementById('password').value;
+    var password_rpt = document.getElementById('password_rpt').value;
     console.log(email);
     console.log(password);
-    firebase.auth().createUserWithEmailAndPassword(email, password).then(function(user) {
-        dialog.showMessageBox({
-            title: 'Message',
-            message: 'User created successfully! Logging in.'
+    console.log(password_rpt);
+    if(password.localeCompare(password_rpt) == 0){
+        firebase.auth().createUserWithEmailAndPassword(email, password).then(function(user) {
+            dialog.showMessageBox({
+                title: 'Message',
+                message: 'User created successfully! Logging in.'
+            });
+            console.log(user.user.l)
+            localStorage.setItem('userid', user.user.l)
+            document.location.href = 'taskbar.html';
+        }).catch(function(error) {
+            // Handle errors
+            dialog.showMessageBox({
+                type: 'error',
+                title: 'Error',
+                message: error.message
+            });
+            console.log(error);
         });
-        console.log(user.user.l)
-        localStorage.setItem('userid', user.user.l)
-        document.location.href = 'taskbar.html';
-    }).catch(function(error) {
-        // Handle errors
+    }
+    else{
         dialog.showMessageBox({
             type: 'error',
             title: 'Error',
-            message: error.message
+            message: 'Password does not match.'
         });
-        console.log(error);
-    });
+        console.log('Password does not match.');
+    } 
 });
