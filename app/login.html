@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Hello World!</title>
+    <!-- https://electronjs.org/docs/tutorial/security#csp-meta-tag -->
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' https://www.gstatic.com 'unsafe-inline';" />
+    <script src="https://www.gstatic.com/firebasejs/7.14.3/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.3/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.3/firebase-firestore.js"></script>
+</head>
+
+<body>
+    <div id="loginSignUpContainer">
+        <h1> Welcome </h1>
+        <form>
+            <label for="Email">Email:</label>
+            <input type="text" id="email" name="email" required><br>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required><br>
+            <button type="button" id="logInBtn">Login</button>
+            <button type="button" id="signUpBtn">Sign Up</button>
+        </form>
+    </div>
+    <script>
+        require('./js/login.js')
+    </script>
+</body>
+
+</html>
