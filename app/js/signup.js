@@ -14,7 +14,6 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 var signUpBtn = document.getElementById('signUpBtn');
-var logInBtn = document.getElementById('logInBtn');
 
 signUpBtn.addEventListener('click', function() {
     var email = document.getElementById('email').value;
@@ -28,26 +27,7 @@ signUpBtn.addEventListener('click', function() {
         });
         console.log(user.user.l)
         localStorage.setItem('userid', user.user.l)
-        document.location.href = 'dashboard.html';
-    }).catch(function(error) {
-        // Handle errors
-        dialog.showMessageBox({
-            type: 'error',
-            title: 'Error',
-            message: error.message
-        });
-        console.log(error);
-    });
-});
-
-logInBtn.addEventListener('click', function() {
-    var email = document.getElementById('email').value;
-    var password = document.getElementById('password').value;
-
-    firebase.auth().signInWithEmailAndPassword(email, password).then(function(user) {
-        console.log(user.user.l)
-        localStorage.setItem('userid', user.user.l)
-        document.location.href = 'dashboard.html';
+        document.location.href = 'taskbar.html';
     }).catch(function(error) {
         // Handle errors
         dialog.showMessageBox({
