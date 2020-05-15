@@ -17,7 +17,7 @@ function createWindow() {
     })
 
     // and load the index.html of the app.
-    win.loadFile('./app/login.html')
+    win.loadFile('./app/signin.html')
 }
 
 
