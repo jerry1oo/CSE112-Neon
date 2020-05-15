@@ -12,8 +12,6 @@ console.log(pText)
 
 intervalVar = setInterval(isVSCodeOpen, 50)
 
-var db = firebase.firestore();
-
 var firebaseConfig = {
     apiKey: "AIzaSyBmn_tDSlm4lLdrvSqj8Yb00KkYae8cL-Y",
     authDomain: "neon-pulse-development.firebaseapp.com",
@@ -26,6 +24,7 @@ var firebaseConfig = {
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
+var db = firebase.firestore();
 var logOutBtn = document.getElementById('logOutBtn');
 
 logOutBtn.addEventListener('click', function() {
