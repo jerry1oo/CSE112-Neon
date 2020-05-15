@@ -2,7 +2,7 @@
 name: unit
 
 on:
-  pull_requesy:
+  pull_request:
     branches:
       - dev
 

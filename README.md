@@ -27,3 +27,6 @@ npm start
 	
 	Check out /test/unit_testing/spec.js for an example of how to make an integration test.
 	
+## Building
+
+npm build --> will create a folder named dist in your source dir with the build files
