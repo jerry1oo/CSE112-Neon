@@ -23,6 +23,7 @@
         "spectron": "^10.0.1"
     },
     "dependencies": {
+        "firebase": "^7.14.3",
         "ps-list": "^7.0.0"
     }
 }
