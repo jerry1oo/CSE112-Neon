@@ -21,7 +21,9 @@ npm start
 
 ## Testing
  Unit Testing
+ 
 	Check out /test/unit_testing/sum.js for an example of how to make a unit test.
+	
 	
 	Check out /test/unit_testing/spec.js for an example of how to make an integration test.
 	
