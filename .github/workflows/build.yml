@@ -1,6 +1,12 @@
+# Source
+# https://github.com/samuelmeuli/action-electron-builder
+
 name: Build/release
 
-on: push
+on:
+  push:
+    branches:
+      - master
 
 jobs:
   release:

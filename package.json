@@ -1,8 +1,8 @@
 {
  "name": "neon_pulse",
  "build": {
-  "appId": "com.yourcompany.yourapp",
-  "productName": "Your App",
+  "appId": "com.neon.pulse",
+  "productName": "Neon Pulse",
   "mac": {
    "category": "public.app-category.lifestyle"
   },
