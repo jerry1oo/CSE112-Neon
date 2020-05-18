@@ -2,7 +2,6 @@
 <html>
 
 <head>
-
     <meta charset="UTF-8">
     <title>Taskbar</title>
     <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
@@ -10,8 +9,6 @@
 </head>
 
 <body>
-
-
     <div class="user">
         <div class="img">
         <img src="assets/icon/user.svg" alt="User" style="width:150px; height:150px;">
@@ -26,8 +23,8 @@
             <h2>My Flow</h2>
             <img src="assets/icon/alarmclock.svg" alt="alarm" style="width:110px; height:110px;">
             <ul class="list">
-                <li><input type="button" name="startflow" value="Start My Flow"></li>
-                <li><input type="button" name="endflow" value="End My Flow"></li>
+                <li><input type="button" name="startflow" id="btn-start-flow" value="Start My Flow"></li>
+                <li><input type="button" name="endflow" id="btn-end-flow" value="End My Flow"></li>
             </ul>
         </div>
 
@@ -40,7 +37,8 @@
             </ul>
         </div>
     </div>
-
+    <script>
+        require('./js/taskbar.js')
+    </script>
 </body>
-
 </html>

@@ -14,26 +14,23 @@ function createWindow() {
         }
     });
 
+    // and load the index.html of the app.
+    win.loadFile('./app/signin.html')
+}
+
+app.whenReady().then(createWindow);
+
+ipcMain.on('check-in-modal-trigger', () => {
     checkInWin = new BrowserWindow({
         width: 600,
         height: 300,
         webPreferences: { nodeIntegration: true },
         frame: false,
-        show: false
     });
-
-    // and load the index.html of the app.
-    win.loadFile('./app/signin.html')
 
     // Loading the checkInWindow
     checkInWin.loadFile('app/checkIn.html');
     // Put check in window on top of other screens -- not working on fullscreen
     checkInWin.setAlwaysOnTop(true, "floating", 1);
     checkInWin.setVisibleOnAllWorkspaces(true);
-}
-
-app.whenReady().then(createWindow)
-
-ipcMain.on('check-in-modal-trigger', () => {
-    checkInWin.show();
 });

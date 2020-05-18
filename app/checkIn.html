@@ -5,17 +5,22 @@
     <meta charset="UTF-8">
     <title>Check In</title>
     <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/taskbar.css">
 </head>
 
-<body style="-webkit-user-select: none; -webkit-app-region: drag">
-    <h3>Check In</h3>
-    <form style="-webkit-app-region: no-drag"" id="check-in-form">
-        <label for="check-in-input">Whatcha doing today?</label>
-        <input id="check-in-input" type="text">
-        <button type="submit">Submit</button>
-    </form>
+<body style="overflow-y: hidden; -webkit-user-select: none; -webkit-app-region: drag">
+    <div class="text-center p-5">
+        <h2 style="margin:0">Start My Flow</h2>
+        <form style="margin-top: 24px;" id="check-in-form">
+            <div class="form-group">
+              <input type="text" class="form-control" id="check-in-goal" aria-describedby="Goal" placeholder="Goal">
+            </div>
+            <button type="submit" class="btn btn-primary">Start My Flow</button>
+        </form>
+    </div>
     <script>
-        require('./js/checkInRenderer.js')
+        require('./js/checkIn.js')
     </script>
 </body>
 
