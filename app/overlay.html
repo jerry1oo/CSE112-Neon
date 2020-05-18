@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Overlay</title>
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/overlay.css">
+</head>
+
+<script> let $ = require('jquery'); </script>
+<script> require('popper.js'); </script>
+<script> require('bootstrap'); </script>
+
+<body style="background: none;">
+    <button data-toggle="collapse" data-target="#team_list">My Team <span class="icon_expand"></span></button>
+    <div id="team_list" class="collapse">
+        <div class="row" style="background: white">
+            <ul id="name_list">
+                <li> Alan M </li>
+                <li> Chen M </li>
+                <li> Swapnil P </li>
+            </ul>
+            <ul id="status_list">
+                <li> <span class="icon" id="icon1"></span> </li>
+                <li> <span class="icon" id="icon2"></span> </li>
+                <li> <span class="icon" id="icon3"></span> </li>
+            </ul>
+        </div>
+    </div>
+</body>
+
+</html>
