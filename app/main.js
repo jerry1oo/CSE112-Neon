@@ -23,7 +23,7 @@ function createWindow() {
     });
 
     // and load the index.html of the app.
-    win.loadFile('./app/index.html');
+    win.loadFile('./app/signin.html')
 
     // Loading the checkInWindow
     checkInWin.loadFile('app/checkIn.html');

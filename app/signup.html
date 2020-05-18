@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <meta charset="UTF-8">
+  <title>Neon Pulse - Sign In</title>
+  <link rel="stylesheet" type="text/css" href="css/signup.css">
+  <meta http-equiv="Content-Security-Policy" content="script-src 'self' https://www.gstatic.com 'unsafe-inline';" />
+  <script src="https://www.gstatic.com/firebasejs/7.14.3/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.3/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.3/firebase-firestore.js"></script>
+</head>
+
+<body>
+  <h1>Sign Up</h1>
+  <ul class="list">
+    <li><input type="text" name="Email" placeholder="Email*" id="email"></li>
+    <li><input type="password" name="Password" placeholder="Password*" id="password"></li>
+    <li><input type="password" name="Repeat Password" placeholder="Repeat Password*" id="password_rpt"></li>
+    <li>By proceeding you also agree to the Terms of Service</li>
+    <li>and Privacy Policy</li>
+    <li><input type="button" name="Sign Up" value="Sign Up" id="signUpBtn"></li>
+    <li>Already have an account? <a href="signin.html">Sign In</a></li>
+  </ul>
+
+  <script> require('./js/signup.js') </script>
+</body>
+
+</html>
