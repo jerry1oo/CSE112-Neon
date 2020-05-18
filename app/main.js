@@ -15,7 +15,7 @@ function createWindow() {
             nodeIntegration: true
         }
     })
-    win.loadFile('./app/signin.html')
+    win.loadFile('./app/overlay.html')
 }
 
 
