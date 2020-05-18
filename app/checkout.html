@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="UTF-8">
+    <title>Start My Flow</title>
+    <link rel="stylesheet" type="text/css" href="css/checkout.css">
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' https://www.gstatic.com 'unsafe-inline';" />
+    <script src="https://www.gstatic.com/firebasejs/7.14.3/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.3/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.3/firebase-firestore.js"></script>
+</head>
+
+<body>
+    <h1>Check Out</h1>
+    <ul class="list">
+        <li>
+            <h2>Goal Display Here</h2>
+        </li>
+        <li>
+            <div class="container">
+                <button class="button button1" id="completedBtn" onclick="setColor('completedBtn', '#7FFF00')">
+                    <img src="assets/icon/check.svg">
+                    <br />
+                    Completed
+                </button>
+
+                <button class="button button2" id="keepBtn" onclick="setColor('keepBtn', '#00B4AB')">
+                    <img src="assets/icon/keep.svg">
+                    <br />
+                    Keeping At It
+                </button>
+
+                <button class="button button3" id="sosBtn" onclick="setColor('sosBtn', '#FFD832')">
+                    <img src="assets/icon/sos.svg">
+                    <br />
+                    SOS
+                </button>
+
+                <button class="button button4" id="blockedBtn" onclick="setColor('blockedBtn', 'red')">
+                    <img src="assets/icon/block.svg">
+                    <br />
+                    Blocked
+                </button>
+            </div>
+        </li>
+        <li><input type="button" name="End My Flow" value="End My Flow" id="endFlowBtn"></li>
+    </ul>
+    <script>
+
+        //a dictionary to check if any button is clicked
+        var dict = {}
+        dict["completedBtn"] = 1;
+        dict["keepBtn"] = 1;
+        dict["sosBtn"] = 1;
+        dict["blockedBtn"] = 1;
+        // 1 means that button is not clicked, 0 is clicked.
+        function setColor(btn, color) {
+            for (var key in dict) {
+                var property = document.getElementById(key);
+                if (key == btn) {
+                    if (dict[btn] == 0) {
+                        property.style.backgroundColor = "#FFFFFF"
+                        dict[btn] = 1;
+                    }
+                    else {
+                        property.style.backgroundColor = color
+                        dict[btn] = 0;
+                    }
+                }
+                else {
+                    property.style.backgroundColor = "#FFFFFF"
+                    dict[key] = 1
+                }
+            }
+        }
+
+    </script>
+
+</body>
+
+</html>
