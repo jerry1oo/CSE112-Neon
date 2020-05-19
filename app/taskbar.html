@@ -14,7 +14,7 @@
 
     <div class="user">
         <button class="logout" id="logOutBtn">
-            <img class ="lo" src="https://img.icons8.com/ios/50/000000/logout-rounded-up.png"/>
+            <img class="lo" src="https://img.icons8.com/ios/50/000000/logout-rounded-up.png" />
         </button>
         <div class="img">
             <img src="assets/icon/user.svg" alt="User" style="width:150px; height:150px;">
@@ -29,21 +29,59 @@
             <h2>My Flow</h2>
             <img src="assets/icon/alarmclock.svg" alt="alarm" style="width:110px; height:110px;">
             <ul class="list">
-                <li><input type="button" name="startflow" value="Start My Flow"></li>
-                <li><input type="button" name="endflow" value="End My Flow"></li>
+                <li><input type="button" class="start" id="startFlowBtn" name="startflow" value="Start My Flow" onclick="switchVisible(true)"></li>
+                <li><input type="button" class="end" id="endFlowBtn" name="endflow" value="End My Flow" onclick="switchVisible(true)"></li>
             </ul>
         </div>
 
-        <div class="right">
+        <div class="right" id="right">
             <h2>My Team</h2>
             <img src="assets/icon/teammates.svg" alt="teammates" style="width:110px; height:110px;">
             <ul class="list">
-                <li><input type="button" name="startflow" value="Create a Team"></li>
-                <li><input type="button" name="endflow" value="Join a Team"></li>
+                <li><input type="button" name="create" value="Create a Team" onclick="switchVisible(false)"></li>
+                <li><input type="button" name="join" value="Join a Team" onclick="switchVisible(false)"></li>
             </ul>
         </div>
+        <div class="right2" id="right2">
+            <h2>My Team Info</h2>
+            <p>Team member 1: status </br> Team member 2: status</p>
+        </div>
     </div>
+    <script>
+        var right = document.getElementById('right');
+        var right2 = document.getElementById('right2');
+        var start = document.getElementById('startFlowBtn');
+        var end = document.getElementById('endFlowBtn');
 
+        function switchVisible(flow) {
+            //this is for myflow
+            if (flow) {
+                if (start){
+                    if (start.style.display == 'none') {
+                        start.style.display = 'block';
+                        end.style.display = 'none';
+                    }
+                    else {
+                        start.style.display = 'none';
+                        end.style.display = 'block';
+                    }
+                }
+            }
+            //this is for my team
+            else {
+                if (right) {
+                    if (right.style.display == 'none') {
+                        right.style.display = 'block';
+                        right2.style.display = 'none';
+                    }
+                    else {
+                        right.style.display = 'none';
+                        right2.style.display = 'block';
+                    }
+                }
+            }
+        }
+    </script>
 </body>
 
 </html>
