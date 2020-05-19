@@ -28,8 +28,8 @@ signUpBtn.addEventListener('click', function() {
                 title: 'Message',
                 message: 'User created successfully! Logging in.'
             });
-            console.log(user.user.l)
-            localStorage.setItem('userid', user.user.l)
+            console.log(user.user.uid)
+            localStorage.setItem('userid', user.user.uid)
             document.location.href = 'taskbar.html';
         }).catch(function(error) {
             // Handle errors

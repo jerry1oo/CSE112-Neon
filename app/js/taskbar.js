@@ -1,3 +1,5 @@
+const { dialog } = require('electron').remote;
+
 var firebaseConfig = {
     apiKey: "AIzaSyBmn_tDSlm4lLdrvSqj8Yb00KkYae8cL-Y",
     authDomain: "neon-pulse-development.firebaseapp.com",
@@ -13,6 +15,27 @@ firebase.initializeApp(firebaseConfig);
 var db = firebase.firestore();
 var uid = localStorage.getItem('userid')
 
+var startFlowButton = document.getElementById("startFlowButton")
+startFlowButton.addEventListener("click", () => startFlow())
+
+function startFlow() {
+    document.location.href = 'checkin.html'
+}
+
+var endFlowButton = document.getElementById("endFlowButton")
+endFlowButton.addEventListener("click", () => endFlow())
+
+function endFlow() {
+    document.location.href = 'checkout.html'
+}
+
+var flowDiv = document.getElementById("flowDiv")
+var teamDiv = document.getElementById("teamDiv")
+flowDiv.style.display = "none"
+teamDiv.style.display = "none"
+endFlowButton.style.display = "none"
+
+var teamName = ""
 checkTeams()
 
 function checkTeams() {
@@ -21,24 +44,51 @@ function checkTeams() {
         .then(function(querySnapshot) {
             console.log(querySnapshot.docs)
             if (querySnapshot.docs.length > 0) {
-                var teamName = ""
                 querySnapshot.forEach(function(doc) {
                     // doc.data() is never undefined for query doc snapshots
                     console.log(doc.id, " => ", doc.data());
                     console.log("Team name: ", doc.id)
                     teamName = doc.id
+                    checkStatus()
                 });
-                var rightContainer = document.getElementById("right")
-                rightContainer.innerHTML = ""
+                teamDiv.innerHTML = ""
                 var h2 = document.createElement("h2")
                 h2.innerHTML = teamName
-                rightContainer.appendChild(h2)
+                teamDiv.appendChild(h2)
             } else {
+                teamDiv.style.display = "block"
                 console.log("Team not found")
             }
         })
         .catch(function(error) {
+            dialog.showMessageBox({
+                type: 'error',
+                title: 'Error',
+                message: error.message
+            });
             console.log("Error getting documents: ", error);
+            document.location.href = 'signin.html'
+        });
+}
+
+function checkStatus() {
+    flowDiv.style.display = "block"
+    teamDiv.style.display = "block"
+
+    var docRef = db.collection("teams").doc(teamName).collection(uid).doc("status")
+    docRef.get()
+        .then(function(doc) {
+            if (doc.exists) {
+                if (doc.data().checkedIn) {
+                    startFlowButton.style.display = "none"
+                    endFlowButton.style.display = "block"
+                }
+            } else {
+                console.error("Error getting data");
+            }
+        })
+        .catch(function(error) {
+            console.error("Error getting data: ", error);
         });
 }
 
@@ -47,8 +97,8 @@ createTeamButton.addEventListener("click", () => createTeam())
 
 function createTeam() {
     console.log("Creating team")
-    var rightContainer = document.getElementById("right")
-    rightContainer.innerHTML = ""
+    var teamDiv = document.getElementById("teamDiv")
+    teamDiv.innerHTML = ""
     var h2 = document.createElement("h2")
     h2.innerHTML = "Create team"
     var inpElement = document.createElement("input")
@@ -71,9 +121,9 @@ function createTeam() {
                 console.error("Error adding document: ", error);
             });
     }
-    rightContainer.appendChild(h2)
-    rightContainer.appendChild(inpElement)
-    rightContainer.appendChild(buttonElement)
+    teamDiv.appendChild(h2)
+    teamDiv.appendChild(inpElement)
+    teamDiv.appendChild(buttonElement)
 }
 
 var joinTeamButton = document.getElementById("joinTeamButton")
@@ -81,8 +131,8 @@ joinTeamButton.addEventListener("click", () => joinTeam())
 
 function joinTeam() {
     console.log("Join Team")
-    var rightContainer = document.getElementById("right")
-    rightContainer.innerHTML = ""
+    var teamDiv = document.getElementById("teamDiv")
+    teamDiv.innerHTML = ""
     var h2 = document.createElement("h2")
     h2.innerHTML = "Join team"
     var inpElement = document.createElement("input")
@@ -110,16 +160,20 @@ function joinTeam() {
                             console.error("Error adding document: ", error);
                         })
                 } else {
-                    alert("Team doesn't exist")
+                    dialog.showMessageBox({
+                        type: 'error',
+                        title: 'Error',
+                        message: "Team does not exist."
+                    });
                 }
             })
             .catch(function(error) {
                 console.log(error)
             })
     }
-    rightContainer.appendChild(h2)
-    rightContainer.appendChild(inpElement)
-    rightContainer.appendChild(buttonElement)
+    teamDiv.appendChild(h2)
+    teamDiv.appendChild(inpElement)
+    teamDiv.appendChild(buttonElement)
 }
 
 var logoutButton = document.getElementById("logOutBtn")
