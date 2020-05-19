@@ -25,8 +25,8 @@ signInBtn.addEventListener('click', function() {
     var password = document.getElementById('password').value;
 
     firebase.auth().signInWithEmailAndPassword(email, password).then(function(user) {
-        console.log(user.user.l)
-        localStorage.setItem('userid', user.user.l)
+        console.log(user.user.uid)
+        localStorage.setItem('userid', user.user.uid)
         document.location.href = 'taskbar.html';
     }).catch(function(error) {
         // Handle errors
