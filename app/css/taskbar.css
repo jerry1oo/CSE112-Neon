@@ -12,9 +12,18 @@ body {
 .container{
     width: 70%;
     margin: auto;
-    /* margin-bottom: 5%; */
-    /* height: 100%; */
 }
+
+.logout{
+    position:fixed;
+    right:20px;
+    top:20px;
+    border: none;
+ }
+ .lo{
+     width: 30px;
+     height: 30px;
+ }
 
   /* Control the left side */
   .left {
