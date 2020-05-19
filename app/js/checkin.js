@@ -28,7 +28,6 @@ function checkTeams() {
                 querySnapshot.forEach(function(doc) {
                     teamName = doc.id
                 });
-                updateGoal()
             } else {
             	dialog.showMessageBox({
 		            type: 'error',
@@ -50,45 +49,17 @@ function checkTeams() {
         });
 }
 
-function updateGoal() {
-	var goalText = document.getElementById("goalText")
-	var docRef = db.collection("teams").doc(teamName).collection(uid).doc("status")
-	docRef.get()
-		.then(function(doc) {
-            if (doc.exists) {
-            	goalText.innerHTML = "Goal: " + doc.data().goal
-            } else {
-            	console.error("Error getting data");
-            }
-        })
-        .catch(function(error) {
-        	dialog.showMessageBox({
-	            type: 'error',
-	            title: 'Error',
-	            message: error.message
-	        });
-            console.error("Error getting data: ", error);
-            document.location.href = 'taskbar.html'
-        });
-}
+var startFlowButton = document.getElementById("startFlowBtn")
+startFlowButton.addEventListener("click", () => startFlow())
 
-var endFlowButton = document.getElementById("endFlowBtn")
-endFlowButton.addEventListener("click", () => endFlow())
-
-function endFlow() {
-    var docRef = db.collection("teams").doc(teamName).collection(uid).doc("status")
-    var currStatus = 0
-    if (dict["keepBtn"] == 0) {
-    	currStatus = 1
-    } else if (dict["sosBtn"] == 0) {
-    	currStatus = 2
-    } else if (dict["blockedBtn"] == 0) {
-    	currStatus = 3
+function startFlow() {
+    var goalText = document.getElementById("goalText")
+    var obj = {
+    	checkedIn: true,
+    	goal: goalText.value,
+    	taskStatus: 1
     }
-    docRef.update({
-    	checkedIn: false,
-    	taskStatus: currStatus
-    })
+    db.collection("teams").doc(teamName).collection(uid).doc("status").set(obj)
         .then(function() {
             console.log("Document written");
             document.location.href = 'taskbar.html'
