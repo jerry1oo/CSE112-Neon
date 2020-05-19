@@ -17,7 +17,7 @@ function createWindow() {
     })
 
     // and load the index.html of the app.
-    win.loadFile('./app/checkout.html')
+    win.loadFile('./app/taskbar.html')
 }
 
 
