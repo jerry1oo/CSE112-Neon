@@ -121,3 +121,19 @@ function joinTeam() {
     rightContainer.appendChild(inpElement)
     rightContainer.appendChild(buttonElement)
 }
+
+var logoutButton = document.getElementById("logOutBtn")
+logoutButton.addEventListener("click", function() {
+    firebase.auth().signOut().then(function() {
+        localStorage.removeItem('userid')
+        document.location.href = 'signin.html'
+    }).catch(function(error) {
+        // Handle errors
+        dialog.showMessageBox({
+            type: 'error',
+            title: 'Error',
+            message: error.message
+        });
+        console.log(error);
+    })
+})
