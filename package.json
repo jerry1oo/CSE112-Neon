@@ -1,29 +1,49 @@
 {
-    "name": "neon_pulse",
-    "version": "1.0.0",
-    "description": "",
-    "main": "./app/main.js",
-    "scripts": {
-        "start": "electron .",
-        "lint": "eslint .",
-        "prepush": "npm run lint && npm test:unit",
-        "test:unit": "mocha ./test/unit_testing/*.js",
-        "test:int": "mocha ./test/integration_testing/*.js"
-    },
-    "keywords": [],
-    "author": "",
-    "license": "ISC",
-    "devDependencies": {
-        "chai": "^4.2.0",
-        "chai-as-promised": "^7.1.1",
-        "electron": "^8.2.5",
-        "eslint": "^7.0.0",
-        "husky": "^4.2.5",
-        "mocha": "^7.1.2",
-        "spectron": "^10.0.1"
-    },
-    "dependencies": {
-        "firebase": "^7.14.3",
-        "ps-list": "^7.0.0"
-    }
+ "name": "neon_pulse",
+ "build": {
+  "appId": "com.neon.pulse",
+  "productName": "Neon Pulse",
+  "mac": {
+   "category": "public.app-category.lifestyle"
+  },
+  "dmg": {
+   "icon": false
+  },
+  "linux": {
+   "target": [
+    "AppImage"
+   ],
+   "category": "Office"
+  }
+ },
+ "version": "1.0.0",
+ "description": "",
+ "main": "./app/main.js",
+ "scripts": {
+  "start": "electron .",
+  "lint": "eslint .",
+  "prepush": "npm run lint && npm test:unit",
+  "test:unit": "mocha ./test/unit_testing/*.js",
+  "test:int": "mocha ./test/integration_testing/*.js",
+  "postinstall": "electron-builder install-app-deps",
+  "build": "electron-builder",
+  "release": "electron-builder --windows --publish always"
+ },
+ "keywords": [],
+ "author": "",
+ "license": "ISC",
+ "devDependencies": {
+  "chai": "^4.2.0",
+  "chai-as-promised": "^7.1.1",
+  "electron": "^8.2.5",
+  "electron-builder": "^22.6.0",
+  "eslint": "^7.0.0",
+  "husky": "^4.2.5",
+  "mocha": "^7.1.2",
+  "spectron": "^10.0.1"
+ },
+ "dependencies": {
+  "firebase": "^7.14.3",
+  "ps-list": "^7.0.0"
+ }
 }
