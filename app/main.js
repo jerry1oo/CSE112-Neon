@@ -30,7 +30,9 @@ expressApp.post('/registerlogin', function(req, res) {
 expressApp.get('/checklogin', function(req, res) {
     if (req.query.guid) {
         if (guidToIDMap[req.query.guid]) {
-            res.send(guidToIDMap[req.query.guid])
+            var obj = guidToIDMap[req.query.guid]
+            delete guidToIDMap[req.query.guid]
+            res.send(obj)
         } else {
             res.send({})
         }
