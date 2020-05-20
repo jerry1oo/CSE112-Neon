@@ -15,6 +15,10 @@ function loadMember(){
 
 }
 
+/* Function that adds a member and their status on the UI
+ * name: string, input for name of the member
+ * status: string, status to set, choose from one of the status in icons json
+ */
 function addMember(name, status){
   member_names.push(name);
   let id = member_names.length;
@@ -31,6 +35,9 @@ function addMember(name, status){
   status_list.appendChild(statusElem);
 }
 
+/* Function that changes the status of a member
+ * name: string, the name 
+ */
 function onStatusChange(name, status){
   let id = member_names.indexOf(name)+1;
   var statusElem = document.getElementById('i' + id);
