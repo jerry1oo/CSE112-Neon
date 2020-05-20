@@ -60,7 +60,8 @@ function createWindow() {
     })
 
     // and load the index.html of the app.
-    win.loadURL('http://localhost:3000/signin.html')
+    win.loadFile('./app/signin.html')
+        //win.loadURL('http://localhost:3000/signin.html')
 }
 
 

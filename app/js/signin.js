@@ -30,7 +30,7 @@ signInBtn.addEventListener('click', () => {
     var guid = this.guidVal()
     intervalVar = setInterval(() => {
         var xhr = new XMLHttpRequest();
-        var url = "/checklogin?guid=" + guid
+        var url = "http://localhost:3000/checklogin?guid=" + guid
         xhr.open("get", url, true);
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.onreadystatechange = function() { // Call a function when the state changes.
@@ -54,40 +54,4 @@ signInBtn.addEventListener('click', () => {
 
     var url = 'http://localhost:3000/googlesignin.html?guid=' + guid
     shell.openExternal(url)
-
-    //var provider = new firebase.auth.GoogleAuthProvider();
-    //firebase.auth().signInWithRedirect(provider);
-    /*firebase.auth().signInWithPopup(provider).then(function(result) {
-        // This gives you a Google Access Token. You can use it to access the Google API.
-        var token = result.credential.accessToken;
-        // The signed-in user info.
-        var user = result.user;
-        console.log(user);
-        // ...
-    }).catch(function(error) {
-        // Handle Errors here.
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        // The email of the user's account used.
-        var email = error.email;
-        // The firebase.auth.AuthCredential type that was used.
-        var credential = error.credential;
-        // ...
-    });*/
-    /*var email = document.getElementById('email').value;
-    var password = document.getElementById('password').value;
-
-    firebase.auth().signInWithEmailAndPassword(email, password).then(function(user) {
-        console.log(user.user.uid)
-        localStorage.setItem('userid', user.user.uid)
-        document.location.href = 'taskbar.html';
-    }).catch(function(error) {
-        // Handle errors
-        dialog.showMessageBox({
-            type: 'error',
-            title: 'Error',
-            message: error.message
-        });
-        console.log(error);
-    });*/
 });
