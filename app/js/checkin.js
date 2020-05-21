@@ -76,6 +76,7 @@ function checkPrevTask(){
         .then(function(status){
            statusObj = status.data()
            ptDiv= document.getElementById("prevTask")
+           console.log(statusObj.task1)
            if(statusObj.task1!="" || statusObj.task2!="" || statusObj.task3!=""){
                 ptDiv.style.display="block"
            }
@@ -101,6 +102,7 @@ startFlowButton.addEventListener("click", () => startFlow())
 
 //startflow will always send 3 tasks value, if the user didn't not set any of them, just set the val to be ""
 function startFlow() {
+    console.log("tv1",task1.value)
     var obj = {
     	checkedIn: true,
         task1: task1.value,
@@ -127,7 +129,7 @@ function startFlow() {
 function addTask(parent,text){
     let task = `
         <li>
-            <input style="display: inline-block; ali" value = ${text}>
+            <input style="display: inline-block;" value = "${text}">
             <button>Add</button>
             <button>Delete</button>
         </li>`
@@ -171,10 +173,9 @@ prevList.addEventListener("click", function(event){
 });
 
 document.getElementById("addTasks").addEventListener('click',function(){
-
+    console.log(task1.value)
     if(task1.value==""){
         task1.parentNode.style.display="block"
-        
     }
     else if(task2.value==""){
         task2.parentNode.style.display="block"
