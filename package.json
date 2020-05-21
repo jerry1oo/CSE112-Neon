@@ -43,7 +43,9 @@
   "spectron": "^10.0.1"
  },
  "dependencies": {
-  "firebase": "^7.14.3",
+  "express": "^4.17.1",
+  "firebase": "^7.14.4",
+  "path": "^0.12.7",
   "ps-list": "^7.0.0"
  }
 }
