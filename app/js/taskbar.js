@@ -25,24 +25,29 @@ var db = firebase.firestore();
 var uid = localStorage.getItem('userid')
 var name = localStorage.getItem('displayName')
 
-var nameObj = {}
-nameObj["displayName"] = name
-    db.collection("users").doc(uid).set(nameObj);
-
 
 document.getElementById("userStatus").onchange = function(){
-    var obj = {}
     var value = document.getElementById("userStatus").value;
-    obj["team"] = teamName
-    obj["userStatus"] = value
-    db.collection("users").doc(uid).update(obj)
-        .then(function() {
-        console.log("Document written");
-    })
+    db.collection("users").doc(uid).set({
+        "displayName": name,
+        "team": teamName,
+        "userStatus": value
+    },{merge: true})
     .catch(function(error) {
         console.error("Error adding document: ", error);
     });
  };
+function updateTeamStatus() {
+    db.collection("users").where(uid, "==", teamName)
+    .onSnapshot(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+            var displayName = doc.get("displayName");
+            var status = doc.get("userStatus");
+            console.log(displayName)
+            onStatusChange(displayName, status)
+        });
+    });
+}
 
 var startFlowButton = document.getElementById("startFlowButton")
 startFlowButton.addEventListener("click", () => startFlow())
@@ -110,7 +115,10 @@ function getTeamStatus() {
                 var displayName = doc.get("displayName");
                 var status = doc.get("userStatus");
                 status = status.toLowerCase();
+                if (displayName != name) {
                 addTeamMember(displayName,status);
+                updateTeamStatus() 
+                }
             });
         })
         .catch(function(error) {
