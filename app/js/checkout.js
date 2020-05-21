@@ -140,7 +140,7 @@ function endFlow() {
         if (element != null) {
             var t = element.textContent;
 
-            obj[taskId] = t;
+            // obj[taskId] = t;
             obj[taskStatus] = 0;
             if (dict[i][k] == 0)
                 obj[taskStatus] = 1;
@@ -148,6 +148,11 @@ function endFlow() {
                 obj[taskStatus] = 2;
             else if (dict[i][b] == 0)
                 obj[taskStatus] = 3;
+
+            if(obj[taskStatus] == 0)
+                obj[taskId] = "";
+            else
+                obj[taskId] = t;
         }
         else {
             obj[taskId] = "";
