@@ -38,6 +38,7 @@ document.getElementById("userStatus").onchange = function(){
     });
  };
 function updateTeamStatus() {
+    console.log("teamStatus")
     db.collection("users").where(uid, "==", teamName)
     .onSnapshot(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
