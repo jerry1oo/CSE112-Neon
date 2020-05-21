@@ -130,8 +130,8 @@ function addTask(parent,text){
     let task = `
         <li>
             <input style="display: inline-block;" value = "${text}">
-            <button>Add</button>
-            <button>Delete</button>
+            <button class="bt">Add</button>
+            <button class="bt">Delete</button>
         </li>`
     parent.insertAdjacentHTML('beforeend', task);
 }
@@ -197,3 +197,4 @@ todayTask.addEventListener('click',function(event){
         targetParent.firstElementChild.value=""
     }
 });
+
