@@ -1,4 +1,5 @@
 const { dialog } = require('electron').remote;
+const { shell } = require('electron');
 
 var firebaseConfig = {
     apiKey: "AIzaSyBmn_tDSlm4lLdrvSqj8Yb00KkYae8cL-Y",
@@ -14,27 +15,43 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 var signInBtn = document.getElementById('signInBtn');
-var signUpBtn = document.getElementById('signUpBtn');
 
-signUpBtn.addEventListener('click', function() {
-    document.location.href = 'signup.html';
-});
+function guidVal() {
+    let s4 = () => {
+            return Math.floor((1 + Math.random()) * 0x10000)
+                .toString(16)
+                .substring(1);
+        }
+        //return id of format 'aaaaaaaa'-'aaaa'-'aaaa'-'aaaa'-'aaaaaaaaaaaa'
+    return s4() + s4() + '-' + s4() + '-' + s4();
+}
+var intervalVar
+signInBtn.addEventListener('click', () => {
+    var guid = this.guidVal()
+    intervalVar = setInterval(() => {
+        var xhr = new XMLHttpRequest();
+        var url = "http://localhost:3000/checklogin?guid=" + guid
+        xhr.open("get", url, true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.onreadystatechange = function() { // Call a function when the state changes.
+            if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+                console.log("Response is")
+                console.log(xhr.response)
+                var response = JSON.parse(xhr.response)
+                if (response.guid) {
+                    console.log("Successfully logged in")
+                    clearInterval(intervalVar)
+                    localStorage.setItem('userid', response.uid)
+                    localStorage.setItem('displayName', response.displayName)
+                    localStorage.setItem('email', response.email)
+                    document.location.href = 'taskbar.html';
+                }
+            }
+        }
+        xhr.send();
+    }, 1000);
+    console.log("Signing in")
 
-signInBtn.addEventListener('click', function() {
-    var email = document.getElementById('email').value;
-    var password = document.getElementById('password').value;
-
-    firebase.auth().signInWithEmailAndPassword(email, password).then(function(user) {
-        console.log(user.user.uid)
-        localStorage.setItem('userid', user.user.uid)
-        document.location.href = 'taskbar.html';
-    }).catch(function(error) {
-        // Handle errors
-        dialog.showMessageBox({
-            type: 'error',
-            title: 'Error',
-            message: error.message
-        });
-        console.log(error);
-    });
+    var url = 'http://localhost:3000/googlesignin.html?guid=' + guid
+    shell.openExternal(url)
 });
