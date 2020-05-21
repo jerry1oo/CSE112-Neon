@@ -123,7 +123,7 @@ function getTeamStatus() {
                 console.log(doc.get("userStatus"));
                 var displayName = doc.get("displayName");
                 var status = doc.get("userStatus");
-                //status = status.toLowerCase();
+               
                 //if (displayName != uname) {
                     addTeamMember(displayName,status);
                     addStatusListener(doc.id); 
