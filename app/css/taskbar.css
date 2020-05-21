@@ -118,4 +118,10 @@ ul.list li:nth-child(1){
 
 #status_list li{
   font-size: 20px;
+  opacity: 1; 
+  transition: all 0.5s;
+}
+
+#status_list li.hide { 
+  opacity: 0; 
 }

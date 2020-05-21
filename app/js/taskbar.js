@@ -91,7 +91,9 @@ function checkTeams() {
                 addTeamMember('Chen', 'online');
                 addTeamMember('Marcus', 'researching');
                 addTeamMember('Alan', 'online');
-                onStatusChange('Alan', 'offline');
+                setTimeout(function() { 
+                    onStatusChange('Alan', 'offline');}, 5000);
+                
             } else {
                 teamDiv.style.display = "block"
                 console.log("Team not found")
@@ -257,12 +259,17 @@ function addTeamMember(name, status){
     status_elem.id = "status_" + name;
     statuslist.appendChild(status_elem);
     if(init) {teamDiv.appendChild(statuslist);}
-
 }
 
 function onStatusChange(name, status){
     var status_elem = document.getElementById("status_" + name);
     if(status_elem != null){
-        status_elem.innerHTML = status_emoji[status];
+        status_elem.classList.add('hide');
+        setTimeout(function() { 
+            status_elem.innerHTML = status_emoji[status];
+        }, 500);
+        setTimeout(function() { 
+            status_elem.classList.remove('hide')
+        }, 500);   
     }
 }
