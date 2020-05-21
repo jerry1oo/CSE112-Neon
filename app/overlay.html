@@ -4,39 +4,25 @@
 <head>
     <meta charset="UTF-8">
     <title>Overlay</title>
-    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/overlay.css">
 </head>
 
-<script> let $ = require('jquery'); </script>
-<script> require('popper.js'); </script>
-<script> require('bootstrap'); </script>
-
 <body>
-    <div class="row">
+    <div>
         <span class="avatar" id="user_icon"></span>
         <p id="user_name">username</p>
-        <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
-            Dropdown button
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
-            </div>
-        </div>
+        <p>my_status</p>
     </div>
     <div>
-        <button data-toggle="collapse" data-target="#team_list">My Team <span class="icon_expand"></span></button>
-        <div id="team_list" class="collapse">
-            <div class="row" style="background: white">
-                <ul id="name_list">
-                </ul>
-                <ul id="status_list">
-                </ul>
-            </div>
+        <button id="accordion">
+            <p>My Team </p>
+            <span class="icon_expand">
+        </button>
+        <div id="my_team" class="panel">
+            <ul id="name_list"> </ul> 
+            <ul id="status_list"> </ul>
         </div>
+
     </div>
     <script> require('./js/team_status.js')</script>
 </body>

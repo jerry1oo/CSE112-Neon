@@ -22,13 +22,21 @@ button{
   padding-right: 20px;
 }
 
-#name_list{
-  padding-left: 30px;
-  width: 135px;
+button p{
+  font-size: 18px;
+  float: left;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-left: 35px;
 }
 
-#status_list li{
-  padding-top: 3px; 
+.panel {
+  width: 200px;
+  height: 200px;
+  background-color: white;
+  display: none;
+  overflow: hidden;
+  transition: height 5s;
 }
 
 .avatar{
@@ -38,24 +46,45 @@ button{
   display: block;
 }
 
-.icon{
-  background: url("../assets/icon/status_offline.png");
-  height: 20px;
-  width: 20px;
-  margin-top: 3px;
-  display: block;
-}
-
 .icon_expand{
   background: url("../assets/icon/expand.png");
   height: 20px;
   width: 20px;
-  margin-top: 2px;
-  margin-right: 20px;
-  float: right;
+  margin-top: 6px;
+  margin-left: 10px;
+  float: left;
   display: block;
 }
 
+#name_list{
+  width: 60%;
+  list-style: none;
+  float: left;
+  margin-top: 5px;
+  padding-left: 5%;
+  padding-right: 0px;
+}
+
+#name_list li{
+  font-size: 15px;
+  text-align: left;
+  padding-top: 5px;
+  padding-bottom: 3px;
+}
+
+#status_list{
+  width: 20%;
+  margin-top: 5px;
+  list-style: none;
+  float: right;
+  padding-left: 0px;
+  padding-right: 5%;
+}
+
+#status_list li{
+  padding-top: 0px;
+  font-size: 15px;
+}
 
 
 

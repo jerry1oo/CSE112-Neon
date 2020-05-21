@@ -1,14 +1,26 @@
-var name_list = document.getElementById('name_list');
-var status_list = document.getElementById('status_list');
-var member_names = new Array();
-
-var icon_path = './assets/icon/';
-var icons = {
-  'online': 'status_online.png',
-  'offline': 'status_offline.png',
-  'away': 'status_away.svg',
-  'no_disturb': 'status_no_disturb.svg'
+var status_emoji = {
+    'online': '😀',
+    'offline': '😴',
+    'coding': '👨‍💻',
+    'researching': '👀',
+    'documenting': '📝',
+    'meeting': '👥'
 }
+
+var acc = document.getElementById("accordion");
+acc.addEventListener("click", function() {
+  /* Toggle between adding and removing the "active" class,
+  to highlight the button that controls the panel */
+  this.classList.toggle("active");
+
+  /* Toggle between hiding and showing the active panel */
+  var panel = this.nextElementSibling;
+  if (panel.style.display === "block") {
+    panel.style.display = "none";
+  } else {
+    panel.style.display = "block";
+  }
+});
 
 //Loads the team members from db?
 function loadMember(){
@@ -20,31 +32,30 @@ function loadMember(){
  * status: string, status to set, choose from one of the status in icons json
  */
 function addMember(name, status){
-  member_names.push(name);
-  let id = member_names.length;
-  let nameElem = document.createElement('LI');
-  nameElem.id = 'n' + id;
-  nameElem.innerHTML = name;
-  let statusElem = document.createElement('SPAN');
-  statusElem.id = 'i' + id;
-  statusElem.className = 'icon';
+    var namelist = document.getElementById("name_list");
+    var member_elem = document.createElement("LI");
+    member_elem.innerHTML = name;
+    member_elem.id = "name_" + name;
+    namelist.appendChild(member_elem);
 
-  statusElem.style.background = "url(" + icon_path + icons[status] + ")";
-
-  name_list.appendChild(nameElem);
-  status_list.appendChild(statusElem);
+    var statuslist = document.getElementById("status_list");
+    var status_elem = document.createElement("LI");
+    status_elem.innerHTML = status_emoji[status];
+    status_elem.id = "status_" + name;
+    statuslist.appendChild(status_elem);
 }
 
 /* Function that changes the status of a member
  * name: string, the name 
  */
 function onStatusChange(name, status){
-  let id = member_names.indexOf(name)+1;
-  var statusElem = document.getElementById('i' + id);
-  statusElem.style.background = "url(" + icon_path + icons[status] + ")";
+  var status_elem = document.getElementById("status_" + name);
+  if(status_elem != null){
+    status_elem.innerHTML = status_emoji[status];
+  }
 }
 
 addMember("Alan", 'online');
 addMember("Chen", 'offline');
-addMember("Swapnil", 'no_disturb');
-setTimeout(onStatusChange("Chen", 'away'), 5000);
+addMember("Swapnil", 'coding');
+//setTimeout(function() => {onStatusChange("Chen", 'researching');}, 5000);
