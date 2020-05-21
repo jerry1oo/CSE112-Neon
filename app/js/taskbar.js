@@ -47,18 +47,6 @@ document.getElementById("userStatus").onchange = function(){
         console.error("Error adding document: ", error);
     });
  };
-<<<<<<< HEAD
-function updateTeamStatus() {
-    console.log("teamStatus")
-    db.collection("users").where(uid, "==", teamName)
-    .onSnapshot(function(querySnapshot) {
-        querySnapshot.forEach(function(doc) {
-            var displayName = doc.get("displayName");
-            var status = doc.get("userStatus");
-            console.log(displayName)
-            onStatusChange(displayName, status)
-        });
-=======
 
 function addStatusListener(id) {
     db.collection("users").doc(id)
@@ -67,7 +55,6 @@ function addStatusListener(id) {
         var status = doc.get("userStatus");
         console.log(displayName + "change status to " + status);
         onStatusChange(displayName, status)
->>>>>>> ac932594c102cf42fd6d2b80390c6b1a2087dd72
     });
 }
 
@@ -136,7 +123,7 @@ function getTeamStatus() {
                 console.log(doc.get("userStatus"));
                 var displayName = doc.get("displayName");
                 var status = doc.get("userStatus");
-                //status = status.toLowerCase();
+               
                 //if (displayName != uname) {
                     addTeamMember(displayName,status);
                     addStatusListener(doc.id); 
