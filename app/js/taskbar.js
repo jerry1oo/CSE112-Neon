@@ -15,6 +15,26 @@ firebase.initializeApp(firebaseConfig);
 var db = firebase.firestore();
 var uid = localStorage.getItem('userid')
 
+document.getElementById("userStatus").onchange = function(){
+    var value = document.getElementById("userStatus").value;
+    var docRef = db.collection("teams").doc(teamName).collection(uid).doc("status")
+    docRef.update({
+        userStatus: value
+    })
+        .then(function() {
+            console.log("Document written");
+        })
+        .catch(function(error) {
+            dialog.showMessageBox({
+                type: 'error',
+                title: 'Error',
+                message: error.message
+            });
+            console.error("Error adding document: ", error);
+            document.location.href = 'taskbar.html'
+        });
+ };
+
 var startFlowButton = document.getElementById("startFlowButton")
 startFlowButton.addEventListener("click", () => startFlow())
 
