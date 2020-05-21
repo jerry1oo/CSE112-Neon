@@ -24,7 +24,15 @@
         </div>
         <div class="status">
             <h4 style="font-size:15px;">username</h4>
-            <p style="font-size:14px;">Set my status</p>
+            <label for="userStatus">Status:</label>
+            <select id="userStatus" name="userStatus" style="height: 1.6rem;">
+                <option value="Online">Online 😀</option>
+                <option value="Coding">Coding 👨‍💻</option>
+                <option value="Researching">Researching 👨‍🔬</option>
+                <option value="Documenting">Documenting 📝</option>
+                <option value="Meeting">Meeting 👥</option>
+                <option value="Offline">Offline 😴</option>
+            </select>
         </div>
     </div>
     <div class="container">
@@ -46,9 +54,7 @@
             </ul>
         </div>
     </div>
-    <script>
-        require('./js/taskbar.js')
-    </script>
+    <script src="./js/taskbar.js"></script>
 </body>
 
 </html>
