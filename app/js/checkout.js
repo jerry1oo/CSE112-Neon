@@ -50,39 +50,36 @@ function checkTeams() {
         });
 }
 
-var form = document.getElementById("form");
+
+
+
 //create a list of goals that user saved in check-in
 function createGoalList(goal, n) {
-    var checkbox = document.createElement('input');
 
     // Assigning the attributes 
-    // to created checkbox 
-    checkbox.type = "checkbox";
     var id = n.toString();
+    var form = document.getElementById("line" + id);
     var labelId = "task" + id;
-    checkbox.id = id;
-    // creating label for checkbox 
     var label = document.createElement('label');
-
-    // assigning attributes for  
-    // the created label tag  
-    label.htmlFor = id;
     label.id = labelId;
 
     // appending the created text to  
     // the created label tag  
     var s = "";
     label.appendChild(document.createTextNode(goal + s));
-    label.style.paddingLeft = '30px';
-    checkbox.style.transform = 'scale(1.5)';
+
 
     var brik = document.createElement('br');
+    document.getElementById('h' + id).style.display = "block"
+    var con = document.getElementById('container' + id);
+    con.style.position = "absolute";
+    con.style.right = "0";
+    con.style.display = "inline-block";
 
     // appending the checkbox 
     // and label to div 
-    form.appendChild(checkbox);
     form.appendChild(label);
-
+    form.appendChild(con);
     form.appendChild(brik);
 }
 
@@ -92,24 +89,25 @@ var taskNum = 1;
 
 function updateGoal() {
     var n = 1;
-    var goalText = document.getElementById("goalText")
+    var goalText = document.getElementById("goalText");
     var docRef = db.collection("teams").doc(teamName).collection(uid).doc("status")
     docRef.get()
         .then(function (doc) {
             if (doc.exists) {
                 // goalText.innerHTML = "Goal: " + doc.data().goal
                 goalText.style.display = "none";
-                var id = "goal";
+                var id = "goal";        //fix this to "task"+n.toString()
                 var data = doc.data()
-                while(id in data){
+                while (id in data) {
                     createGoalList(data[id], n);
                     n++;
                     taskNum++;
-                    id = "not me";
+                    id = "task" + n.toString();
                 }
-                createGoalList("yoyoyoyoyoyyo", n + 1)
-                taskNum += 1;
-
+                createGoalList("yoyoyoyoyoyyo", n);
+                n++;
+                taskNum++;
+                createGoalList("yoyoy", n)
 
             } else {
                 console.error("Error getting data");
@@ -131,21 +129,27 @@ endFlowButton.addEventListener("click", () => endFlow())
 
 function endFlow() {
     var docRef = db.collection("teams").doc(teamName).collection(uid).doc("status")
-    var n = 1;
+    // var n = 1;
     //initialize the things to be pushed
     var obj = {
-        checkedIn: false
+        checkedIn: false,
     }
-    // Get the checkbox
     for (i = 1; i <= taskNum; i++) {
-        var id = n.toString();
-        var checkBox = document.getElementById(id);
+        var id = i.toString();
 
-        if (checkBox.checked == false) {
-            var taskId = "task" + id;
-            var t = document.getElementById(taskId).textContent;
-            obj[taskId] = t;
-        }
+        var taskId = "task" + id;
+        var taskStatus = "taskStatus" + id;
+        var t = document.getElementById(taskId).textContent;
+
+        obj[taskId] = t;
+        obj[taskStatus] = 0;
+        if (dict[i][k] == 0)
+            obj[taskStatus] = 1;
+        else if (dict[i][s] == 0)
+            obj[taskStatus] = 2;
+        else if (dict[i][b] == 0)
+            obj[taskStatus] = 3;
+
     }
     docRef.set(obj)
         .then(function () {

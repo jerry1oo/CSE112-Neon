@@ -14,72 +14,139 @@
 
 <body>
     <h1>Check Out</h1>
+    <h2 id="goalText">Loading Goals...</h2>
     <div class="form" id="form">
-        <h2 id="goalText">Loading Goals...</h2>
-    </div>
-    <ul class="list">
-        <!-- <li> -->
-            <!-- <h2 id="goalText">Goal: Updating...</h2> -->
-
-        <!-- </li> -->
-        <!-- <li>
-            <div class="container">
-                <button class="button button1" id="completedBtn" onclick="setColor('completedBtn', '#7FFF00')">
+        
+        <div id="line1">
+            <h4 id="h1"  style="display: none;">Task 1</h4>
+            <div id="container1"  style="display: none;">
+                <button id="completedBtn1" onclick="setColor('completedBtn', '#7FFF00',1)">
                     <img src="assets/icon/check.svg">
                     <br />
                     Completed
                 </button>
 
-                <button class="button button2" id="keepBtn" onclick="setColor('keepBtn', '#00B4AB')">
+                <button id="keepBtn1" onclick="setColor('keepBtn', '#00B4AB',1)">
                     <img src="assets/icon/keep.svg">
                     <br />
                     Keeping At It
                 </button>
 
-                <button class="button button3" id="sosBtn" onclick="setColor('sosBtn', '#FFD832')">
+                <button id="sosBtn1" onclick="setColor('sosBtn', '#FFD832',1)">
                     <img src="assets/icon/sos.svg">
                     <br />
                     SOS
                 </button>
 
-                <button class="button button4" id="blockedBtn" onclick="setColor('blockedBtn', 'red')">
+                <button id="blockedBtn1" onclick="setColor('blockedBtn', 'red',1)">
                     <img src="assets/icon/block.svg">
                     <br />
                     Blocked
                 </button>
             </div>
-        </li> -->
+        </div>
+        <div id="line2">
+            <h4 id="h2" style="display: none;">Task 2</h4>
+            <div  id="container2" style="display: none;">
+                <button id="completedBtn2" onclick="setColor('completedBtn', '#7FFF00',2)">
+                    <img src="assets/icon/check.svg">
+                    <br />
+                    Completed
+                </button>
+
+                <button id="keepBtn2" onclick="setColor('keepBtn', '#00B4AB',2)">
+                    <img src="assets/icon/keep.svg">
+                    <br />
+                    Keeping At It
+                </button>
+
+                <button id="sosBtn2" onclick="setColor('sosBtn', '#FFD832',2)">
+                    <img src="assets/icon/sos.svg">
+                    <br />
+                    SOS
+                </button>
+
+                <button id="blockedBtn2" onclick="setColor('blockedBtn', 'red',2)">
+                    <img src="assets/icon/block.svg">
+                    <br />
+                    Blocked
+                </button>
+            </div>
+        </div>
+        <div id="line3">
+            <h4  id="h3" style="display: none;">Task 3</h4>
+            <div  id="container3" style="display: none;">
+                <button id="completedBtn3" onclick="setColor('completedBtn', '#7FFF00',3)">
+                    <img src="assets/icon/check.svg">
+                    <br />
+                    Completed
+                </button>
+
+                <button id="keepBtn3" onclick="setColor('keepBtn', '#00B4AB',3)">
+                    <img src="assets/icon/keep.svg">
+                    <br />
+                    Keeping At It
+                </button>
+
+                <button id="sosBtn3" onclick="setColor('sosBtn', '#FFD832',3)">
+                    <img src="assets/icon/sos.svg">
+                    <br />
+                    SOS
+                </button>
+
+                <button id="blockedBtn3" onclick="setColor('blockedBtn', 'red',3)">
+                    <img src="assets/icon/block.svg">
+                    <br />
+                    Blocked
+                </button>
+            </div>
+        </div>
+    </div>
+    <ul class="list">
         <li><input type="button" name="End My Flow" value="End My Flow" id="endFlowBtn"></li>
     </ul>
     <script>
-
         // a dictionary to check if any button is clicked
         var dict = {}
-        dict["completedBtn"] = 1;
-        dict["keepBtn"] = 1;
-        dict["sosBtn"] = 1;
-        dict["blockedBtn"] = 1;
+        var c = "completedBtn";
+        var k = "keepBtn";
+        var s = "sosBtn";
+        var b = "blockedBtn";
+        for( i = 1; i<=3; i++ ){
+            var j = i.toString();
+            dict[i] = {};
+            dict[i][c] = 1;
+            dict[i][k] = 1;
+            dict[i][s] = 1;
+            dict[i][b] = 1;
+        }
+
         // 1 means that button is not clicked, 0 is clicked.
-        function setColor(btn, color) {
-            for (var key in dict) {
-                var property = document.getElementById(key);
+        function setColor(btn, color, i) {
+            for (var key in dict[i]) {
+                var property = document.getElementById(key+i.toString());
                 if (key == btn) {
-                    if (dict[btn] == 0) {
+                    if (dict[i][btn] == 0) {
                         property.style.backgroundColor = "#FFFFFF"
-                        dict[btn] = 1;
+                        dict[i][btn] = 1;
                     }
                     else {
                         property.style.backgroundColor = color
-                        dict[btn] = 0;
+                        dict[i][btn] = 0;
                     }
                 }
                 else {
                     property.style.backgroundColor = "#FFFFFF"
-                    dict[key] = 1
+                    dict[i][key] = 1;
                 }
             }
         }
-        // setColor('completedBtn', '#7FFF00')
+        for( i = 1; i<=3; i++ ){
+            setColor(c, '#7FFF00', i);
+        }
+        // setColor(c+i.toString(), '#7FFF00', 1)
+        // var property = document.getElementById("completedBtn1");
+        // property.style.backgroundColor = '#7FFF00';
 
         require('./js/checkout.js')
 
