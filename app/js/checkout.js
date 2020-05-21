@@ -58,39 +58,81 @@ function createGoalList(goal, n) {
     // Assigning the attributes 
     // to created checkbox 
     checkbox.type = "checkbox";
-    var id = "task" + n.toString;
+    var id = n.toString;
+    var labelId = "task"+n;
     checkbox.id = id;
-    n++;
-
     // creating label for checkbox 
     var label = document.createElement('label');
 
     // assigning attributes for  
     // the created label tag  
     label.htmlFor = id;
+    label.id = labelId;
 
     // appending the created text to  
     // the created label tag  
     var s = "";
     label.appendChild(document.createTextNode(goal + s));
+    label.style.paddingLeft = '30px';
+    checkbox.style.transform = 'scale(1.5)';
+
+    var brik = document.createElement('br');
 
     // appending the checkbox 
     // and label to div 
     form.appendChild(checkbox);
     form.appendChild(label);
-    form.appendChild(document.createElement('br'));
+    
+    form.appendChild(brik);
 }
+//will be using this as reference...
+function pushTask(obj) {
+    // var goalText = document.getElementById(task)
+
+    //will change this depend on how check in saves goals
+    // var obj = {
+        // checkedIn: true,
+        // goal: goalText.value,
+        // taskStatus: 1
+
+    // }
+    db.collection("teams").doc(teamName).collection(uid).doc("status").set(obj)
+        .then(function () {
+            console.log("Document written");
+            document.location.href = 'taskbar.html'
+        })
+        .catch(function (error) {
+            dialog.showMessageBox({
+                type: 'error',
+                title: 'Error',
+                message: error.message
+            });
+            console.error("Error adding document: ", error);
+            document.location.href = 'taskbar.html'
+        });
+}
+
+var taskNum = 1;
 //check to see if the goal is completed or not
 function checkGoal() {
-    var n = 1;
-    // Get the checkbox
-    var checkBox = document.getElementById("task"+n.toString);
 
-  
-    if (checkBox.checked == true){
-    } else {
+    var n = 1;
+    //initialize the things to be pushed
+    var obj = {
+        checkedIn: true,
     }
-  }
+    // Get the checkbox
+    for (i = 1; i < taskNum; i++) {
+        var id = n.toString;
+        var checkBox = document.getElementById(id);
+        
+        if (checkBox.checked == false) {
+            var taskId = "task"+id;
+            var t = document.getElementById(taskId).textContent;
+            obj[taskId] = t;
+        } 
+    }
+}
 
 function updateGoal() {
     var n = 1;
@@ -100,7 +142,10 @@ function updateGoal() {
         .then(function (doc) {
             if (doc.exists) {
                 // goalText.innerHTML = "Goal: " + doc.data().goal
+                goalText.style.display = "none";
                 createGoalList(doc.data().goal, n);
+                createGoalList("yoyoyoyoyoyyo", n+1)
+                taskNum += 2;
             } else {
                 console.error("Error getting data");
             }
@@ -122,13 +167,14 @@ endFlowButton.addEventListener("click", () => endFlow())
 function endFlow() {
     var docRef = db.collection("teams").doc(teamName).collection(uid).doc("status")
     var currStatus = 0
-    if (dict["keepBtn"] == 0) {
-        currStatus = 1
-    } else if (dict["sosBtn"] == 0) {
-        currStatus = 2
-    } else if (dict["blockedBtn"] == 0) {
-        currStatus = 3
-    }
+    // if (dict["keepBtn"] == 0) {
+    //     currStatus = 1
+    // } else if (dict["sosBtn"] == 0) {
+    //     currStatus = 2
+    // } else if (dict["blockedBtn"] == 0) {
+    //     currStatus = 3
+    // }
+    // checkGoal();
     docRef.update({
         checkedIn: false,
         taskStatus: currStatus
