@@ -15,14 +15,13 @@
 <body>
     <h1>Check Out</h1>
     <div class="form" id="form">
-        <!-- Updating... -->
     </div>
     <ul class="list">
         <!-- <li> -->
             <!-- <h2 id="goalText">Goal: Updating...</h2> -->
 
         <!-- </li> -->
-        <li>
+        <!-- <li>
             <div class="container">
                 <button class="button button1" id="completedBtn" onclick="setColor('completedBtn', '#7FFF00')">
                     <img src="assets/icon/check.svg">
@@ -48,37 +47,37 @@
                     Blocked
                 </button>
             </div>
-        </li>
+        </li> -->
         <li><input type="button" name="End My Flow" value="End My Flow" id="endFlowBtn"></li>
     </ul>
     <script>
 
-        //a dictionary to check if any button is clicked
-        var dict = {}
-        dict["completedBtn"] = 1;
-        dict["keepBtn"] = 1;
-        dict["sosBtn"] = 1;
-        dict["blockedBtn"] = 1;
-        // 1 means that button is not clicked, 0 is clicked.
-        function setColor(btn, color) {
-            for (var key in dict) {
-                var property = document.getElementById(key);
-                if (key == btn) {
-                    if (dict[btn] == 0) {
-                        property.style.backgroundColor = "#FFFFFF"
-                        dict[btn] = 1;
-                    }
-                    else {
-                        property.style.backgroundColor = color
-                        dict[btn] = 0;
-                    }
-                }
-                else {
-                    property.style.backgroundColor = "#FFFFFF"
-                    dict[key] = 1
-                }
-            }
-        }
+        // a dictionary to check if any button is clicked
+        // var dict = {}
+        // dict["completedBtn"] = 1;
+        // dict["keepBtn"] = 1;
+        // dict["sosBtn"] = 1;
+        // dict["blockedBtn"] = 1;
+        // // 1 means that button is not clicked, 0 is clicked.
+        // function setColor(btn, color) {
+        //     for (var key in dict) {
+        //         var property = document.getElementById(key);
+        //         if (key == btn) {
+        //             if (dict[btn] == 0) {
+        //                 property.style.backgroundColor = "#FFFFFF"
+        //                 dict[btn] = 1;
+        //             }
+        //             else {
+        //                 property.style.backgroundColor = color
+        //                 dict[btn] = 0;
+        //             }
+        //         }
+        //         else {
+        //             property.style.backgroundColor = "#FFFFFF"
+        //             dict[key] = 1
+        //         }
+        //     }
+        // }
         setColor('completedBtn', '#7FFF00')
 
         require('./js/checkout.js')
