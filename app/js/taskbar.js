@@ -106,9 +106,10 @@ function getTeamStatus() {
         .then(function(querySnapshot) {
             querySnapshot.forEach(function(doc) {
                 console.log(doc.id, " => ", doc.data());
-                console.log(doc.get("displayName"));
+                console.log(doc.get("userStatus"));
                 var displayName = doc.get("displayName");
                 var status = doc.get("userStatus");
+                status = status.toLowerCase();
                 addTeamMember(displayName,status);
             });
         })
