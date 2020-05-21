@@ -27,24 +27,26 @@ var uname = localStorage.getItem('displayName')
 
 document.getElementById('username').innerHTML = uname;
 
+/*
+var name = localStorage.getItem('displayName')
+
+var nameObj = {}
+nameObj["displayName"] = name
+    db.collection("users").doc(uid).set(nameObj);
+*/
+
 document.getElementById("userStatus").onchange = function(){
+    var obj = {}
     var value = document.getElementById("userStatus").value;
-    var docRef = db.collection("teams").doc(teamName).collection(uid).doc("status")
-    docRef.update({
-        userStatus: value
-    })
+    obj["team"] = teamName
+    obj["userStatus"] = value
+    db.collection("users").doc(uid).update(obj)
         .then(function() {
-            console.log("Document written");
-        })
-        .catch(function(error) {
-            dialog.showMessageBox({
-                type: 'error',
-                title: 'Error',
-                message: error.message
-            });
-            console.error("Error adding document: ", error);
-            document.location.href = 'taskbar.html'
-        });
+        console.log("Document written");
+    })
+    .catch(function(error) {
+        console.error("Error adding document: ", error);
+    });
  };
 
 var startFlowButton = document.getElementById("startFlowButton")
@@ -87,13 +89,7 @@ function checkTeams() {
                 var h2 = document.createElement("h2")
                 h2.innerHTML = teamName
                 teamDiv.appendChild(h2)
-                // Mock teammates
-                addTeamMember('Chen', 'online');
-                addTeamMember('Marcus', 'researching');
-                addTeamMember('Alan', 'online');
-                setTimeout(function() { 
-                    onStatusChange('Alan', 'offline');}, 5000);
-                
+                getTeamStatus()
             } else {
                 teamDiv.style.display = "block"
                 console.log("Team not found")
@@ -107,6 +103,23 @@ function checkTeams() {
             });
             console.log("Error getting documents: ", error);
             document.location.href = 'signin.html'
+        });
+}
+
+function getTeamStatus() {
+    db.collection("users").where("team", "==", teamName).get() 
+        .then(function(querySnapshot) {
+            querySnapshot.forEach(function(doc) {
+                console.log(doc.id, " => ", doc.data());
+                console.log(doc.get("userStatus"));
+                var displayName = doc.get("displayName");
+                var status = doc.get("userStatus");
+                status = status.toLowerCase();
+                addTeamMember(displayName,status);
+            });
+        })
+        .catch(function(error) {
+            console.log("Error getting documents: ", error);
         });
 }
 

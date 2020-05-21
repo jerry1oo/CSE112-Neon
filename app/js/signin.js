@@ -13,6 +13,7 @@ var firebaseConfig = {
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
+var db = firebase.firestore();
 
 var signInBtn = document.getElementById('signInBtn');
 
@@ -44,6 +45,9 @@ signInBtn.addEventListener('click', () => {
                     localStorage.setItem('userid', response.uid)
                     localStorage.setItem('displayName', response.displayName)
                     localStorage.setItem('email', response.email)
+                    var nameObj = {}
+                    nameObj["displayName"] = name
+                    db.collection("users").doc(response.uid).set(nameObj);
                     document.location.href = 'taskbar.html';
                 }
             }
