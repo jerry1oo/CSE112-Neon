@@ -28,7 +28,7 @@ body {
   /* Control the left side */
   .left {
     width: 50%;
-    height: 100%;
+    height: 365px;
     float: left;
     background-color: #d5defd;
     text-align: center;
@@ -37,7 +37,7 @@ body {
   /* Control the right side */
   .right {
     width: 50%;
-    height: 100%;
+    height: 365px;
     float: right;
     background-color: #edf1fe;
     text-align: center;
@@ -48,17 +48,11 @@ body {
     justify-content: center;
     height: 30%;
     width: 100%;  
-    /* margin-right: 10%;   */
-    /* padding-right: 10%; */
-    /* background-color: yellow; */
-    /* margin-bottom: 30px; */
   }
   .img{
-      /* display: flex; */
       justify-content: center;
   }
   .status{
-      /* padding-left: 8%; */
       margin-top: 1%;
       padding-top: 15px;
       padding-bottom: 15px;
@@ -74,18 +68,15 @@ body {
     text-align: center;
     margin-right: 10%;
     padding-bottom: 4%;
-    /* margin-bottom: 30px; */
 }
 ul.list li{
     margin-bottom: 10px;
     font-size: 10px;
 }
 ul.list li input{
-    /* width: 90%; */
     padding: 10px 0px;
     border: none;
     border-radius: 5px;
-    /* padding-left: 20px; */
 }
 ul.list li input[type="button"]{
     background-color: #0076ff;
@@ -93,7 +84,6 @@ ul.list li input[type="button"]{
     font-weight: bold;
     width: 90%;
     border-radius: 5px;
-    /* padding-right: 20px; */
 }
 ul.list li:nth-child(1){
     margin-top: 20%;
