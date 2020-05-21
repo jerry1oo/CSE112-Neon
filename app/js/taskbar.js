@@ -23,6 +23,9 @@ var status_emoji = {
 firebase.initializeApp(firebaseConfig);
 var db = firebase.firestore();
 var uid = localStorage.getItem('userid')
+var uname = localStorage.getItem('displayName')
+
+document.getElementById('username').innerHTML = uname;
 
 document.getElementById("userStatus").onchange = function(){
     var value = document.getElementById("userStatus").value;
