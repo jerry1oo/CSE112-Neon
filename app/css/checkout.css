@@ -14,7 +14,11 @@ body {
     margin: auto;
     display: inline-block;
 }
-
+.form{
+    padding-left: 250px;
+    text-align: left;
+    font-size: 20px;
+}
 
 
 h1{
