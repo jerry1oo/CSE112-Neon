@@ -31,7 +31,7 @@ nameObj["displayName"] = uname;
 db.collection("users").doc(uid).update(nameObj);
 
 // Init user
-db.collection("users").doc(uid).update({ 
+db.collection("users").doc(uid).set({ 
     "displayName": uname,
     "userStatus": 'Online'})
 .catch(function(error) {
