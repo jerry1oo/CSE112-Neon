@@ -12,12 +12,12 @@ var firebaseConfig = {
 };
 
 var status_emoji = {
-    'online': '😀',
-    'offline': '😴',
-    'coding': '👨‍💻',
-    'researching': '👀',
-    'documenting': '📝',
-    'meeting': '👥'
+    'Online': '😀',
+    'Offline': '😴',
+    'Coding': '👨‍💻',
+    'Researching': '👀',
+    'Documenting': '📝',
+    'Meeting': '👥'
 }
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
@@ -48,15 +48,13 @@ document.getElementById("userStatus").onchange = function(){
     });
  };
 
-function updateTeamStatus() {
-    db.collection("users").where(uid, "==", teamName)
-    .onSnapshot(function(querySnapshot) {
-        querySnapshot.forEach(function(doc) {
-            var displayName = doc.get("displayName");
-            var status = doc.get("userStatus");
-            console.log(displayName)
-            onStatusChange(displayName, status)
-        });
+function addStatusListener(id) {
+    db.collection("users").doc(id)
+    .onSnapshot(function(doc) {
+        var displayName = doc.get("displayName");
+        var status = doc.get("userStatus");
+        console.log(displayName + "change status to " + status);
+        onStatusChange(displayName, status)
     });
 }
 
@@ -125,11 +123,11 @@ function getTeamStatus() {
                 console.log(doc.get("userStatus"));
                 var displayName = doc.get("displayName");
                 var status = doc.get("userStatus");
-                status = status.toLowerCase();
-                if (displayName != uname) {
+                //status = status.toLowerCase();
+                //if (displayName != uname) {
                     addTeamMember(displayName,status);
-                    updateTeamStatus() 
-                }
+                    addStatusListener(doc.id); 
+                //}
             });
         })
         .catch(function(error) {
