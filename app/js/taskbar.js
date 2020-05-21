@@ -10,6 +10,15 @@ var firebaseConfig = {
     appId: "1:240091062123:web:babe11f5f03ced38fbb62e",
     measurementId: "G-VMS6JL8H4S"
 };
+
+var status_emoji = {
+    'online': '😀',
+    'offline': '😴',
+    'coding': '👨‍💻',
+    'researching': '👀',
+    'documenting': '📝',
+    'meeting': '👥'
+}
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 var db = firebase.firestore();
@@ -96,12 +105,11 @@ function getTeamStatus() {
     db.collection("users").where("team", "==", teamName).get() 
         .then(function(querySnapshot) {
             querySnapshot.forEach(function(doc) {
-                // doc.data() is never undefined for query doc snapshots
                 console.log(doc.id, " => ", doc.data());
                 console.log(doc.get("displayName"));
-                //var displayName = doc.get("displayName");
-                //var status = doc.get("userStatus");
-                 // addTeamMember(displayName,status);
+                var displayName = doc.get("displayName");
+                var status = doc.get("userStatus");
+                addTeamMember(displayName,status);
             });
         })
         .catch(function(error) {
@@ -231,3 +239,39 @@ logoutButton.addEventListener("click", function() {
         console.log(error);
     })
 })
+
+function addTeamMember(name, status){
+    var init = false;
+    var namelist = document.getElementById("name_list");
+    if(namelist == null){
+        init = true;
+        namelist = document.createElement("UL");
+        namelist.id = 'name_list';
+    }
+    var member_elem = document.createElement("LI");
+    member_elem.innerHTML = name;
+    member_elem.id = "name_" + name;
+    namelist.appendChild(member_elem);
+    if(init) {teamDiv.appendChild(namelist);}
+
+    init = false;
+    var statuslist = document.getElementById("status_list");
+    if(statuslist == null){
+        init = true;
+        statuslist = document.createElement("UL");
+        statuslist.id = 'status_list';
+    }
+    var status_elem = document.createElement("LI");
+    status_elem.innerHTML = status_emoji[status];
+    status_elem.id = "status_" + name;
+    statuslist.appendChild(status_elem);
+    if(init) {teamDiv.appendChild(statuslist);}
+
+}
+
+function onStatusChange(name, status){
+    var status_elem = document.getElementById("status_" + name);
+    if(status_elem != null){
+        status_elem.innerHTML = status_emoji[status];
+    }
+}
