@@ -12,31 +12,42 @@ var firebaseConfig = {
 };
 
 var status_emoji = {
-    'online': '😀',
-    'offline': '😴',
-    'coding': '👨‍💻',
-    'researching': '👀',
-    'documenting': '📝',
-    'meeting': '👥'
+    'Online': '😀',
+    'Offline': '😴',
+    'Coding': '👨‍💻',
+    'Researching': '👀',
+    'Documenting': '📝',
+    'Meeting': '👥'
 }
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 var db = firebase.firestore();
 var uid = localStorage.getItem('userid')
 var uname = localStorage.getItem('displayName')
+
 document.getElementById('username').innerHTML = uname;
+var nameObj = {}
+nameObj["displayName"] = uname;
+db.collection("users").doc(uid).update(nameObj);
+
+// Init user
+db.collection("users").doc(uid).update({ 
+    "displayName": uname,
+    "userStatus": 'Online'})
+.catch(function(error) {
+    console.error("Error adding document: ", error);
+});
 
 document.getElementById("userStatus").onchange = function(){
     var value = document.getElementById("userStatus").value;
-    db.collection("users").doc(uid).set({
-        "displayName": uname,
-        "team": teamName,
+    db.collection("users").doc(uid).update({
         "userStatus": value
-    },{merge: true})
+    })
     .catch(function(error) {
         console.error("Error adding document: ", error);
     });
  };
+<<<<<<< HEAD
 function updateTeamStatus() {
     console.log("teamStatus")
     db.collection("users").where(uid, "==", teamName)
@@ -47,6 +58,16 @@ function updateTeamStatus() {
             console.log(displayName)
             onStatusChange(displayName, status)
         });
+=======
+
+function addStatusListener(id) {
+    db.collection("users").doc(id)
+    .onSnapshot(function(doc) {
+        var displayName = doc.get("displayName");
+        var status = doc.get("userStatus");
+        console.log(displayName + "change status to " + status);
+        onStatusChange(displayName, status)
+>>>>>>> ac932594c102cf42fd6d2b80390c6b1a2087dd72
     });
 }
 
@@ -115,11 +136,11 @@ function getTeamStatus() {
                 console.log(doc.get("userStatus"));
                 var displayName = doc.get("displayName");
                 var status = doc.get("userStatus");
-                status = status.toLowerCase();
-                if (displayName != uname) {
-                addTeamMember(displayName,status);
-                updateTeamStatus() 
-                }
+                //status = status.toLowerCase();
+                //if (displayName != uname) {
+                    addTeamMember(displayName,status);
+                    addStatusListener(doc.id); 
+                //}
             });
         })
         .catch(function(error) {
@@ -206,6 +227,9 @@ function joinTeam() {
                 var obj = querySnapshot.data()
                 if (obj) {
                     console.log("Team exists")
+                    db.collection("users").doc(uid).update({ "team": teamName}) 
+                        .then(function() { console.log("Added to the team");})
+                        .catch(function(error) { console.error("Error adding to the team: ", error);});
                     obj[uid] = true
                     db.collection("teams").doc(teamName).set(obj)
                         .then(function() {
@@ -214,7 +238,7 @@ function joinTeam() {
                         })
                         .catch(function(error) {
                             console.error("Error adding document: ", error);
-                        })
+                        });
                 } else {
                     dialog.showMessageBox({
                         type: 'error',
@@ -251,6 +275,7 @@ logoutButton.addEventListener("click", function() {
 })
 
 function addTeamMember(name, status){
+    console.log("Adding member " + name + ", status: " + status);
     var init = false;
     var namelist = document.getElementById("name_list");
     if(namelist == null){
