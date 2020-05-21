@@ -41,7 +41,6 @@ db.collection("users").doc(uid).update({
 document.getElementById("userStatus").onchange = function(){
     var value = document.getElementById("userStatus").value;
     db.collection("users").doc(uid).update({
-        "displayName": uname,
         "userStatus": value
     })
     .catch(function(error) {
@@ -127,7 +126,7 @@ function getTeamStatus() {
                 var displayName = doc.get("displayName");
                 var status = doc.get("userStatus");
                 status = status.toLowerCase();
-                if (displayName != name) {
+                if (displayName != uname) {
                 addTeamMember(displayName,status);
                 updateTeamStatus() 
                 }
