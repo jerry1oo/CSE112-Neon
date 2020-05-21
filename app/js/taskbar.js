@@ -24,19 +24,31 @@ firebase.initializeApp(firebaseConfig);
 var db = firebase.firestore();
 var uid = localStorage.getItem('userid')
 var uname = localStorage.getItem('displayName')
+
 document.getElementById('username').innerHTML = uname;
+var nameObj = {}
+nameObj["displayName"] = uname;
+db.collection("users").doc(uid).update(nameObj);
+
+// Init user
+db.collection("users").doc(uid).update({ 
+    "displayName": uname,
+    "userStatus": 'Online'})
+.catch(function(error) {
+    console.error("Error adding document: ", error);
+});
 
 document.getElementById("userStatus").onchange = function(){
     var value = document.getElementById("userStatus").value;
-    db.collection("users").doc(uid).set({
-        "displayName": name,
-        "team": teamName,
+    db.collection("users").doc(uid).update({
+        "displayName": uname,
         "userStatus": value
-    },{merge: true})
+    })
     .catch(function(error) {
         console.error("Error adding document: ", error);
     });
  };
+
 function updateTeamStatus() {
     db.collection("users").where(uid, "==", teamName)
     .onSnapshot(function(querySnapshot) {
@@ -205,6 +217,10 @@ function joinTeam() {
                 var obj = querySnapshot.data()
                 if (obj) {
                     console.log("Team exists")
+                    db.collection("teams").doc(teamName).collection(uid).doc("status").set({})
+                    db.collection("users").doc(uid).update({ "team": teamName}) 
+                        .then(function() { console.log("Added to the team");})
+                        .catch(function(error) { console.error("Error adding to the team: ", error);});
                     obj[uid] = true
                     db.collection("teams").doc(teamName).set(obj)
                         .then(function() {
@@ -213,7 +229,7 @@ function joinTeam() {
                         })
                         .catch(function(error) {
                             console.error("Error adding document: ", error);
-                        })
+                        });
                 } else {
                     dialog.showMessageBox({
                         type: 'error',
