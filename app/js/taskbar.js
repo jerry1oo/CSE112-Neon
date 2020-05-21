@@ -127,8 +127,8 @@ function getTeamStatus() {
                 var status = doc.get("userStatus");
                 status = status.toLowerCase();
                 if (displayName != uname) {
-                addTeamMember(displayName,status);
-                updateTeamStatus() 
+                    addTeamMember(displayName,status);
+                    updateTeamStatus() 
                 }
             });
         })
@@ -216,7 +216,6 @@ function joinTeam() {
                 var obj = querySnapshot.data()
                 if (obj) {
                     console.log("Team exists")
-                    db.collection("teams").doc(teamName).collection(uid).doc("status").set({})
                     db.collection("users").doc(uid).update({ "team": teamName}) 
                         .then(function() { console.log("Added to the team");})
                         .catch(function(error) { console.error("Error adding to the team: ", error);});
@@ -265,6 +264,7 @@ logoutButton.addEventListener("click", function() {
 })
 
 function addTeamMember(name, status){
+    console.log("Adding member " + name + ", status: " + status);
     var init = false;
     var namelist = document.getElementById("name_list");
     if(namelist == null){
