@@ -115,7 +115,7 @@ function getTeamStatus() {
                 var displayName = doc.get("displayName");
                 var status = doc.get("userStatus");
                 status = status.toLowerCase();
-                if (displayName != name) {
+                if (displayName != uname) {
                 addTeamMember(displayName,status);
                 updateTeamStatus() 
                 }
