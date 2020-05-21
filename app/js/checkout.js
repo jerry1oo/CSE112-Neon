@@ -59,28 +59,27 @@ function createGoalList(goal, n) {
     // Assigning the attributes 
     var id = n.toString();
     var form = document.getElementById("line" + id);
-    var labelId = "task" + id;
     var label = document.createElement('label');
-    label.id = labelId;
+    var labelId = "task" + id;
+    var con = document.getElementById('container' + id);
+    
 
     // appending the created text to  
     // the created label tag  
     var s = "";
     label.appendChild(document.createTextNode(goal + s));
+    label.id = labelId;
 
-
-    var brik = document.createElement('br');
+    
     document.getElementById('h' + id).style.display = "block"
-    var con = document.getElementById('container' + id);
+    
     con.style.position = "absolute";
     con.style.right = "0";
     con.style.display = "inline-block";
 
-    // appending the checkbox 
-    // and label to div 
+    // appending label to div 
     form.appendChild(label);
     form.appendChild(con);
-    form.appendChild(brik);
 }
 
 
@@ -94,20 +93,20 @@ function updateGoal() {
     docRef.get()
         .then(function (doc) {
             if (doc.exists) {
-                // goalText.innerHTML = "Goal: " + doc.data().goal
                 goalText.style.display = "none";
-                var id = "goal";        //fix this to "task"+n.toString()
+                var id = "task" + n.toString();
                 var data = doc.data()
-                while (id in data) {
+                while (id in data & data[id] != "") {
+
                     createGoalList(data[id], n);
                     n++;
                     taskNum++;
                     id = "task" + n.toString();
                 }
-                createGoalList("yoyoyoyoyoyyo", n);
-                n++;
-                taskNum++;
-                createGoalList("yoyoy", n)
+                if (n == 1) {
+                    goalText.innerHTML = "No Task Set For The Day!"
+                    goalText.style.display = "block";
+                }
 
             } else {
                 console.error("Error getting data");
@@ -129,26 +128,30 @@ endFlowButton.addEventListener("click", () => endFlow())
 
 function endFlow() {
     var docRef = db.collection("teams").doc(teamName).collection(uid).doc("status")
-    // var n = 1;
     //initialize the things to be pushed
     var obj = {
         checkedIn: false,
     }
-    for (i = 1; i <= taskNum; i++) {
+    for (i = 1; i < 4; i++) {
         var id = i.toString();
-
         var taskId = "task" + id;
         var taskStatus = "taskStatus" + id;
-        var t = document.getElementById(taskId).textContent;
+        var element = document.getElementById(taskId);
+        if (element != null) {
+            var t = element.textContent;
 
-        obj[taskId] = t;
-        obj[taskStatus] = 0;
-        if (dict[i][k] == 0)
-            obj[taskStatus] = 1;
-        else if (dict[i][s] == 0)
-            obj[taskStatus] = 2;
-        else if (dict[i][b] == 0)
-            obj[taskStatus] = 3;
+            obj[taskId] = t;
+            obj[taskStatus] = 0;
+            if (dict[i][k] == 0)
+                obj[taskStatus] = 1;
+            else if (dict[i][s] == 0)
+                obj[taskStatus] = 2;
+            else if (dict[i][b] == 0)
+                obj[taskStatus] = 3;
+        }
+        else {
+            obj[taskId] = "";
+        }
 
     }
     docRef.set(obj)
