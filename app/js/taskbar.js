@@ -29,7 +29,7 @@ document.getElementById('username').innerHTML = uname;
 document.getElementById("userStatus").onchange = function(){
     var value = document.getElementById("userStatus").value;
     db.collection("users").doc(uid).set({
-        "displayName": name,
+        "displayName": uname,
         "team": teamName,
         "userStatus": value
     },{merge: true})
