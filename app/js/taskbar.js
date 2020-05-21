@@ -24,16 +24,7 @@ firebase.initializeApp(firebaseConfig);
 var db = firebase.firestore();
 var uid = localStorage.getItem('userid')
 var uname = localStorage.getItem('displayName')
-
 document.getElementById('username').innerHTML = uname;
-
-/*
-var name = localStorage.getItem('displayName')
-
-var nameObj = {}
-nameObj["displayName"] = name
-    db.collection("users").doc(uid).set(nameObj);
-*/
 
 document.getElementById("userStatus").onchange = function(){
     var obj = {}
