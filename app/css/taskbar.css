@@ -97,3 +97,25 @@ ul.list li input[type="button"]{
 ul.list li:nth-child(1){
     margin-top: 20%;
 }
+
+#name_list{
+  list-style: none;
+  float: left;
+  padding-left: 20%;
+}
+
+#name_list li{
+  font-size: 20px;
+  text-align: left;
+  padding-bottom: 6px;
+}
+
+#status_list{
+  list-style: none;
+  float: right;
+  padding-right: 20%;
+}
+
+#status_list li{
+  font-size: 20px;
+}

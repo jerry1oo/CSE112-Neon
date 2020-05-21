@@ -12,11 +12,12 @@ var firebaseConfig = {
 };
 
 var status_emoji = {
-    'online': '👀',
-    'offline': '💤',
+    'online': '😀',
+    'offline': '😴',
     'coding': '👨‍💻',
-    'researching': '📖',
-    'meeting': 👥
+    'researching': '👀',
+    'documenting': '📝',
+    'meeting': '👥'
 }
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
@@ -83,6 +84,11 @@ function checkTeams() {
                 var h2 = document.createElement("h2")
                 h2.innerHTML = teamName
                 teamDiv.appendChild(h2)
+                // Mock teammates
+                addTeamMember('Chen', 'online');
+                addTeamMember('Marcus', 'researching');
+                addTeamMember('Alan', 'online');
+                onStatusChange('Alan', 'offline');
             } else {
                 teamDiv.style.display = "block"
                 console.log("Team not found")
@@ -253,5 +259,7 @@ function addTeamMember(name, status){
 
 function onStatusChange(name, status){
     var status_elem = document.getElementById("status_" + name);
-    status_elem.innerHTML = status_emoji[status];
+    if(status_elem != null){
+        status_elem.innerHTML = status_emoji[status];
+    }
 }
