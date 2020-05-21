@@ -45,15 +45,6 @@ signInBtn.addEventListener('click', () => {
                     localStorage.setItem('userid', response.uid)
                     localStorage.setItem('displayName', response.displayName)
                     localStorage.setItem('email', response.email)
-                    db.collection("users").doc(response.uid).set({
-                        "displayName": name
-                    },{merge: true})
-                    .then(function() {
-                        console.log("Document successfully written!");
-                    })
-                    .catch(function(error) {
-                        console.error("Error writing document: ", error);
-                    });
                     document.location.href = 'taskbar.html';
                 }
             }

@@ -23,8 +23,8 @@ var status_emoji = {
 firebase.initializeApp(firebaseConfig);
 var db = firebase.firestore();
 var uid = localStorage.getItem('userid')
-var name = localStorage.getItem('displayName')
-
+var uname = localStorage.getItem('displayName')
+document.getElementById('username').innerHTML = uname;
 
 document.getElementById("userStatus").onchange = function(){
     var value = document.getElementById("userStatus").value;
@@ -275,12 +275,17 @@ function addTeamMember(name, status){
     status_elem.id = "status_" + name;
     statuslist.appendChild(status_elem);
     if(init) {teamDiv.appendChild(statuslist);}
-
 }
 
 function onStatusChange(name, status){
     var status_elem = document.getElementById("status_" + name);
     if(status_elem != null){
-        status_elem.innerHTML = status_emoji[status];
+        status_elem.classList.add('hide');
+        setTimeout(function() { 
+            status_elem.innerHTML = status_emoji[status];
+        }, 500);
+        setTimeout(function() { 
+            status_elem.classList.remove('hide')
+        }, 500);   
     }
 }
