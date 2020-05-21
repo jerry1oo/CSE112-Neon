@@ -1,5 +1,6 @@
 const { dialog } = require('electron').remote;
 
+
 var firebaseConfig = {
     apiKey: "AIzaSyBmn_tDSlm4lLdrvSqj8Yb00KkYae8cL-Y",
     authDomain: "neon-pulse-development.firebaseapp.com",
@@ -15,6 +16,14 @@ firebase.initializeApp(firebaseConfig);
 var db = firebase.firestore();
 var uid = localStorage.getItem('userid')
 var teamName = ""
+var task1 = document.getElementById("Task1")
+var task2 = document.getElementById("Task2")
+var task3 = document.getElementById("Task3")
+task1.value = ""
+task2.value = ""
+task3.value = ""
+var prevList = document.getElementById("prevTask")
+var todayTask = document.getElementById("todayTask")
 
 checkTeams()
 
@@ -92,9 +101,6 @@ startFlowButton.addEventListener("click", () => startFlow())
 
 //startflow will always send 3 tasks value, if the user didn't not set any of them, just set the val to be ""
 function startFlow() {
-    var task1 = document.getElementById("Task1")
-    var task2 = document.getElementById("Task2")
-    var task3 = document.getElementById("Task3")
     var obj = {
     	checkedIn: true,
         task1: task1.value,
@@ -117,21 +123,76 @@ function startFlow() {
             document.location.href = 'taskbar.html'
         });
 }
+
 function addTask(parent,text){
     let task = `
-    <li>
-        <div>
+        <li>
             <input style="display: inline-block; ali" value = ${text}>
             <button>Add</button>
             <button>Delete</button>
-        </div>
-    </li>`
+        </li>`
     parent.insertAdjacentHTML('beforeend', task);
 }
-document.getElementById("prevTask").onclick=function(event){
+
+prevList.addEventListener("click", function(event){
     let target = event.target;
-    parentNode = target.parentNode;
+    console.log("event",target.parentNode.id)
+    text = target.parentNode.firstElementChild.value;
+    console.log("text",text)
+    parentLi = target.parentNode
+  
     if(target.innerText=="Add"){
+        if(task1.value ==""){
+            task1.value = text
+            task1.parentNode.style.display="block" 
+            prevList.removeChild(parentLi)
+        }
+        else if(task2.value==""){
+            task2.value = text
+            task2.parentNode.style.display="block"
+            prevList.removeChild(parentLi)
+        }
+        else if(task3.value==""){
+            task3.value=text
+            task3.parentNode.style.display="block" 
+            prevList.removeChild(parentLi)
+        }
+        else{
+            dialog.showMessageBox({
+                type: 'error',
+                title: 'Error',
+                message: errorMessage
+            }); 
+        }
+    }
+    else if(target.innerText=="Delete"){
+        document.getElementById("prevTask").removeChild(parentLi)
+    }
+});
+
+document.getElementById("addTasks").addEventListener('click',function(){
+
+    if(task1.value==""){
+        task1.parentNode.style.display="block"
         
     }
-}
+    else if(task2.value==""){
+        task2.parentNode.style.display="block"
+    }
+    else if(task3.value==""){
+        task3.parentNode.style.display="block"
+    }
+    else{
+        console.log("here")
+    }
+});
+
+todayTask.addEventListener('click',function(event){
+    target = event.target
+    console.log(target.innerText)
+    if(target.innerText=="Delete"){
+        targetParent = target.parentNode
+        targetParent.style.display="none"
+        targetParent.firstElementChild.value=""
+    }
+});

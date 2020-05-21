@@ -39,7 +39,7 @@ ul.list li, ul.prevList li{
     font-size: 10px;
     
 }
-ul.list li input,ul.prevList li div input{
+ul.list li input,ul.prevList li input{
     width: 65%;
     padding: 10px 0px;
     border: none;

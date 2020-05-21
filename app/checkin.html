@@ -5,8 +5,9 @@
 
   <meta charset="UTF-8">
   <title>Start My Flow</title>
+  <!--
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-  rel="stylesheet">
+  rel="stylesheet">-->
   <link rel="stylesheet" type="text/css" href="css/checkin.css">
   <meta http-equiv="Content-Security-Policy" content="script-src 'self' https://www.gstatic.com 'unsafe-inline';" />
   <script src="https://www.gstatic.com/firebasejs/7.14.3/firebase-app.js"></script>
@@ -20,23 +21,26 @@
     <h2>Continue with previous tasks?</h2>
   </ul>
   
-  <ul class="list">
+  <ul class="list" id="todayTask">
     <h2> Today's tasks</h2>
-     <li style="display: none;"><input type="text" id="Task1" value=""></li>
-     <li style="display: none;"><input type="text" id="Task2" value=""></li>
-     <li style="display: none;"><input type="text" id="Task3" value=""></li>
-     <button id="add Tasks">Add New Task</button>
-  <!--  <li>
-      <select name="Duration" id="duration">
-        <option value="20">Duration: 20 mins</option>
-        <option value="30">Duration: 30 mins</option>
-        <option value="50">Duration: 50 mins</option>
-        <option value="60">Duration: 60 mins</option>
-        </select>
-    </li> -->
+     <li style="display: none;">
+        <input type="text" id="Task1" value="">
+        <button>Delete</button>
+     </li>
+     <li style="display: none;">
+        <input type="text" id="Task2" value="">
+        <button>Delete</button>
+     </li>
+     <li style="display: none;">
+        <input type="text" id="Task3" value="">
+        <button>Delete</button>
+     </li>
+  <ul>
 
-    <li><input type="button" name="startflow" value="Start My Flow" id="startFlowBtn"></li>
-  </ul>
+  <button id="addTasks">Add New Task</button>
+
+  <input type="button" name="startflow" value="Start My Flow" id="startFlowBtn">
+  
   <script> require('./js/checkin.js') </script>
 
 </body>
