@@ -96,34 +96,7 @@ var createTeamButton = document.getElementById("createTeamButton")
 createTeamButton.addEventListener("click", () => createTeam())
 
 function createTeam() {
-    console.log("Creating team")
-    var teamDiv = document.getElementById("teamDiv")
-    teamDiv.innerHTML = ""
-    var h2 = document.createElement("h2")
-    h2.innerHTML = "Create team"
-    var inpElement = document.createElement("input")
-    inpElement.id = "inpElement"
-    inpElement.placeholder = "Enter team name"
-    var buttonElement = document.createElement("button")
-    buttonElement.innerHTML = "Submit team"
-    buttonElement.onclick = function() {
-        var teamName = document.getElementById("inpElement").value
-        console.log(teamName)
-
-        var obj = {}
-        obj[uid] = true
-        db.collection("teams").doc(teamName).set(obj)
-            .then(function() {
-                console.log("Document written");
-                checkTeams()
-            })
-            .catch(function(error) {
-                console.error("Error adding document: ", error);
-            });
-    }
-    teamDiv.appendChild(h2)
-    teamDiv.appendChild(inpElement)
-    teamDiv.appendChild(buttonElement)
+    document.location.href = "createteam.html"
 }
 
 var joinTeamButton = document.getElementById("joinTeamButton")
@@ -131,49 +104,7 @@ joinTeamButton.addEventListener("click", () => joinTeam())
 
 function joinTeam() {
     console.log("Join Team")
-    var teamDiv = document.getElementById("teamDiv")
-    teamDiv.innerHTML = ""
-    var h2 = document.createElement("h2")
-    h2.innerHTML = "Join team"
-    var inpElement = document.createElement("input")
-    inpElement.id = "inpElement"
-    inpElement.placeholder = "Enter team name"
-    var buttonElement = document.createElement("button")
-    buttonElement.innerHTML = "Submit team"
-    buttonElement.onclick = function() {
-        var teamName = document.getElementById("inpElement").value
-        db.collection("teams").doc(teamName)
-            .get()
-            .then(function(querySnapshot) {
-                console.log(querySnapshot)
-                console.log(querySnapshot.data())
-                var obj = querySnapshot.data()
-                if (obj) {
-                    console.log("Team exists")
-                    obj[uid] = true
-                    db.collection("teams").doc(teamName).set(obj)
-                        .then(function() {
-                            console.log("Document written");
-                            checkTeams()
-                        })
-                        .catch(function(error) {
-                            console.error("Error adding document: ", error);
-                        })
-                } else {
-                    dialog.showMessageBox({
-                        type: 'error',
-                        title: 'Error',
-                        message: "Team does not exist."
-                    });
-                }
-            })
-            .catch(function(error) {
-                console.log(error)
-            })
-    }
-    teamDiv.appendChild(h2)
-    teamDiv.appendChild(inpElement)
-    teamDiv.appendChild(buttonElement)
+    document.location.href = "jointeam.html"
 }
 
 var logoutButton = document.getElementById("logOutBtn")
