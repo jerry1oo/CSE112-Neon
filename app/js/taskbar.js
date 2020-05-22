@@ -32,7 +32,7 @@ db.collection("users").doc(uid).update({
     "displayName": uname,
     "userStatus": 'Online'})
 .catch(function(error) {
-    console.error("Error adding document: ", error);
+    console.error("Error when initializing user: ", error);
 });
 
 // Top user information logistics
@@ -43,7 +43,7 @@ document.getElementById("userStatus").onchange = function(){
         "userStatus": value
     })
     .catch(function(error) {
-        console.error("Error adding document: ", error);
+        console.error("Error attempting to change user status: ", error);
     });
  };
 
