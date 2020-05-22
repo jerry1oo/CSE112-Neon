@@ -28,11 +28,20 @@ var uname = localStorage.getItem('displayName')
 
 //Create user doc if not present in firebase, 
 //if the user is present, this will simply updates its status to online
-db.collection("users").doc(uid).update({ 
-    "displayName": uname,
-    "userStatus": 'Online'})
-.catch(function(error) {
-    console.error("Error when initializing user: ", error);
+var ref = db.collection("users").doc(uid);
+ref.get().then(function(doc){
+    if(doc.exists){
+        ref.update({ 
+            "displayName": uname,
+            "userStatus": 'Online'
+        });
+    }
+    else{
+        ref.set({ 
+            "displayName": uname,
+            "userStatus": 'Online'
+        });
+    }
 });
 
 // Top user information logistics
@@ -111,7 +120,7 @@ function checkTeams() {
                 var h2 = document.createElement("h2")
                 h2.innerHTML = teamName
                 teamDiv.appendChild(h2)
-                getTeamStatus()
+                getTeam()
             } else {
                 teamDiv.style.display = "block"
                 console.log("Team not found")
@@ -128,8 +137,8 @@ function checkTeams() {
         });
 }
 
-
-function getTeamStatus() {
+// Get the team members, and add listeners to their status change
+function getTeam() {
     db.collection("users").where("team", "==", teamName).get() 
         .then(function(querySnapshot) {
             querySnapshot.forEach(function(doc) {
@@ -137,11 +146,8 @@ function getTeamStatus() {
                 console.log(doc.get("userStatus"));
                 var displayName = doc.get("displayName");
                 var status = doc.get("userStatus");
-               
-                //if (displayName != uname) {
-                    addTeamMember(displayName,status);
-                    addStatusListener(doc.id); 
-                //}
+                addTeamMember(displayName,status);
+                addStatusListener(doc.id); 
             });
         })
         .catch(function(error) {
