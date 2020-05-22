@@ -1,4 +1,4 @@
-const { dialog } = require('electron').remote;
+var  dialog  = require('electron').remote;
 
 
 var firebaseConfig = {
@@ -164,7 +164,7 @@ prevList.addEventListener("click", function(event){
                 type: 'error',
                 title: 'Error',
                 message: errorMessage
-            }); 
+            }); ,
         }
     }
     else if(target.innerText=="Delete"){
@@ -197,4 +197,4 @@ todayTask.addEventListener('click',function(event){
         targetParent.firstElementChild.value=""
     }
 });
-
+module.exports = {checkTeams, startFlow, firebase, dialog};
