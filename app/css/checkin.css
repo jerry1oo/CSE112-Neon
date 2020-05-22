@@ -27,7 +27,9 @@ h2{
     font-weight: bolder;
 }
 
-ul.list,ul.prevList{
+
+ul.list,ul.prevList,#addTasks,#startFlowBtn{
+
     list-style-type: none;
     text-align: center;
     margin-right: 6%;
@@ -47,20 +49,43 @@ ul.list li input,ul.prevList li input{
     padding-left: 20px;
     padding-right: 20px;
 }
-ul.list li input[type="button"]{
+#startFlowBtn{
     background-color: #687089;
     color: white;
     font-weight: bold;
     width: 40%;
     border-radius: 15px;
+
+    position: fixed;
+    left:30%;
+    bottom: 15%;
+    padding: 10px 0px;
+    padding-left: 20px;
     padding-right: 20px;
-    
 }
 
+#addTasks{
+    background-color: #687089;
+    color: white;
+    font-weight: bold;
+    width: 15%;
+    border-radius: 15px;
+    position: fixed;
+    left:42%;
+    bottom: 25%;
+    padding: 6px 0px;
   
-ul.list li:nth-child(5){
-    margin-top: 50%;
 }
+.bt{
+    background-color: #687089;
+    color: white;
+    font-weight: bold;
+    width: 10%;
+    border-radius: 15px;
+    left:40%;
+    padding: 5px 0px;
+}
+
 
 ul.list li select{
     width: 71%;
@@ -74,4 +99,7 @@ ul.list li select{
 }
 
 
-ul.list li input[type="button"]:hover {background-color: #0375fb;}
+#startFlowBtn:hover{background-color: #0375fb;}
+#addTasks:hover{background-color: #0375fb;}
+.bt:hover{background-color: #0375fb;}
+
