@@ -44,7 +44,7 @@ Integration Testing
   in a created folder dist which will reside in the
   root dir.
   ```bash
-  npm run build
+  npm run manual:build
   ```
 
 
