@@ -38,6 +38,23 @@ Integration Testing
   ```bash
   npm run test:int
   ```
+
+## Coverage
+  Currently we are only checking the coverage of unit testing.
+  to run the tests. This will check all js files in folders
+  not excluded in package.json under "nyc". 
+  
+  Nothing is currently being enforced off of these results.
+  
+    ```bash
+  npm run test:unit_cov
+  npm run test:unit_cov_html
+  ```
+  
+  unit_cov will show you the resutls in terminal
+  unit_cov_html will create a folder called coverage in root with
+    a html file listing out the coverages 
+  
 	
 ## Building
   To create your own local exe. This will be located

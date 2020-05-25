@@ -24,11 +24,29 @@
   "lint": "eslint .",
   "prepush": "npm run lint && npm test:unit",
   "test:unit": "mocha ./test/unit_testing/*.js",
+  "test:unit_cov": "nyc mocha ./test/unit_testing/*.js",
+  "test:unit_cov_html": "nyc --reporter=html mocha ./test/unit_testing/*.js",
   "test:int": "mocha ./test/integration_testing/*.js",
   "manual:postinstall": "electron-builder install-app-deps",
   "manual:build": "electron-builder",
   "manual:release": "electron-builder --windows --publish always"
  },
+   "nyc": {
+    "_comment": "Purpose of this part: to do code coverage within Mocha/Chai using Istanbul",
+    "register": "babel-register",
+    "include": [
+      "**/*.js",
+      "./*.js"
+    ],
+    "exclude": [
+      "**/node_modules/**",
+	  "**/build/**",
+      "**/test/**",
+      "**/coverage/**"
+    ],
+    "all": true
+  },
+ 
  "keywords": [],
  "author": "",
  "license": "ISC",
@@ -40,6 +58,7 @@
   "eslint": "^7.0.0",
   "husky": "^4.2.5",
   "mocha": "^7.1.2",
+  "nyc": "^15.0.1",
   "spectron": "^10.0.1"
  },
  "dependencies": {
