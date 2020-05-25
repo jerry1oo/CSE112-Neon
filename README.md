@@ -41,7 +41,10 @@ Integration Testing
 
 ## Coverage
   Currently we are only checking the coverage of unit testing.
-  to run the tests
+  to run the tests. This will check all js files in folders
+  not excluded in package.json under "nyc". 
+  
+  Nothing is currently being enforced off of these results.
   
     ```bash
   npm run test:unit_cov
