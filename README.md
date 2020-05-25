@@ -38,6 +38,20 @@ Integration Testing
   ```bash
   npm run test:int
   ```
+
+## Coverage
+  Currently we are only checking the coverage of unit testing.
+  to run the tests
+  
+    ```bash
+  npm run test:unit_cov
+  npm run test:unit_cov_html
+  ```
+  
+  unit_cov will show you the resutls in terminal
+  unit_cov_html will create a folder called coverage in root with
+    a html file listing out the coverages 
+  
 	
 ## Building
   To create your own local exe. This will be located
