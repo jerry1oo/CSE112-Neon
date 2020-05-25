@@ -13,12 +13,12 @@ var firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 var db = firebase.firestore();
-var uid = localStorage.getItem('userid')
+var uid = localStorage.getItem('userid');
 
 var joinTeamButton = document.getElementById("joinBtn")
 joinTeamButton.addEventListener("click", function() {
+    var teamName = document.getElementById("teamName").value;
     console.log("Clicked")
-    var teamName = document.getElementById("teamName").value
     console.log(teamName)
     db.collection("teams").doc(teamName)
         .get()
@@ -28,6 +28,8 @@ joinTeamButton.addEventListener("click", function() {
             var obj = querySnapshot.data()
             if (obj) {
                 console.log("Team exists")
+                //Join team
+                db.collection("users").doc(uid).update({ "team": teamName}) 
                 obj[uid] = true
                 db.collection("teams").doc(teamName).set(obj)
                     .then(function() {
