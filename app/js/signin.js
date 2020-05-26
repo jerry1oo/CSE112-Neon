@@ -13,6 +13,7 @@ var firebaseConfig = {
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
+var db = firebase.firestore();
 
 var signInBtn = document.getElementById('signInBtn');
 

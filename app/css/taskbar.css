@@ -8,7 +8,6 @@ body {
     color: black;
     font-family: Monserrat;
 }
-
 .container{
     width: 70%;
     margin: auto;
@@ -87,4 +86,32 @@ ul.list li input[type="button"]{
 }
 ul.list li:nth-child(1){
     margin-top: 20%;
+}
+
+#name_list{
+  list-style: none;
+  float: left;
+  padding-left: 10%;
+}
+
+#name_list li{
+  font-size: 15px;
+  text-align: left;
+  padding-bottom: 8px;
+}
+
+#status_list{
+  list-style: none;
+  float: right;
+  padding-right: 10%;
+}
+
+#status_list li{
+  font-size: 15px;
+  opacity: 1; 
+  transition: all 0.5s;
+}
+
+#status_list li.hide { 
+  opacity: 0; 
 }
