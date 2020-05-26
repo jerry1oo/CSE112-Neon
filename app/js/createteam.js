@@ -20,6 +20,7 @@ joinTeamButton.addEventListener("click", function() {
     console.log(teamName)
     console.log(teamName)
 
+    db.collection("users").doc(uid).update({ "team": teamName}) 
     var obj = {}
     obj[uid] = true
     db.collection("teams").doc(teamName).set(obj)

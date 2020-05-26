@@ -84,8 +84,11 @@ endFlowButton.addEventListener("click", () => endFlow())
 
 var flowDiv = document.getElementById("flowDiv")
 var teamDiv = document.getElementById("teamDiv")
+var teamNoneDiv = document.getElementById("teamNoneDiv")
+var teamExistsDiv = document.getElementById("teamExistsDiv")
 flowDiv.style.display = "none"
 teamDiv.style.display = "none"
+teamExistsDiv.style.display = "none"
 endFlowButton.style.display = "none"
 
 function startFlow() { document.location.href = 'checkin.html' }
@@ -98,6 +101,8 @@ var createTeamButton = document.getElementById("createTeamButton")
 createTeamButton.addEventListener("click", () => createTeam())
 var joinTeamButton = document.getElementById("joinTeamButton")
 joinTeamButton.addEventListener("click", () => joinTeam())
+var leaveTeamButton = document.getElementById("leaveTeamButton")
+leaveTeamButton.addEventListener("click", () => leaveTeam())
 
 checkTeams()
 
@@ -116,10 +121,10 @@ function checkTeams() {
                     teamName = doc.id
                     checkStatus()
                 });
-                teamDiv.innerHTML = ""
-                var h2 = document.createElement("h2")
+                teamNoneDiv.style.display = "none"
+                teamExistsDiv.style.display = "block"
+                var h2 = document.getElementById("teamName")
                 h2.innerHTML = teamName
-                teamDiv.appendChild(h2)
                 getTeam()
             } else {
                 teamDiv.style.display = "block"
@@ -185,6 +190,23 @@ function joinTeam() {
     document.location.href = "jointeam.html"
 }
 
+function leaveTeam() {
+    db.collection("teams").doc(teamName).collection(uid).doc("status").delete().then(function() {
+        console.log("Successfully removed status document from teams collection");
+        var docRef = db.collection("teams").doc(teamName);
+        docRef.update({
+            [uid]: firebase.firestore.FieldValue.delete()
+        }).then(function() {
+            console.log("Successfully removed uid field from teams collection");
+            document.location.href = "taskbar.html"
+        }).catch(function(error) {
+            console.error("Error removing field: ", error);
+        });
+    }).catch(function(error) {
+        console.error("Error removing document: ", error);
+    });
+}
+
 //Utility functions
 
 /* Adds the team member to the team div on UI
@@ -204,7 +226,7 @@ function addTeamMember(name, status){
     member_elem.innerHTML = name;
     member_elem.id = "name_" + name;
     namelist.appendChild(member_elem);
-    if(init) {teamDiv.appendChild(namelist);}
+    if(init) {teamExistsDiv.appendChild(namelist);}
 
     init = false;
     var statuslist = document.getElementById("status_list");
@@ -217,7 +239,7 @@ function addTeamMember(name, status){
     status_elem.innerHTML = status_emoji[status];
     status_elem.id = "status_" + name;
     statuslist.appendChild(status_elem);
-    if(init) {teamDiv.appendChild(statuslist);}
+    if(init) {teamExistsDiv.appendChild(statuslist);}
 }
 
 /* Adds a listener to the status of the given user with id
