@@ -55,6 +55,7 @@ function checkTeams() {
                 var h2 = document.createElement("h2")
                 h2.innerHTML = teamName
                 teamDiv.appendChild(h2)
+                checkThermometer()
             } else {
                 teamDiv.style.display = "block"
                 console.log("Team not found")
@@ -193,3 +194,15 @@ logoutButton.addEventListener("click", function() {
         console.log(error);
     })
 })
+
+
+function checkThermometer() {
+    var thermometer = document.getElementById("thermometer")
+
+    db.collection("thermometers").doc(teamName)
+        .onSnapshot(function(doc) {
+            console.log("Current data: ", doc.data());
+            var data = doc.data()
+            thermometer.value = data.progress
+        });
+}
