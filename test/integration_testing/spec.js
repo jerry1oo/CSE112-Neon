@@ -29,7 +29,7 @@ describe('Application launch', function () {
       args: [path.join(__dirname, '../..')]
       })
   this.app.start()*/
-  beforeEach(function () { 
+  before(function () { 
 
     this.app = new Application({
       // Your electron path can be any binary
@@ -57,19 +57,24 @@ describe('Application launch', function () {
   //this.app.start();
   afterEach(function () {
     if (this.app && this.app.isRunning()) {
-      return this.app.stop()
+      //return this.app.stop()
     }
-  })
+  })/*
   it('shows an initial window', function () { 
     return this.app.client.getWindowCount().then(function (count) {
       assert.equal(count, 1)
       // Please note that getWindowCount() will return 2 if `dev tools` are opened.
       // assert.equal(count, 2)
     })
-  })
+  })*/
   
   it('sign-in', function () {
-    return this.app.client.$('#signInBtn').click()
+    this.app.client.$('#signInBtn').click()
+    this.app.client.waitUntil(this.app.client.isExisting('#signInBtn')).then(function(){
+    	this.app.client.$('#signInBtn').click()
+    })
+    return
+	    //() =>
       // Please note that getWindowCount() will return 2 if `dev tools` are opened.
       // assert.equal(count, 2)
     })
