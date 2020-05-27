@@ -36,4 +36,6 @@ jobs:
 
           # If the commit is tagged with a version (e.g. "v1.0.0"),
           # release the app after building
+          run: echo "head ref = $github.ref"
+          run: echo "ref = $github.ref"
           release: ${{ startsWith(github.ref, 'refs/tags/v') }}
