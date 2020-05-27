@@ -1,7 +1,7 @@
 # Source
 # https://github.com/samuelmeuli/action-electron-builder
 
-name: Build/release
+name: Build/Release
 
 on: [pull_request]
 
