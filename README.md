@@ -46,7 +46,7 @@ Integration Testing
   
   Nothing is currently being enforced off of these results.
   
-    ```bash
+  ```bash
   npm run test:unit_cov
   npm run test:unit_cov_html
   ```
@@ -60,6 +60,7 @@ Integration Testing
   To create your own local exe. This will be located
   in a created folder dist which will reside in the
   root dir.
+  
   ```bash
   npm run manual:build
   ```
@@ -71,10 +72,12 @@ Integration Testing
   into master. On top of that you will need to make
   sure that you follow the following steps.
   
-    1. Update the version in your project's package.json file (e.g. 1.2.3)
-    2. Commit that change (git commit -am v1.2.3)
-    3. Tag your commit (git tag v1.2.3). Make sure your tag name's format is
-    v*.*.*. Your workflow will use this tag to detect when to create a release.
-    4. Push your changes to GitHub (git push && git push --tags)
+    1. Make sure you are working in the release branch
+    2. Update the version in your project's package.json file (e.g. 1.2.3)
+    3. Commit that change (git commit -am v1.2.3)
+    4. Tag your commit (git tag v1.2.3). Make sure your tag name's format is
+        v*.*.*. Your workflow will use this tag to detect when to create a release.
+    5. Push your changes to GitHub (git push && git push --tags)
+    6. Create a pull request to merge changes into master.
     
   After the build check under the release tab in Github.
