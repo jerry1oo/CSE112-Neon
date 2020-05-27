@@ -57,11 +57,12 @@ function addTask(parent,text){
 }
 const jsdom = require('jsdom')
 const {JSDOM} = jsdom;
-const dom = new JSDOM(`<!DOCTYPE html>`);
-var div = dom.window.document.createElement('div'); 
+//const dom = new JSDOM('<!DOCTYPE html>');
+//var div = dom.window.document.createElement('div'); 
 var html = '`<input type="text" id="Task1" value="">' +
            '<input type="text" id="Task2" value="">'+
            '<input type="text" id="Task3" value="">';
-div.innerHTML = html;
+//div.innerHTML = html;
+const dom = new JSDOM(html);
 dom.window.document.getElementById("Task1").value = "This Test Better Work!";
 console.log(dom.window.document.getElementById("Task1").value);
