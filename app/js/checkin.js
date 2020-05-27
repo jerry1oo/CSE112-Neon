@@ -164,7 +164,7 @@ prevList.addEventListener("click", function(event){
                 type: 'error',
                 title: 'Error',
                 message: errorMessage
-            }); ,
+            }); 
         }
     }
     else if(target.innerText=="Delete"){
