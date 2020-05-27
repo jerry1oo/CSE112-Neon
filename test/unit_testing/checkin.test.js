@@ -1,7 +1,9 @@
 
 //const {dialog}  = require('electron').remote;
-const checkin = require("../../app/js/checkin.js");
+//const checkin = require("../../app/js/checkin.js");
 //import {startFlow, checkTeams,dialog} from '../../app/js/checkin.js';
+/*
+var firebase = require('firebase');
 var firebaseConfig = {
     apiKey: "AIzaSyBmn_tDSlm4lLdrvSqj8Yb00KkYae8cL-Y",
     authDomain: "neon-pulse-development.firebaseapp.com",
@@ -15,11 +17,51 @@ var firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 var db = firebase.firestore();
-localStorage.setItem('userid', 'odkSxashOmg9QeyRL2cRs00Jke12');
-var uid = localStorage.getItem('userid');
+var uid = 'odkSxashOmg9QeyRL2cRs00Jke12';
+//localStorage.setItem('userid', 'odkSxashOmg9QeyRL2cRs00Jke12');
 var teamName = "neon";
-var div = document.createElement('div'); 
-var html = '<textarea rows="4" cols="80" placeholder="Your Goal Here" id="goalText"></textarea>';
+/*
+function startFlow() {
+    console.log("tv1",task1.value)
+    var obj = {
+    	checkedIn: true,
+        task1: task1.value,
+        task2: task2.value,
+        task3: task3.value,
+    	taskStatus: 1
+    }
+    db.collection("teams").doc(teamName).collection(uid).doc("status").set(obj)
+        .then(function() {
+            console.log("Document written");
+            document.location.href = 'taskbar.html'
+        })
+        .catch(function(error) {
+        	dialog.showMessageBox({
+	            type: 'error',
+	            title: 'Error',
+	            message: error.message
+	        });
+            console.error("Error adding document: ", error);
+            document.location.href = 'taskbar.html'
+        });
+}
+*/
+function addTask(parent,text){
+    let task = `
+        <li>
+            <input style="display: inline-block;" value = "${text}">
+            <button class="bt">Add</button>
+            <button class="bt">Delete</button>
+        </li>`
+    parent.insertAdjacentHTML('beforeend', task);
+}
+const jsdom = require('jsdom')
+const {JSDOM} = jsdom;
+const dom = new JSDOM(`<!DOCTYPE html>`);
+var div = dom.window.document.createElement('div'); 
+var html = '`<input type="text" id="Task1" value="">' +
+           '<input type="text" id="Task2" value="">'+
+           '<input type="text" id="Task3" value="">';
 div.innerHTML = html;
-document.getElementById("goalText").value = "This Test Better Work!";
-console.log(document.getElementById("goalText").value);
+dom.window.document.getElementById("Task1").value = "This Test Better Work!";
+console.log(dom.window.document.getElementById("Task1").value);
