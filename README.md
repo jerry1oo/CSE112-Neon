@@ -67,10 +67,7 @@ Integration Testing
 
 
 ## Release
-  This is done through Gitub Actions. To do so ensure
-  that you are making a Pull Request from branch dev
-  into master. On top of that you will need to make
-  sure that you follow the following steps.
+  This is done through Gitub Actions.
   
     1. Make sure you are working in the release branch
     2. Update the version in your project's package.json file (e.g. 1.2.3)
