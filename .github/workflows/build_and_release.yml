@@ -1,6 +1,8 @@
 # Source
 # https://github.com/samuelmeuli/action-electron-builder
 
+# See README on use
+
 name: Build_And_Release
 
 on:
@@ -9,7 +11,7 @@ on:
       - release
 
 jobs:
-  release:
+  build_and_release:
     runs-on: ${{ matrix.os }}
 
     strategy:

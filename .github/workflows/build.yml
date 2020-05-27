@@ -1,21 +1,23 @@
 # Source
 # https://github.com/samuelmeuli/action-electron-builder
 
+# Runs on any pull request based on any branch that is not release
+# This action only ensures that the electron app is buildable
 name: Build
 
 on:
   pull_request:
     branches:
-      - !release
+      - '*'
+      - '!release'
 
 jobs:
-  release:
+  build:
     runs-on: ${{ matrix.os }}
 
     strategy:
       matrix:
         os: [macos-latest, windows-latest]
-        #os: [macos-latest, ubuntu-latest, windows-latest]
 
     steps:
 
