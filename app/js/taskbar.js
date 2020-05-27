@@ -191,8 +191,11 @@ function joinTeam() {
 }
 
 function leaveTeam() {
+    // Attempt to remove the status document from the corresponding user in the team document
     db.collection("teams").doc(teamName).collection(uid).doc("status").delete().then(function() {
         console.log("Successfully removed status document from teams collection");
+
+        // If successful, also remove the uid=true field from the team document
         var docRef = db.collection("teams").doc(teamName);
         docRef.update({
             [uid]: firebase.firestore.FieldValue.delete()
