@@ -21,9 +21,9 @@ jobs:
 
     steps:
       - name: echo1
-        run: echo "head ref = $github.ref"
+        run: echo "head ref = ${{github.head_ref}}"
       - name: echo2
-        run: echo "ref = $github.ref"
+        run: echo "ref = ${{github.ref}}"
 
 
       - name: Check out Git repository
