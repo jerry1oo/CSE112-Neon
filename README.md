@@ -70,11 +70,12 @@ Integration Testing
   This is done through Gitub Actions.
   
     1. Make sure you are working in the release branch
-    2. Update the version in your project's package.json file (e.g. 1.2.3)
-    3. Commit that change (git commit -am v1.2.3)
-    4. Tag your commit (git tag v1.2.3). Make sure your tag name's format is
-        v*.*.*. Your workflow will use this tag to detect when to create a release.
-    5. Push your changes to GitHub (git push && git push --tags)
-    6. Create a pull request to merge changes into master.
+    2. Merge master into release
+    3. Update the version in your project's package.json file (e.g. 1.2.3)
+    4. Commit that change (git commit -am v1.2.3)
+    5. Tag your commit (git tag v1.2.3). Make sure your tag name's format is
+       v*.*.*. Your workflow will use this tag to detect when to create a release.
+    6. Push your changes to GitHub (git push && git push --tags)
+    7. Create a pull request to merge changes into master.
     
   After the build check under the release tab in Github.
