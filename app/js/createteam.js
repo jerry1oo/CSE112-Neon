@@ -25,7 +25,15 @@ joinTeamButton.addEventListener("click", function() {
     db.collection("teams").doc(teamName).set(obj)
         .then(function() {
             console.log("Document written");
-            document.location.href = "taskbar.html"
+            var objNew = {}
+            objNew["progress"] = 0
+            db.collection("thermometers").doc(teamName).set(objNew).then(function() {
+                    console.log("Document written");
+                    document.location.href = "taskbar.html"
+                })
+                .catch(function(error) {
+                    console.error("Error adding document: ", error);
+                })
         })
         .catch(function(error) {
             console.error("Error adding document: ", error);
