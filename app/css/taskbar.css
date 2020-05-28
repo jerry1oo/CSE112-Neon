@@ -57,6 +57,12 @@ body {
       padding-bottom: 15px;
       padding-right: 8%;
   }
+
+  .bottom{
+    position: relative;
+    bottom: -250px;
+  }
+
   h2{
       margin-top: 10%;
       margin-bottom: 15%;
