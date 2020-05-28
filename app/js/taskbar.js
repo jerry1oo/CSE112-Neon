@@ -83,11 +83,11 @@ var endFlowButton = document.getElementById("endFlowButton")
 endFlowButton.addEventListener("click", () => endFlow())
 
 var flowDiv = document.getElementById("flowDiv")
-var teamDiv = document.getElementById("teamDiv")
 var teamNoneDiv = document.getElementById("teamNoneDiv")
 var teamExistsDiv = document.getElementById("teamExistsDiv")
+var teamStatusesDiv = document.getElementById("teamStatusesDiv")
 flowDiv.style.display = "none"
-teamDiv.style.display = "none"
+teamNoneDiv.style.display = "none"
 teamExistsDiv.style.display = "none"
 endFlowButton.style.display = "none"
 
@@ -121,13 +121,12 @@ function checkTeams() {
                     teamName = doc.id
                     checkStatus()
                 });
-                teamNoneDiv.style.display = "none"
                 teamExistsDiv.style.display = "block"
                 var h2 = document.getElementById("teamName")
                 h2.innerHTML = teamName
                 getTeam()
             } else {
-                teamDiv.style.display = "block"
+                teamNoneDiv.style.display = "block"
                 console.log("Team not found")
             }
         })
@@ -162,7 +161,7 @@ function getTeam() {
 
 function checkStatus() {
     flowDiv.style.display = "block"
-    teamDiv.style.display = "block"
+    teamExistsDiv.style.display = "block"
 
     var docRef = db.collection("teams").doc(teamName).collection(uid).doc("status")
     docRef.get()
@@ -229,7 +228,7 @@ function addTeamMember(name, status){
     member_elem.innerHTML = name;
     member_elem.id = "name_" + name;
     namelist.appendChild(member_elem);
-    if(init) {teamExistsDiv.appendChild(namelist);}
+    if(init) {teamStatusesDiv.appendChild(namelist);}
 
     init = false;
     var statuslist = document.getElementById("status_list");
@@ -242,7 +241,7 @@ function addTeamMember(name, status){
     status_elem.innerHTML = status_emoji[status];
     status_elem.id = "status_" + name;
     statuslist.appendChild(status_elem);
-    if(init) {teamExistsDiv.appendChild(statuslist);}
+    if(init) {teamStatusesDiv.appendChild(statuslist);}
 }
 
 /* Adds a listener to the status of the given user with id
