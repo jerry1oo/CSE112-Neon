@@ -31,6 +31,8 @@ body {
     float: left;
     background-color: #d5defd;
     text-align: center;
+    position: relative;
+    display: none;
   }
   
   /* Control the right side */
@@ -40,6 +42,19 @@ body {
     float: right;
     background-color: #edf1fe;
     text-align: center;
+    position: relative;
+    display: none;
+  }
+
+  /* Control the center */
+  .center {
+    width: 40%;
+    height: 365px;
+    background-color: #edf1fe;
+    text-align: center;
+    position: fixed;
+    left: 30%;
+    display: none;
   }
 
   .user{
@@ -56,11 +71,6 @@ body {
       padding-top: 15px;
       padding-bottom: 15px;
       padding-right: 8%;
-  }
-
-  .bottom{
-    position: relative;
-    bottom: -250px;
   }
 
   h2{
@@ -120,4 +130,15 @@ ul.list li:nth-child(1){
 
 #status_list li.hide { 
   opacity: 0; 
+}
+
+#leaveTeamButton {
+  background-color: #b30000;
+  color: white;
+  font-weight: bold;
+  width: 50%;
+  border-radius: 5px;
+  position: absolute;
+  left: 25%;
+  bottom: 20px;
 }
