@@ -38,21 +38,21 @@ function checkTeams() {
           teamName = doc.id;
         });
       } else {
-            	dialog.showMessageBox({
-		            type: 'error',
-		            title: 'Error',
-		            message: errorMessage,
-		        });
+        dialog.showMessageBox({
+          type: 'error',
+          title: 'Error',
+          message: errorMessage,
+        });
         console.log('Team not found');
         document.location.href = 'taskbar.html';
       }
     })
     .catch((error) => {
-        	dialog.showMessageBox({
-	            type: 'error',
-	            title: 'Error',
-	            message: errorMessage,
-	        });
+      dialog.showMessageBox({
+        type: 'error',
+        title: 'Error',
+        message: errorMessage,
+      });
       console.log('Error getting documents: ', error);
       document.location.href = 'taskbar.html';
     });
@@ -105,11 +105,11 @@ startFlowButton.addEventListener('click', () => startFlow());
 function startFlow() {
   console.log('tv1', task1.value);
   const obj = {
-    	checkedIn: true,
+    checkedIn: true,
     task1: task1.value,
     task2: task2.value,
     task3: task3.value,
-    	taskStatus: 1,
+    taskStatus: 1,
   };
   db.collection('teams').doc(teamName).collection(uid).doc('status')
     .set(obj)
@@ -118,11 +118,11 @@ function startFlow() {
       document.location.href = 'taskbar.html';
     })
     .catch((error) => {
-        	dialog.showMessageBox({
-	            type: 'error',
-	            title: 'Error',
-	            message: error.message,
-	        });
+      dialog.showMessageBox({
+        type: 'error',
+        title: 'Error',
+        message: error.message,
+      });
       console.error('Error adding document: ', error);
       document.location.href = 'taskbar.html';
     });
