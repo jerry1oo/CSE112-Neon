@@ -22,6 +22,7 @@
  "scripts": {
   "start": "electron .",
   "lint": "eslint ./app/",
+  "lint_autofix": "eslint ./app/ --fix",
   "prepush": "npm run lint && npm test:unit",
   "test:unit": "mocha ./test/unit_testing/*.js",
   "test:unit_cov": "nyc mocha test:unit",
