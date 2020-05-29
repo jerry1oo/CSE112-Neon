@@ -36,6 +36,11 @@
   "manual:build": "electron-builder",
   "manual:release": "electron-builder --windows --publish always"
  },
+  "husky": {
+    "hooks": {
+      "pre-push": "npm test:unit"
+    }
+  },
  "nyc": {
   "_comment": "Purpose of this part: to do code coverage within Mocha/Chai using Istanbul",
   "register": "babel-register",
