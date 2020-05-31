@@ -174,3 +174,8 @@ function endFlow() {
             document.location.href = 'taskbar.html'
         });
 }
+
+var cancelButton = document.getElementById("cancelBtn")
+cancelButton.addEventListener("click", () => cancel())
+
+function cancel() { document.location.href = "taskbar.html" }

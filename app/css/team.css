@@ -49,3 +49,5 @@ ul.list li input[type="button"] {
 ul.list li:nth-child(2) {
     margin-top: 10%;
 }
+
+ul.list li input[type="button"]:hover {background-color: #0375fb;}
