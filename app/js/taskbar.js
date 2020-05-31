@@ -26,6 +26,14 @@ var db = firebase.firestore();
 var uid = localStorage.getItem('userid')
 var uname = localStorage.getItem('displayName')
 
+// Play audio based on previous URL
+function playAudio() {
+    var audio = document.getElementById("ding")
+    audio.play()
+}
+
+playAudio()
+
 //Create user doc if not present in firebase, 
 //if the user is present, this will simply updates its status to online
 var ref = db.collection("users").doc(uid);
