@@ -12,14 +12,14 @@ var firebaseConfig = {
 };
 
 var status_emoji = {
-    'Online': '😀',
-    'Offline': '😴',
-    'Coding': '👨‍💻',
-    'Researching': '👀',
-    'Documenting': '📝',
-    'Meeting': '👥'
-}
-// Initialize Firebase
+        'Online': '😀',
+        'Offline': '😴',
+        'Coding': '👨‍💻',
+        'Researching': '👀',
+        'Documenting': '📝',
+        'Meeting': '👥'
+    }
+    // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 var db = firebase.firestore();
 // User info
@@ -29,15 +29,14 @@ var uname = localStorage.getItem('displayName')
 //Create user doc if not present in firebase, 
 //if the user is present, this will simply updates its status to online
 var ref = db.collection("users").doc(uid);
-ref.get().then(function(doc){
-    if(doc.exists){
-        ref.update({ 
+ref.get().then(function(doc) {
+    if (doc.exists) {
+        ref.update({
             "displayName": uname,
             "userStatus": 'Online'
         });
-    }
-    else{
-        ref.set({ 
+    } else {
+        ref.set({
             "displayName": uname,
             "userStatus": 'Online'
         });
@@ -46,15 +45,15 @@ ref.get().then(function(doc){
 
 // Top user information logistics
 document.getElementById('username').innerHTML = uname;
-document.getElementById("userStatus").onchange = function(){
+document.getElementById("userStatus").onchange = function() {
     var value = document.getElementById("userStatus").value;
     db.collection("users").doc(uid).update({
-        "userStatus": value
-    })
-    .catch(function(error) {
-        console.error("Error attempting to change user status: ", error);
-    });
- };
+            "userStatus": value
+        })
+        .catch(function(error) {
+            console.error("Error attempting to change user status: ", error);
+        });
+};
 
 // Top right log out button logistics
 var logoutButton = document.getElementById("logOutBtn")
@@ -92,6 +91,7 @@ teamExistsDiv.style.display = "none"
 endFlowButton.style.display = "none"
 
 function startFlow() { document.location.href = 'checkin.html' }
+
 function endFlow() { document.location.href = 'checkout.html' }
 
 
@@ -112,24 +112,23 @@ checkTeams()
 function checkTeams() {
     db.collection("teams").where(uid, "==", true).get()
         .then(function(querySnapshot) {
-            console.log(querySnapshot.docs)
+            //console.log(querySnapshot.docs)
             if (querySnapshot.docs.length > 0) {
                 querySnapshot.forEach(function(doc) {
                     // doc.data() is never undefined for query doc snapshots
-                    console.log(doc.id, " => ", doc.data());
-                    console.log("Team name: ", doc.id)
+                    //console.log(doc.id, " => ", doc.data());
+                    //console.log("Team name: ", doc.id)
                     teamName = doc.id
                     checkStatus()
                 });
                 teamExistsDiv.style.display = "block"
                 var h2 = document.getElementById("teamName")
                 h2.innerHTML = teamName
-                teamDiv.appendChild(h2)
                 checkThermometer()
                 getTeam()
             } else {
                 teamNoneDiv.style.display = "block"
-                console.log("Team not found")
+                    //console.log("Team not found")
             }
         })
         .catch(function(error) {
@@ -138,22 +137,22 @@ function checkTeams() {
                 title: 'Error',
                 message: error.message
             });
-            console.log("Error getting documents: ", error);
+            //console.log("Error getting documents: ", error);
             document.location.href = 'signin.html'
         });
 }
 
 // Get the team members, and add listeners to their status change
 function getTeam() {
-    db.collection("users").where("team", "==", teamName).get() 
+    db.collection("users").where("team", "==", teamName).get()
         .then(function(querySnapshot) {
             querySnapshot.forEach(function(doc) {
-                console.log(doc.id, " => ", doc.data());
-                console.log(doc.get("userStatus"));
+                //console.log(doc.id, " => ", doc.data());
+                //console.log(doc.get("userStatus"));
                 var displayName = doc.get("displayName");
                 var status = doc.get("userStatus");
-                addTeamMember(displayName,status);
-                addStatusListener(doc.id); 
+                addTeamMember(displayName, status);
+                addStatusListener(doc.id);
             });
         })
         .catch(function(error) {
@@ -217,11 +216,11 @@ function leaveTeam() {
  * name: user's name to display
  * status: user's status, in string
  */
-function addTeamMember(name, status){
-    console.log("Adding member " + name + ", status: " + status);
+function addTeamMember(name, status) {
+    //console.log("Adding member " + name + ", status: " + status);
     var init = false;
     var namelist = document.getElementById("name_list");
-    if(namelist == null){
+    if (namelist == null) {
         init = true;
         namelist = document.createElement("UL");
         namelist.id = 'name_list';
@@ -230,11 +229,11 @@ function addTeamMember(name, status){
     member_elem.innerHTML = name;
     member_elem.id = "name_" + name;
     namelist.appendChild(member_elem);
-    if(init) {teamStatusesDiv.appendChild(namelist);}
+    if (init) { teamStatusesDiv.appendChild(namelist); }
 
     init = false;
     var statuslist = document.getElementById("status_list");
-    if(statuslist == null){
+    if (statuslist == null) {
         init = true;
         statuslist = document.createElement("UL");
         statuslist.id = 'status_list';
@@ -243,7 +242,7 @@ function addTeamMember(name, status){
     status_elem.innerHTML = status_emoji[status];
     status_elem.id = "status_" + name;
     statuslist.appendChild(status_elem);
-    if(init) {teamStatusesDiv.appendChild(statuslist);}
+    if (init) { teamStatusesDiv.appendChild(statuslist); }
 }
 
 var logoutButton = document.getElementById("logOutBtn")
@@ -268,40 +267,55 @@ logoutButton.addEventListener("click", function() {
 function checkThermometer() {
     var thermometer = document.getElementById("thermometer")
 
+    // Checking lastTime was reset
     db.collection("thermometers").doc(teamName)
         .onSnapshot(function(doc) {
             console.log("Current data: ", doc.data());
             var data = doc.data()
             thermometer.value = data.progress
+            var timeDiff = (new Date()).getTime() - data.lastEpoch
+            timeDiff = Math.round(timeDiff / 1000)
+            console.log(timeDiff)
+            var day = 24 * 60 * 60
+            var newDay = new Date()
+            newDay.setHours(0)
+            newDay.setMinutes(0)
+            newDay.setSeconds(0)
+            if (timeDiff > day) {
+                db.collection("thermomemters").doc(teamName).set({
+                    progress: 0,
+                    lastEpoch: newDay.getTime()
+                })
+            }
         });
 }
 
 /* Adds a listener to the status of the given user with id
  * id: user's id
- */ 
+ */
 function addStatusListener(id) {
     db.collection("users").doc(id)
-    .onSnapshot(function(doc) {
-        var displayName = doc.get("displayName");
-        var status = doc.get("userStatus");
-        console.log(displayName + " change status to " + status);
-        onStatusChange(displayName, status)
-    });
+        .onSnapshot(function(doc) {
+            var displayName = doc.get("displayName");
+            var status = doc.get("userStatus");
+            //console.log(displayName + " change status to " + status);
+            onStatusChange(displayName, status)
+        });
 }
 
 /* Change the status of the team member on UI
  * name: user's name
  * status: user's new status
  */
-function onStatusChange(name, status){
+function onStatusChange(name, status) {
     var status_elem = document.getElementById("status_" + name);
-    if(status_elem != null){
+    if (status_elem != null) {
         status_elem.classList.add('hide');
-        setTimeout(function() { 
+        setTimeout(function() {
             status_elem.innerHTML = status_emoji[status];
         }, 500);
-        setTimeout(function() { 
+        setTimeout(function() {
             status_elem.classList.remove('hide')
-        }, 500);   
+        }, 500);
     }
 }
