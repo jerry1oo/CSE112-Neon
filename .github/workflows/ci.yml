@@ -39,16 +39,11 @@ jobs:
       - name: Test
         run: npm run test:int
   coverage:
-    needs: [ integration ]
-    name: coverage
-    runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
-    - uses: actions/setup-node@master
-    - run: npm install -g yarn
-    - run: yarn install
-    - uses: paambaati/codeclimate-action@v2.2.4
-      env:
-        CC_TEST_REPORTER_ID: 37fcffa4d3d415872e41c2b9e2bb013f12dfd60c349824bb93367b533ce93891
-      with:
-        coverageCommand: yarn test:all_cov
+      - name: Test & publish code coverage
+        uses: paambaati/codeclimate-action@v2.6.0
+        env:
+          CC_TEST_REPORTER_ID: 37fcffa4d3d415872e41c2b9e2bb013f12dfd60c349824bb93367b533ce93891
+        with:
+          coverageCommand: npm run test:all_cov
+          debug: true
