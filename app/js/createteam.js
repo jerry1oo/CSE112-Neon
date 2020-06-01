@@ -19,16 +19,23 @@ joinTeamButton.addEventListener('click', () => {
   const teamName = document.getElementById('teamName').value;
   console.log(teamName);
   console.log(teamName);
-
-  db.collection('users').doc(uid).update({ team: teamName });
-  const obj = {};
-  obj[uid] = true;
-  db.collection('teams').doc(teamName).set(obj)
-    .then(() => {
-      console.log('Document written');
-      document.location.href = 'taskbar.html';
-    })
-    .catch((error) => {
-      console.error('Error adding document: ', error);
-    });
-});
+    db.collection("users").doc(uid).update({ "team": teamName}) 
+    var obj = {}
+    obj[uid] = true
+    db.collection("teams").doc(teamName).set(obj)
+        .then(function() {
+            console.log("Document written");
+            var objNew = {}
+            objNew["progress"] = 0
+            db.collection("thermometers").doc(teamName).set(objNew).then(function() {
+                    console.log("Document written");
+                    document.location.href = "taskbar.html"
+                })
+                .catch(function(error) {
+                    console.error("Error adding document: ", error);
+                })
+        })
+        .catch(function(error) {
+            console.error("Error adding document: ", error);
+        });
+})

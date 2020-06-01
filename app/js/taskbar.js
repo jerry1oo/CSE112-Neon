@@ -109,16 +109,36 @@ checkTeams();
  * If so, join the team automatically
  */
 function checkTeams() {
-  db.collection('teams').where(uid, '==', true).get()
-    .then((querySnapshot) => {
-      console.log(querySnapshot.docs);
-      if (querySnapshot.docs.length > 0) {
-        querySnapshot.forEach((doc) => {
-          // doc.data() is never undefined for query doc snapshots
-          console.log(doc.id, ' => ', doc.data());
-          console.log('Team name: ', doc.id);
-          teamName = doc.id;
-          checkStatus();
+    db.collection("teams").where(uid, "==", true).get()
+        .then(function(querySnapshot) {
+            console.log(querySnapshot.docs)
+            if (querySnapshot.docs.length > 0) {
+                querySnapshot.forEach(function(doc) {
+                    // doc.data() is never undefined for query doc snapshots
+                    console.log(doc.id, " => ", doc.data());
+                    console.log("Team name: ", doc.id)
+                    teamName = doc.id
+                    checkStatus()
+                });
+                teamExistsDiv.style.display = "block"
+                var h2 = document.getElementById("teamName")
+                h2.innerHTML = teamName
+                teamDiv.appendChild(h2)
+                checkThermometer()
+                getTeam()
+            } else {
+                teamNoneDiv.style.display = "block"
+                console.log("Team not found")
+            }
+        })
+        .catch(function(error) {
+            dialog.showMessageBox({
+                type: 'error',
+                title: 'Error',
+                message: error.message
+            });
+            console.log("Error getting documents: ", error);
+            document.location.href = 'signin.html'
         });
         teamExistsDiv.style.display = 'block';
         const h2 = document.getElementById('teamName');
@@ -244,6 +264,36 @@ function addTeamMember(name, status) {
   status_elem.id = `status_${name}`;
   statuslist.appendChild(status_elem);
   if (init) { teamStatusesDiv.appendChild(statuslist); }
+}
+
+var logoutButton = document.getElementById("logOutBtn")
+logoutButton.addEventListener("click", function() {
+    firebase.auth().signOut().then(function() {
+        localStorage.removeItem('userid')
+        localStorage.removeItem('email')
+        localStorage.removeItem('displayName')
+        document.location.href = 'signin.html'
+    }).catch(function(error) {
+        // Handle errors
+        dialog.showMessageBox({
+            type: 'error',
+            title: 'Error',
+            message: error.message
+        });
+        console.log(error);
+    })
+})
+
+
+function checkThermometer() {
+    var thermometer = document.getElementById("thermometer")
+
+    db.collection("thermometers").doc(teamName)
+        .onSnapshot(function(doc) {
+            console.log("Current data: ", doc.data());
+            var data = doc.data()
+            thermometer.value = data.progress
+        });
 }
 
 /* Adds a listener to the status of the given user with id
