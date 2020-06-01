@@ -2,7 +2,10 @@
 
 [![Actions Status](https://github.com/cse112-sp20/CSE112-Neon/workflows/unit/badge.svg)](https://github.com/cse112-sp20/CSE112-Neon/actions)
 
+[![Actions Status](https://github.com/cse112-sp20/CSE112-Neon/workflows/integration/badge.svg)](https://github.com/cse112-sp20/CSE112-Neon/actions)
 
+
+[![Actions Status](https://github.com/cse112-sp20/CSE112-Neon/workflows/Build/badge.svg)](https://github.com/cse112-sp20/CSE112-Neon/actions)
 
 
 ## Installing
