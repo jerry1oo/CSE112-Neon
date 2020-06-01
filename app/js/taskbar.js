@@ -124,6 +124,8 @@ function checkTeams() {
                 teamExistsDiv.style.display = "block"
                 var h2 = document.getElementById("teamName")
                 h2.innerHTML = teamName
+                teamDiv.appendChild(h2)
+                checkThermometer()
                 getTeam()
             } else {
                 teamNoneDiv.style.display = "block"
@@ -242,6 +244,36 @@ function addTeamMember(name, status){
     status_elem.id = "status_" + name;
     statuslist.appendChild(status_elem);
     if(init) {teamStatusesDiv.appendChild(statuslist);}
+}
+
+var logoutButton = document.getElementById("logOutBtn")
+logoutButton.addEventListener("click", function() {
+    firebase.auth().signOut().then(function() {
+        localStorage.removeItem('userid')
+        localStorage.removeItem('email')
+        localStorage.removeItem('displayName')
+        document.location.href = 'signin.html'
+    }).catch(function(error) {
+        // Handle errors
+        dialog.showMessageBox({
+            type: 'error',
+            title: 'Error',
+            message: error.message
+        });
+        console.log(error);
+    })
+})
+
+
+function checkThermometer() {
+    var thermometer = document.getElementById("thermometer")
+
+    db.collection("thermometers").doc(teamName)
+        .onSnapshot(function(doc) {
+            console.log("Current data: ", doc.data());
+            var data = doc.data()
+            thermometer.value = data.progress
+        });
 }
 
 /* Adds a listener to the status of the given user with id
