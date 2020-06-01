@@ -39,6 +39,8 @@ jobs:
       - name: Test
         run: npm run test:int
   coverage:
+    runs-on: ubuntu-latest
+    
     steps:
       - name: Test & publish code coverage
         uses: paambaati/codeclimate-action@v2.6.0
