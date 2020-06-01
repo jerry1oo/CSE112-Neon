@@ -83,9 +83,12 @@ var endFlowButton = document.getElementById("endFlowButton")
 endFlowButton.addEventListener("click", () => endFlow())
 
 var flowDiv = document.getElementById("flowDiv")
-var teamDiv = document.getElementById("teamDiv")
+var teamNoneDiv = document.getElementById("teamNoneDiv")
+var teamExistsDiv = document.getElementById("teamExistsDiv")
+var teamStatusesDiv = document.getElementById("teamStatusesDiv")
 flowDiv.style.display = "none"
-teamDiv.style.display = "none"
+teamNoneDiv.style.display = "none"
+teamExistsDiv.style.display = "none"
 endFlowButton.style.display = "none"
 
 function startFlow() { document.location.href = 'checkin.html' }
@@ -98,6 +101,8 @@ var createTeamButton = document.getElementById("createTeamButton")
 createTeamButton.addEventListener("click", () => createTeam())
 var joinTeamButton = document.getElementById("joinTeamButton")
 joinTeamButton.addEventListener("click", () => joinTeam())
+var leaveTeamButton = document.getElementById("leaveTeamButton")
+leaveTeamButton.addEventListener("click", () => leaveTeam())
 
 checkTeams()
 
@@ -116,14 +121,14 @@ function checkTeams() {
                     teamName = doc.id
                     checkStatus()
                 });
-                teamDiv.innerHTML = ""
-                var h2 = document.createElement("h2")
+                teamExistsDiv.style.display = "block"
+                var h2 = document.getElementById("teamName")
                 h2.innerHTML = teamName
                 teamDiv.appendChild(h2)
                 checkThermometer()
                 getTeam()
             } else {
-                teamDiv.style.display = "block"
+                teamNoneDiv.style.display = "block"
                 console.log("Team not found")
             }
         })
@@ -158,7 +163,7 @@ function getTeam() {
 
 function checkStatus() {
     flowDiv.style.display = "block"
-    teamDiv.style.display = "block"
+    teamExistsDiv.style.display = "block"
 
     var docRef = db.collection("teams").doc(teamName).collection(uid).doc("status")
     docRef.get()
@@ -186,6 +191,26 @@ function joinTeam() {
     document.location.href = "jointeam.html"
 }
 
+function leaveTeam() {
+    // Attempt to remove the status document from the corresponding user in the team document
+    db.collection("teams").doc(teamName).collection(uid).doc("status").delete().then(function() {
+        console.log("Successfully removed status document from teams collection");
+
+        // If successful, also remove the uid=true field from the team document
+        var docRef = db.collection("teams").doc(teamName);
+        docRef.update({
+            [uid]: firebase.firestore.FieldValue.delete()
+        }).then(function() {
+            console.log("Successfully removed uid field from teams collection");
+            document.location.href = "taskbar.html"
+        }).catch(function(error) {
+            console.error("Error removing field: ", error);
+        });
+    }).catch(function(error) {
+        console.error("Error removing document: ", error);
+    });
+}
+
 //Utility functions
 
 /* Adds the team member to the team div on UI
@@ -205,7 +230,7 @@ function addTeamMember(name, status){
     member_elem.innerHTML = name;
     member_elem.id = "name_" + name;
     namelist.appendChild(member_elem);
-    if(init) {teamDiv.appendChild(namelist);}
+    if(init) {teamStatusesDiv.appendChild(namelist);}
 
     init = false;
     var statuslist = document.getElementById("status_list");
@@ -218,7 +243,7 @@ function addTeamMember(name, status){
     status_elem.innerHTML = status_emoji[status];
     status_elem.id = "status_" + name;
     statuslist.appendChild(status_elem);
-    if(init) {teamDiv.appendChild(statuslist);}
+    if(init) {teamStatusesDiv.appendChild(statuslist);}
 }
 
 var logoutButton = document.getElementById("logOutBtn")
