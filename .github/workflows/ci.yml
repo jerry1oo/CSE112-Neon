@@ -1,4 +1,4 @@
-name: integration
+name: ci
 
 on: [push]
 #on:
@@ -38,7 +38,7 @@ jobs:
         run: npm ci
       - name: Test
         run: npm run test:int
-   coverage:
+  coverage:
     needs: [ integration ]
     name: coverage
     runs-on: ubuntu-latest
