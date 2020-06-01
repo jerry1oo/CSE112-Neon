@@ -1,5 +1,10 @@
 # CSE112-Neon
 
+[![Actions Status](https://github.com/cse112-sp20/CSE112-Neon/workflows/unit/badge.svg)](https://github.com/cse112-sp20/CSE112-Neon/actions)
+
+
+
+
 ## Installing
 ```bash
 npm install
