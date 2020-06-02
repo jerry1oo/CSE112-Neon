@@ -42,12 +42,11 @@ jobs:
     name: coverage
     runs-on: ubuntu-latest
     steps:
-      - run: sudo npm install -g yarn
-      - run: yarn install
+      - run: sudo npm install
       - name: Test & publish code coverage
         uses: paambaati/codeclimate-action@v2.6.0
         env:
           CC_TEST_REPORTER_ID: 37fcffa4d3d415872e41c2b9e2bb013f12dfd60c349824bb93367b533ce93891
         with:
-          coverageCommand: yarn coverage
+          coverageCommand: npm run coverage
           debug: true
