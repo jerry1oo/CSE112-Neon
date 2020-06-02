@@ -42,7 +42,7 @@ jobs:
     name: coverage
     runs-on: ubuntu-latest
     steps:
-      - run: npm install -g yarn
+      - run: sudo npm install -g yarn
       - run: yarn install
       - name: Test & publish code coverage
         uses: paambaati/codeclimate-action@v2.6.0
