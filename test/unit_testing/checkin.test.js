@@ -1,9 +1,35 @@
+var sinon = require('sinon')
+var fs = require('fs');
+const LocalStorageMock = require('./localStorageMock');
+const path = require('../../app/js/checkin_functions');
+const {startFlow} = path;
+var html;
 
-//const {dialog}  = require('electron').remote;
-//const checkin = require("../../app/js/checkin.js");
-//import {startFlow, checkTeams,dialog} from '../../app/js/checkin.js';
+
 /*
-var firebase = require('firebase');
+fs.readFile(__dirname+ '/../../app/checkin.html', 'utf8', async function(err,data){
+	//console.log('html is: ' + data);
+	html = data;
+});
+console.log(html);
+//const firebase = require('firebase');
+ /*
+ var store = {};
+
+  sinon.spyOn(localStorage, 'getItem').andCallFake(function (key) {
+    return store[key];
+  });
+  sinon.spyOn(localStorage, 'setItem').andCallFake(function (key, value) {
+    return store[key] = value + '';
+  });
+  sinon.spyOn(localStorage, 'clear').andCallFake(function () {
+      store = {};
+  });*/
+
+
+global.localStorage = new LocalStorageMock;
+global.localStorage.setItem('userid', 'odkSxashOmg9QeyRL2cRs00Jke12');
+	/*
 var firebaseConfig = {
     apiKey: "AIzaSyBmn_tDSlm4lLdrvSqj8Yb00KkYae8cL-Y",
     authDomain: "neon-pulse-development.firebaseapp.com",
@@ -19,7 +45,7 @@ firebase.initializeApp(firebaseConfig);
 var db = firebase.firestore();
 var uid = 'odkSxashOmg9QeyRL2cRs00Jke12';
 //localStorage.setItem('userid', 'odkSxashOmg9QeyRL2cRs00Jke12');
-var teamName = "neon";
+var teamName = "neon";*/
 /*
 function startFlow() {
     console.log("tv1",task1.value)
@@ -45,7 +71,7 @@ function startFlow() {
             document.location.href = 'taskbar.html'
         });
 }
-*/
+
 function addTask(parent,text){
     let task = `
         <li>
@@ -54,15 +80,42 @@ function addTask(parent,text){
             <button class="bt">Delete</button>
         </li>`
     parent.insertAdjacentHTML('beforeend', task);
-}
+}*/
 const jsdom = require('jsdom')
 const {JSDOM} = jsdom;
 //const dom = new JSDOM('<!DOCTYPE html>');
-//var div = dom.window.document.createElement('div'); 
+//var div = dom.window.document.createElement('div');
+/*
 var html = '`<input type="text" id="Task1" value="">' +
            '<input type="text" id="Task2" value="">'+
-           '<input type="text" id="Task3" value="">';
+           '<input type="text" id="Task3" value="">'+
+           '<button id="startFlowBtn" style="display: block;">Start My Flow</button>';
+global.DOMParser = new JSDOM().window.DOMParser
+const parser = new global.DOMParser();*/
 //div.innerHTML = html;
-const dom = new JSDOM(html);
-dom.window.document.getElementById("Task1").value = "This Test Better Work!";
-console.log(dom.window.document.getElementById("Task1").value);
+
+fs.readFile(__dirname+ '/../../app/checkin.html', 'utf8', async function(err,data){
+	//console.log('html is: ' + data);
+	html = data;
+	const dom = new JSDOM(html);
+	console.log(html);
+        global.document = dom.window.document;
+	//var checkPrevTask = sinon.stub('checkPrevTask');
+	//var checkin = require("../../app/js/checkin.js")
+	//checkstub = sinon.stub(checkin, 'checkPrevTask');
+
+
+});
+
+
+//const dom = new JSDOM(html);
+//dom.window.document.getElementById("Task1").value = "This Test Better Work!";
+//let parser = new DOMParser()*/
+//global.document = parser.parseFromString('../../app/checkin.html','text/html');
+
+//global.document = dom.window.document;
+//const checkin = require("../../app/js/checkin.js");
+
+//dom.window.document.getElementById("Task1").value = "This Test Better Work!";
+//console.log(dom.window.document.getElementById("Task1").value);
+
