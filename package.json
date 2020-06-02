@@ -36,6 +36,7 @@
   "test:all_cov": "nyc npm run test:all",
   "test:all_cov_lcov": "nyc --reporter=lcov npm run test:all",
   "test:all_cov_html": "nyc --reporter=html npm run test:all",
+  "coverage": "rm -rf ./node_modules/.cache && rm -rf coverage/ && rm -rf .nyc_output/ && NODE_ENV=test LOG_LEVEL=silent nyc tape -r ts-node/register/transpile-only npm run test:unit",
   "manual:postinstall": "electron-builder install-app-deps",
   "manual:build": "electron-builder",
   "manual:release": "electron-builder --windows --publish always"
@@ -74,7 +75,8 @@
   "husky": "^4.2.5",
   "mocha": "^7.1.2",
   "nyc": "^15.0.1",
-  "spectron": "^10.0.1"
+  "spectron": "^10.0.1",
+  "tape": "4.13.0"
  },
  "dependencies": {
   "express": "^4.17.1",

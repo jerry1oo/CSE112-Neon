@@ -39,15 +39,15 @@ jobs:
       - name: Test
         run: npm run test:int
   coverage:
+    name: coverage
     runs-on: ubuntu-latest
-    
     steps:
-      - name: setup
-        run: npm install
+      - run: npm install -g yarn
+      - run: yarn install
       - name: Test & publish code coverage
         uses: paambaati/codeclimate-action@v2.6.0
         env:
           CC_TEST_REPORTER_ID: 37fcffa4d3d415872e41c2b9e2bb013f12dfd60c349824bb93367b533ce93891
         with:
-          coverageCommand: npm run test:unit_cov_lcov
+          coverageCommand: yarn coverage
           debug: true
