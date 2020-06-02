@@ -44,14 +44,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - run: sudo npm install
-      - run: pwd
-      - run: ls
-      - run: ls ..
+      - run: npm install
       - name: Test & publish code coverage
         uses: paambaati/codeclimate-action@v2.6.0
         env:
           CC_TEST_REPORTER_ID: 37fcffa4d3d415872e41c2b9e2bb013f12dfd60c349824bb93367b533ce93891
         with:
-          coverageCommand: npm run test:unit_cov_lcov
+          coverageCommand: npm run test:all_cov_lcov
           debug: true
