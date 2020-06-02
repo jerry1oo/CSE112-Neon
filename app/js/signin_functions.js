@@ -6,4 +6,4 @@ function guidVal() {
     return `${s4() + s4()}-${s4()}-${s4()}`;
 }
 
-export {guidVal};
+module.exports = guidVal;

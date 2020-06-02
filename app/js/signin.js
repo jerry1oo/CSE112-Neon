@@ -1,9 +1,5 @@
-import {guidVal} from './signin_functions.js';
-
 const { dialog } = require('electron').remote;
 const { shell } = require('electron');
-//var signin_functions = require('./signin_functions');
-//var guidVal = signin_functions;
 
 const firebaseConfig = {
   apiKey: 'AIzaSyBmn_tDSlm4lLdrvSqj8Yb00KkYae8cL-Y',
@@ -23,6 +19,7 @@ const signInBtn = document.getElementById('signInBtn');
 
 let intervalVar;
 signInBtn.addEventListener('click', () => {
+  console.log("here");
   const guid = guidVal();
   intervalVar = setInterval(() => {
     const xhr = new XMLHttpRequest();

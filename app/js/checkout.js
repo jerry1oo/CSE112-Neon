@@ -1,6 +1,4 @@
 const { dialog } = require('electron').remote;
-const checkout_functions = require('./checkout_functions.js');
-const {checkTeams, createGoalList, updateGoal, endFlow, updateThermometer, cancel} = checkout_functions;
 
 const firebaseConfig = {
   apiKey: 'AIzaSyBmn_tDSlm4lLdrvSqj8Yb00KkYae8cL-Y',
