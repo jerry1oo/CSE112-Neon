@@ -43,6 +43,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: sudo npm install
+      - run: pwd
+      - run: ls
       - name: Test & publish code coverage
         uses: paambaati/codeclimate-action@v2.6.0
         env:
