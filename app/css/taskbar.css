@@ -8,7 +8,6 @@ body {
     color: black;
     font-family: Monserrat;
 }
-
 .container{
     width: 70%;
     margin: auto;
@@ -32,6 +31,8 @@ body {
     float: left;
     background-color: #d5defd;
     text-align: center;
+    position: relative;
+    display: none;
   }
   
   /* Control the right side */
@@ -41,6 +42,19 @@ body {
     float: right;
     background-color: #edf1fe;
     text-align: center;
+    position: relative;
+    display: none;
+  }
+
+  /* Control the center */
+  .center {
+    width: 40%;
+    height: 365px;
+    background-color: #edf1fe;
+    text-align: center;
+    position: fixed;
+    left: 30%;
+    display: none;
   }
 
   .user{
@@ -58,6 +72,7 @@ body {
       padding-bottom: 15px;
       padding-right: 8%;
   }
+
   h2{
       margin-top: 10%;
       margin-bottom: 15%;
@@ -87,4 +102,43 @@ ul.list li input[type="button"]{
 }
 ul.list li:nth-child(1){
     margin-top: 20%;
+}
+
+#name_list{
+  list-style: none;
+  float: left;
+  padding-left: 10%;
+}
+
+#name_list li{
+  font-size: 15px;
+  text-align: left;
+  padding-bottom: 8px;
+}
+
+#status_list{
+  list-style: none;
+  float: right;
+  padding-right: 10%;
+}
+
+#status_list li{
+  font-size: 15px;
+  opacity: 1; 
+  transition: all 0.5s;
+}
+
+#status_list li.hide { 
+  opacity: 0; 
+}
+
+#leaveTeamButton {
+  background-color: #b30000;
+  color: white;
+  font-weight: bold;
+  width: 50%;
+  border-radius: 5px;
+  position: absolute;
+  left: 25%;
+  bottom: 20px;
 }

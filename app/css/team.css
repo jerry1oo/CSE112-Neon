@@ -1,41 +1,43 @@
 body {
     background-color: #EFF1F8;
-    color:black;
+    color: black;
     font-family: 'Times New Roman', Times, serif;
-  }
-  
-@font-face{
+}
+
+@font-face {
     font-family: Montserrat;
     src: url(../assets/font/montserrat-regular.woff);
 }
 
-h1{
-    margin-top: 10%;
+h1 {
+    margin-top: 7%;
     text-align: center;
     margin-bottom: 10%;
-    font-size: 70px;
+    font-size: 50px;
     font-family: Montserrat;
     font-weight: bolder;
-
 }
 
-ul.list{
+ul.list {
     list-style-type: none;
     text-align: center;
     margin-right: 6%;
 }
-ul.list li{
+
+ul.list li {
     margin-bottom: 10px;
     font-size: 10px;
 }
-ul.list li input{
+
+ul.list li input {
     width: 65%;
     padding: 10px 0px;
     border: none;
     border-radius: 5px;
     padding-left: 20px;
 }
-ul.list li input[type="button"]{
+
+ul.list li input[type="button"] {
     background-color: #687089;
     color: white;
     font-weight: bold;
@@ -43,4 +45,9 @@ ul.list li input[type="button"]{
     border-radius: 15px;
     padding-right: 20px;
 }
-  
+
+ul.list li:nth-child(2) {
+    margin-top: 10%;
+}
+
+ul.list li input[type="button"]:hover {background-color: #0375fb;}

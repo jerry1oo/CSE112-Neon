@@ -64,6 +64,21 @@ ul.list li input,ul.prevList li input{
     padding-right: 20px;
 }
 
+#cancelBtn{
+    background-color: #687089;
+    color: white;
+    font-weight: bold;
+    width: 40%;
+    border-radius: 15px;
+
+    position: fixed;
+    left:30%;
+    bottom: 6%;
+    padding: 10px 0px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
 #addTasks{
     background-color: #687089;
     color: white;
@@ -100,6 +115,7 @@ ul.list li select{
 
 
 #startFlowBtn:hover{background-color: #0375fb;}
+#cancelBtn:hover{background-color: #0375fb;}
 #addTasks:hover{background-color: #0375fb;}
 .bt:hover{background-color: #0375fb;}
 
