@@ -30,13 +30,14 @@ function checkTeams() {
                 });
                 updateGoal()
             } else {
+
                 dialog.showMessageBox({
                     type: 'error',
                     title: 'Error',
                     message: errorMessage
                 });
                 console.log("Team not found")
-                document.location.href = 'taskbar.html'
+                    //document.location.href = 'taskbar.html'
             }
         })
         .catch(function(error) {
@@ -46,7 +47,7 @@ function checkTeams() {
                 message: errorMessage
             });
             console.log("Error getting documents: ", error);
-            document.location.href = 'taskbar.html'
+            //document.location.href = 'taskbar.html'
         });
         updateGoal();
       } else {
@@ -150,7 +151,7 @@ function updateGoal() {
                 message: error.message
             });
             console.error("Error getting data: ", error);
-            document.location.href = 'taskbar.html'
+            //document.location.href = 'taskbar.html'
         });
 }
 
@@ -202,7 +203,7 @@ function endFlow() {
                 message: error.message
             });
             console.error("Error adding document: ", error);
-            document.location.href = 'taskbar.html'
+            //document.location.href = 'taskbar.html'
         });
 }
 
@@ -242,22 +243,37 @@ function updateThermometer() {
     db.collection("thermometers").doc(teamName)
         .get()
         .then(function(querySnapshot) {
-            var currProgress = querySnapshot.data().progress
-            currProgress += (tasksCompleted * 10)
-            db.collection("thermometers").doc(teamName).set({
-                "progress": currProgress
-            }).then(function() {
-                console.log("Document written")
-            }).catch(function(err) {
-                console.log(err)
-            })
+            var timeDiff = (new Date()).getTime() - querySnapshot.data().lastEpoch
+            timeDiff = Math.round(timeDiff / 1000)
+            console.log(timeDiff)
+            var day = 24 * 60 * 60
+            var newDay = new Date()
+            newDay.setHours(0)
+            newDay.setMinutes(0)
+            newDay.setSeconds(0)
+            if (timeDiff > day) {
+                db.collection("thermomemters").doc(teamName).set({
+                    progress: (tasksCompleted * 10),
+                    lastEpoch: newDay.getTime()
+                }).then(function() {
+                    console.log("Document written")
+                }).catch(function(err) {
+                    console.log(err)
+                })
+            } else {
+                var currProgress = querySnapshot.data().progress
+                currProgress += (tasksCompleted * 10)
+                db.collection("thermometers").doc(teamName).set({
+                    "progress": currProgress,
+                    "lastEpoch": querySnapshot.data().lastEpoch
+                }).then(function() {
+                    console.log("Document written")
+                }).catch(function(err) {
+                    console.log(err)
+                })
+            }
         })
         .catch(function(error) {
-            dialog.showMessageBox({
-                type: 'error',
-                title: 'Error',
-                message: errorMessage
-            });
             console.log("Error getting documents: ", error);
         });
 }

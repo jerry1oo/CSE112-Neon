@@ -11,6 +11,7 @@ const firebaseConfig = {
   measurementId: 'G-VMS6JL8H4S',
 };
 
+
 const status_emoji = {
   Online: '😀',
   Offline: '😴',
@@ -25,6 +26,7 @@ const db = firebase.firestore();
 // User info
 const uid = localStorage.getItem('userid');
 const uname = localStorage.getItem('displayName');
+
 
 // Create user doc if not present in firebase,
 // if the user is present, this will simply updates its status to online
@@ -93,7 +95,6 @@ endFlowButton.style.display = 'none';
 function startFlow() { document.location.href = 'checkin.html'; }
 function endFlow() { document.location.href = 'checkout.html'; }
 
-
 // Right column logistics
 let teamName;
 const createTeamButton = document.getElementById('createTeamButton');
@@ -111,24 +112,23 @@ checkTeams();
 function checkTeams() {
     db.collection("teams").where(uid, "==", true).get()
         .then(function(querySnapshot) {
-            console.log(querySnapshot.docs)
+            //console.log(querySnapshot.docs)
             if (querySnapshot.docs.length > 0) {
                 querySnapshot.forEach(function(doc) {
                     // doc.data() is never undefined for query doc snapshots
-                    console.log(doc.id, " => ", doc.data());
-                    console.log("Team name: ", doc.id)
+                    //console.log(doc.id, " => ", doc.data());
+                    //console.log("Team name: ", doc.id)
                     teamName = doc.id
                     checkStatus()
                 });
                 teamExistsDiv.style.display = "block"
                 var h2 = document.getElementById("teamName")
                 h2.innerHTML = teamName
-                teamDiv.appendChild(h2)
                 checkThermometer()
                 getTeam()
             } else {
                 teamNoneDiv.style.display = "block"
-                console.log("Team not found")
+                    //console.log("Team not found")
             }
         })
         .catch(function(error) {
@@ -137,7 +137,7 @@ function checkTeams() {
                 title: 'Error',
                 message: error.message
             });
-            console.log("Error getting documents: ", error);
+            //console.log("Error getting documents: ", error);
             document.location.href = 'signin.html'
         });
         teamExistsDiv.style.display = 'block';
@@ -162,20 +162,20 @@ function checkTeams() {
 
 // Get the team members, and add listeners to their status change
 function getTeam() {
-  db.collection('users').where('team', '==', teamName).get()
-    .then((querySnapshot) => {
-      querySnapshot.forEach((doc) => {
-        console.log(doc.id, ' => ', doc.data());
-        console.log(doc.get('userStatus'));
-        const displayName = doc.get('displayName');
-        const status = doc.get('userStatus');
-        addTeamMember(displayName, status);
-        addStatusListener(doc.id);
-      });
-    })
-    .catch((error) => {
-      console.log('Error getting documents: ', error);
-    });
+    db.collection("users").where("team", "==", teamName).get()
+        .then(function(querySnapshot) {
+            querySnapshot.forEach(function(doc) {
+                //console.log(doc.id, " => ", doc.data());
+                //console.log(doc.get("userStatus"));
+                var displayName = doc.get("displayName");
+                var status = doc.get("userStatus");
+                addTeamMember(displayName, status);
+                addStatusListener(doc.id);
+            });
+        })
+        .catch(function(error) {
+            console.log("Error getting documents: ", error);
+        });
 }
 
 function checkStatus() {
@@ -288,11 +288,26 @@ logoutButton.addEventListener("click", function() {
 function checkThermometer() {
     var thermometer = document.getElementById("thermometer")
 
+    // Checking lastTime was reset
     db.collection("thermometers").doc(teamName)
         .onSnapshot(function(doc) {
             console.log("Current data: ", doc.data());
             var data = doc.data()
             thermometer.value = data.progress
+            var timeDiff = (new Date()).getTime() - data.lastEpoch
+            timeDiff = Math.round(timeDiff / 1000)
+            console.log(timeDiff)
+            var day = 24 * 60 * 60
+            var newDay = new Date()
+            newDay.setHours(0)
+            newDay.setMinutes(0)
+            newDay.setSeconds(0)
+            if (timeDiff > day) {
+                db.collection("thermomemters").doc(teamName).set({
+                    progress: 0,
+                    lastEpoch: newDay.getTime()
+                })
+            }
         });
 }
 
