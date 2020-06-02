@@ -33,7 +33,7 @@ joinTeamButton.addEventListener("click", function() {
                 obj[uid] = true
                 db.collection("teams").doc(teamName).set(obj)
                     .then(function() {
-                        console.log("Document written");
+                        console.log(uid + " joined team " + teamName);
                         document.location.href = "taskbar.html"
                     })
                     .catch(function(error) {
