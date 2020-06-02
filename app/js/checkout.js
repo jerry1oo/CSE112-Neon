@@ -207,6 +207,10 @@ function endFlow() {
         });
 }
 
+var cancelButton = document.getElementById("cancelBtn")
+cancelButton.addEventListener("click", () => cancel())
+function cancel() { document.location.href = "taskbar.html" }
+
 function updateThermometer() {
     console.log(dict)
     var line1 = document.getElementById("h1")

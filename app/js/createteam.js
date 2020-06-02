@@ -28,7 +28,7 @@ joinTeamButton.addEventListener('click', () => {
             var objNew = {}
             objNew["progress"] = 0
             db.collection("thermometers").doc(teamName).set(objNew).then(function() {
-                    console.log("Document written");
+                    console.log("Created new thermometer for " + teamName);
                     document.location.href = "taskbar.html"
                 })
                 .catch(function(error) {
@@ -39,3 +39,7 @@ joinTeamButton.addEventListener('click', () => {
             console.error("Error adding document: ", error);
         });
 })
+
+var cancelButton = document.getElementById("cancelBtn")
+cancelButton.addEventListener("click", () => cancel())
+function cancel() { document.location.href = "taskbar.html" }

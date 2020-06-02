@@ -183,6 +183,11 @@ document.getElementById('addTasks').addEventListener('click', () => {
   }
 });
 
+
+var cancelButton = document.getElementById("cancelBtn")
+cancelButton.addEventListener("click", () => cancel())
+function cancel() { document.location.href = "taskbar.html" }
+
 todayTask.addEventListener('click', (event) => {
   target = event.target;
   console.log(target.innerText);
