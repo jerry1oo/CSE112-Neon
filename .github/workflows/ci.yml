@@ -47,5 +47,5 @@ jobs:
         env:
           CC_TEST_REPORTER_ID: 37fcffa4d3d415872e41c2b9e2bb013f12dfd60c349824bb93367b533ce93891
         with:
-          coverageCommand: npm run test:all_cov
+          coverageCommand: npm run test:all_cov_lcov
           debug: true
