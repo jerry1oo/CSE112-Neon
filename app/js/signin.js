@@ -1,5 +1,7 @@
 const { dialog } = require('electron').remote;
 const { shell } = require('electron');
+const signin_functions = require('./signin_functions.js');
+const {guidVal} = signin_functions;
 
 const firebaseConfig = {
   apiKey: 'AIzaSyBmn_tDSlm4lLdrvSqj8Yb00KkYae8cL-Y',
@@ -17,13 +19,6 @@ const db = firebase.firestore();
 
 const signInBtn = document.getElementById('signInBtn');
 
-function guidVal() {
-  const s4 = () => Math.floor((1 + Math.random()) * 0x10000)
-    .toString(16)
-    .substring(1);
-  // return id of format 'aaaaaaaa'-'aaaa'-'aaaa'-'aaaa'-'aaaaaaaaaaaa'
-  return `${s4() + s4()}-${s4()}-${s4()}`;
-}
 let intervalVar;
 signInBtn.addEventListener('click', () => {
   const guid = this.guidVal();
