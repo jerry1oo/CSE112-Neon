@@ -1,112 +1,112 @@
 const { dialog } = require('electron').remote;
 
-var firebaseConfig = {
-    apiKey: "AIzaSyBmn_tDSlm4lLdrvSqj8Yb00KkYae8cL-Y",
-    authDomain: "neon-pulse-development.firebaseapp.com",
-    databaseURL: "https://neon-pulse-development.firebaseio.com",
-    projectId: "neon-pulse-development",
-    storageBucket: "neon-pulse-development.appspot.com",
-    messagingSenderId: "240091062123",
-    appId: "1:240091062123:web:babe11f5f03ced38fbb62e",
-    measurementId: "G-VMS6JL8H4S"
+const firebaseConfig = {
+  apiKey: 'AIzaSyBmn_tDSlm4lLdrvSqj8Yb00KkYae8cL-Y',
+  authDomain: 'neon-pulse-development.firebaseapp.com',
+  databaseURL: 'https://neon-pulse-development.firebaseio.com',
+  projectId: 'neon-pulse-development',
+  storageBucket: 'neon-pulse-development.appspot.com',
+  messagingSenderId: '240091062123',
+  appId: '1:240091062123:web:babe11f5f03ced38fbb62e',
+  measurementId: 'G-VMS6JL8H4S',
 };
 
-var status_emoji = {
-        'Online': '😀',
-        'Offline': '😴',
-        'Coding': '👨‍💻',
-        'Researching': '👀',
-        'Documenting': '📝',
-        'Meeting': '👥'
-    }
-    // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-var db = firebase.firestore();
-// User info
-var uid = localStorage.getItem('userid')
-var uname = localStorage.getItem('displayName')
 
-//Create user doc if not present in firebase, 
-//if the user is present, this will simply updates its status to online
-var ref = db.collection("users").doc(uid);
-ref.get().then(function(doc) {
-    if (doc.exists) {
-        ref.update({
-            "displayName": uname,
-            "userStatus": 'Online'
-        });
-    } else {
-        ref.set({
-            "displayName": uname,
-            "userStatus": 'Online'
-        });
-    }
+const status_emoji = {
+  Online: '😀',
+  Offline: '😴',
+  Coding: '👨‍💻',
+  Researching: '👀',
+  Documenting: '📝',
+  Meeting: '👥',
+};
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+// User info
+const uid = localStorage.getItem('userid');
+const uname = localStorage.getItem('displayName');
+
+
+// Create user doc if not present in firebase,
+// if the user is present, this will simply updates its status to online
+const ref = db.collection('users').doc(uid);
+ref.get().then((doc) => {
+  if (doc.exists) {
+    ref.update({
+      displayName: uname,
+      userStatus: 'Online',
+    });
+  } else {
+    ref.set({
+      displayName: uname,
+      userStatus: 'Online',
+    });
+  }
 });
 
 // Top user information logistics
 document.getElementById('username').innerHTML = uname;
-document.getElementById("userStatus").onchange = function() {
-    var value = document.getElementById("userStatus").value;
-    db.collection("users").doc(uid).update({
-            "userStatus": value
-        })
-        .catch(function(error) {
-            console.error("Error attempting to change user status: ", error);
-        });
+document.getElementById('userStatus').onchange = function () {
+  const { value } = document.getElementById('userStatus');
+  db.collection('users').doc(uid).update({
+    userStatus: value,
+  })
+    .catch((error) => {
+      console.error('Error attempting to change user status: ', error);
+    });
 };
 
 // Top right log out button logistics
-var logoutButton = document.getElementById("logOutBtn")
-logoutButton.addEventListener("click", function() {
-    firebase.auth().signOut().then(function() {
-        localStorage.removeItem('userid')
-        localStorage.removeItem('email')
-        localStorage.removeItem('displayName')
-        document.location.href = 'signin.html'
-    }).catch(function(error) {
-        // Handle errors
-        dialog.showMessageBox({
-            type: 'error',
-            title: 'Error',
-            message: error.message
-        });
-        console.log(error);
-    })
-})
+const logoutButton = document.getElementById('logOutBtn');
+logoutButton.addEventListener('click', () => {
+  firebase.auth().signOut().then(() => {
+    localStorage.removeItem('userid');
+    localStorage.removeItem('email');
+    localStorage.removeItem('displayName');
+    document.location.href = 'signin.html';
+  }).catch((error) => {
+    // Handle errors
+    dialog.showMessageBox({
+      type: 'error',
+      title: 'Error',
+      message: error.message,
+    });
+    console.log(error);
+  });
+});
 
 // Left column logistics
-var startFlowButton = document.getElementById("startFlowButton")
-startFlowButton.addEventListener("click", () => startFlow())
+const startFlowButton = document.getElementById('startFlowButton');
+startFlowButton.addEventListener('click', () => startFlow());
 
-var endFlowButton = document.getElementById("endFlowButton")
-endFlowButton.addEventListener("click", () => endFlow())
+const endFlowButton = document.getElementById('endFlowButton');
+endFlowButton.addEventListener('click', () => endFlow());
 
-var flowDiv = document.getElementById("flowDiv")
-var teamNoneDiv = document.getElementById("teamNoneDiv")
-var teamExistsDiv = document.getElementById("teamExistsDiv")
-var teamStatusesDiv = document.getElementById("teamStatusesDiv")
-flowDiv.style.display = "none"
-teamNoneDiv.style.display = "none"
-teamExistsDiv.style.display = "none"
-endFlowButton.style.display = "none"
+const flowDiv = document.getElementById('flowDiv');
+const teamNoneDiv = document.getElementById('teamNoneDiv');
+const teamExistsDiv = document.getElementById('teamExistsDiv');
+const teamStatusesDiv = document.getElementById('teamStatusesDiv');
+flowDiv.style.display = 'none';
+teamNoneDiv.style.display = 'none';
+teamExistsDiv.style.display = 'none';
+endFlowButton.style.display = 'none';
 
-function startFlow() { document.location.href = 'checkin.html' }
-
-function endFlow() { document.location.href = 'checkout.html' }
-
+function startFlow() { document.location.href = 'checkin.html'; }
+function endFlow() { document.location.href = 'checkout.html'; }
 
 // Right column logistics
-var teamName;
-var createTeamButton = document.getElementById("createTeamButton")
-createTeamButton.addEventListener("click", () => createTeam())
-var joinTeamButton = document.getElementById("joinTeamButton")
-joinTeamButton.addEventListener("click", () => joinTeam())
-var leaveTeamButton = document.getElementById("leaveTeamButton")
-leaveTeamButton.addEventListener("click", () => leaveTeam())
+let teamName;
+const createTeamButton = document.getElementById('createTeamButton');
+createTeamButton.addEventListener('click', () => createTeam());
+const joinTeamButton = document.getElementById('joinTeamButton');
+joinTeamButton.addEventListener('click', () => joinTeam());
+const leaveTeamButton = document.getElementById('leaveTeamButton');
+leaveTeamButton.addEventListener('click', () => leaveTeam());
 
-checkTeams()
+checkTeams();
 
-/* Check if the user is already in a team. 
+/* Check if the user is already in a team.
  * If so, join the team automatically
  */
 function checkTeams() {
@@ -140,6 +140,24 @@ function checkTeams() {
             //console.log("Error getting documents: ", error);
             document.location.href = 'signin.html'
         });
+        teamExistsDiv.style.display = 'block';
+        const h2 = document.getElementById('teamName');
+        h2.innerHTML = teamName;
+        getTeam();
+      } else {
+        teamNoneDiv.style.display = 'block';
+        console.log('Team not found');
+      }
+    })
+    .catch((error) => {
+      dialog.showMessageBox({
+        type: 'error',
+        title: 'Error',
+        message: error.message,
+      });
+      console.log('Error getting documents: ', error);
+      document.location.href = 'signin.html';
+    });
 }
 
 // Get the team members, and add listeners to their status change
@@ -161,88 +179,91 @@ function getTeam() {
 }
 
 function checkStatus() {
-    flowDiv.style.display = "block"
-    teamExistsDiv.style.display = "block"
+  flowDiv.style.display = 'block';
+  teamExistsDiv.style.display = 'block';
 
-    var docRef = db.collection("teams").doc(teamName).collection(uid).doc("status")
-    docRef.get()
-        .then(function(doc) {
-            if (doc.exists) {
-                if (doc.data().checkedIn) {
-                    startFlowButton.style.display = "none"
-                    endFlowButton.style.display = "block"
-                }
-            } else {
-                console.error("Error getting data");
-            }
-        })
-        .catch(function(error) {
-            console.error("Error getting data: ", error);
-        });
-}
-
-function createTeam() {
-    document.location.href = "createteam.html"
-}
-
-function joinTeam() {
-    console.log("Join Team")
-    document.location.href = "jointeam.html"
-}
-
-function leaveTeam() {
-    // Attempt to remove the status document from the corresponding user in the team document
-    db.collection("teams").doc(teamName).collection(uid).doc("status").delete().then(function() {
-        console.log("Successfully removed status document from teams collection");
-
-        // If successful, also remove the uid=true field from the team document
-        var docRef = db.collection("teams").doc(teamName);
-        docRef.update({
-            [uid]: firebase.firestore.FieldValue.delete()
-        }).then(function() {
-            console.log("Successfully removed uid field from teams collection");
-            document.location.href = "taskbar.html"
-        }).catch(function(error) {
-            console.error("Error removing field: ", error);
-        });
-    }).catch(function(error) {
-        console.error("Error removing document: ", error);
+  const docRef = db.collection('teams').doc(teamName).collection(uid).doc('status');
+  docRef.get()
+    .then((doc) => {
+      if (doc.exists) {
+        if (doc.data().checkedIn) {
+          startFlowButton.style.display = 'none';
+          endFlowButton.style.display = 'block';
+        }
+      } else {
+        console.error('Error getting data');
+      }
+    })
+    .catch((error) => {
+      console.error('Error getting data: ', error);
     });
 }
 
-//Utility functions
+function createTeam() {
+  document.location.href = 'createteam.html';
+}
+
+function joinTeam() {
+  console.log('Join Team');
+  document.location.href = 'jointeam.html';
+}
+
+function leaveTeam() {
+  // Attempt to remove the status document from the corresponding user in the team document
+  db.collection('teams').doc(teamName).collection(uid).doc('status')
+    .delete()
+    .then(() => {
+      console.log('Successfully removed status document from teams collection');
+
+      // If successful, also remove the uid=true field from the team document
+      const docRef = db.collection('teams').doc(teamName);
+      docRef.update({
+        [uid]: firebase.firestore.FieldValue.delete(),
+      }).then(() => {
+        console.log('Successfully removed uid field from teams collection');
+        document.location.href = 'taskbar.html';
+      }).catch((error) => {
+        console.error('Error removing field: ', error);
+      });
+    })
+    .catch((error) => {
+      console.error('Error removing document: ', error);
+    });
+}
+
+// Utility functions
 
 /* Adds the team member to the team div on UI
  * name: user's name to display
  * status: user's status, in string
  */
 function addTeamMember(name, status) {
-    //console.log("Adding member " + name + ", status: " + status);
-    var init = false;
-    var namelist = document.getElementById("name_list");
-    if (namelist == null) {
-        init = true;
-        namelist = document.createElement("UL");
-        namelist.id = 'name_list';
-    }
-    var member_elem = document.createElement("LI");
-    member_elem.innerHTML = name;
-    member_elem.id = "name_" + name;
-    namelist.appendChild(member_elem);
-    if (init) { teamStatusesDiv.appendChild(namelist); }
+  console.log(`Adding member ${name}, status: ${status}`);
+  let init = false;
+  let namelist = document.getElementById('name_list');
+  if (namelist == null) {
+    init = true;
+    namelist = document.createElement('UL');
+    namelist.id = 'name_list';
+  }
+  const member_elem = document.createElement('LI');
+  member_elem.innerHTML = name;
+  member_elem.id = `name_${name}`;
+  namelist.appendChild(member_elem);
+  if (init) { teamStatusesDiv.appendChild(namelist); }
 
-    init = false;
-    var statuslist = document.getElementById("status_list");
-    if (statuslist == null) {
-        init = true;
-        statuslist = document.createElement("UL");
-        statuslist.id = 'status_list';
-    }
-    var status_elem = document.createElement("LI");
-    status_elem.innerHTML = status_emoji[status];
-    status_elem.id = "status_" + name;
-    statuslist.appendChild(status_elem);
-    if (init) { teamStatusesDiv.appendChild(statuslist); }
+  init = false;
+  let statuslist = document.getElementById('status_list');
+  if (statuslist == null) {
+    init = true;
+    statuslist = document.createElement('UL');
+    statuslist.id = 'status_list';
+  }
+  const status_elem = document.createElement('LI');
+  status_elem.innerHTML = status_emoji[status];
+  status_elem.id = `status_${name}`;
+  statuslist.appendChild(status_elem);
+  if (init) { teamStatusesDiv.appendChild(statuslist); }
 }
 
 var logoutButton = document.getElementById("logOutBtn")
@@ -294,13 +315,13 @@ function checkThermometer() {
  * id: user's id
  */
 function addStatusListener(id) {
-    db.collection("users").doc(id)
-        .onSnapshot(function(doc) {
-            var displayName = doc.get("displayName");
-            var status = doc.get("userStatus");
-            //console.log(displayName + " change status to " + status);
-            onStatusChange(displayName, status)
-        });
+  db.collection('users').doc(id)
+    .onSnapshot((doc) => {
+      const displayName = doc.get('displayName');
+      const status = doc.get('userStatus');
+      console.log(`${displayName} change status to ${status}`);
+      onStatusChange(displayName, status);
+    });
 }
 
 /* Change the status of the team member on UI
@@ -308,14 +329,14 @@ function addStatusListener(id) {
  * status: user's new status
  */
 function onStatusChange(name, status) {
-    var status_elem = document.getElementById("status_" + name);
-    if (status_elem != null) {
-        status_elem.classList.add('hide');
-        setTimeout(function() {
-            status_elem.innerHTML = status_emoji[status];
-        }, 500);
-        setTimeout(function() {
-            status_elem.classList.remove('hide')
-        }, 500);
-    }
+  const status_elem = document.getElementById(`status_${name}`);
+  if (status_elem != null) {
+    status_elem.classList.add('hide');
+    setTimeout(() => {
+      status_elem.innerHTML = status_emoji[status];
+    }, 500);
+    setTimeout(() => {
+      status_elem.classList.remove('hide');
+    }, 500);
+  }
 }
