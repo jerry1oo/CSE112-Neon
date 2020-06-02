@@ -1,37 +1,69 @@
 function checkTeams() {
-    var errorMessage = "An error occurred when trying to find your team, returning to main page."
     db.collection("teams").where(uid, "==", true)
         .get()
-        .then(function (querySnapshot) {
+        .then(function(querySnapshot) {
             console.log(querySnapshot.docs)
             if (querySnapshot.docs.length > 0) {
-                querySnapshot.forEach(function (doc) {
+                querySnapshot.forEach(function(doc) {
                     teamName = doc.id
                 });
                 updateGoal()
             } else {
+
                 dialog.showMessageBox({
                     type: 'error',
                     title: 'Error',
                     message: errorMessage
                 });
                 console.log("Team not found")
-                document.location.href = 'taskbar.html'
+                //document.location.href = 'taskbar.html'
             }
         })
-        .catch(function (error) {
+        .catch(function(error) {
             dialog.showMessageBox({
                 type: 'error',
                 title: 'Error',
                 message: errorMessage
             });
             console.log("Error getting documents: ", error);
-            document.location.href = 'taskbar.html'
+            //document.location.href = 'taskbar.html'
         });
+    updateGoal();
+} else {
+    dialog.showMessageBox({
+        type: 'error',
+        title: 'Error',
+        message: errorMessage,
+    });
+    console.log('Team not found');
+    document.location.href = 'taskbar.html';
 }
-
-//create a list of goals that user saved in check-in
+})
+.catch((error) => {
+    dialog.showMessageBox({
+        type: 'error',
+        title: 'Error',
+        message: errorMessage,
+    });
+    console.log('Error getting documents: ', error);
+    document.location.href = 'taskbar.html';
+});
+}
+// create a list of goals that user saved in check-in
 function createGoalList(goal, n) {
+    // Assigning the attributes
+    const id = n.toString();
+    const form = document.getElementById(`line${id}`);
+    const label = document.createElement('label');
+    const labelId = `task${id}`;
+    const con = document.getElementById(`container${id}`);
+
+
+    // appending the created text to
+    // the created label tag
+    const s = '';
+    label.appendChild(document.createTextNode(goal + s));
+    label.id = labelId;
 
     // Assigning the attributes
     var id = n.toString();
@@ -58,13 +90,12 @@ function createGoalList(goal, n) {
     form.appendChild(label);
     form.appendChild(con);
 }
-
 function updateGoal() {
     var n = 1;
     var goalText = document.getElementById("goalText");
     var docRef = db.collection("teams").doc(teamName).collection(uid).doc("status")
     docRef.get()
-        .then(function (doc) {
+        .then(function(doc) {
             if (doc.exists) {
                 goalText.style.display = "none";
                 var id = "task" + n.toString();
@@ -85,18 +116,18 @@ function updateGoal() {
                 console.error("Error getting data");
             }
         })
-        .catch(function (error) {
+        .catch(function(error) {
             dialog.showMessageBox({
                 type: 'error',
                 title: 'Error',
                 message: error.message
             });
             console.error("Error getting data: ", error);
-            document.location.href = 'taskbar.html'
+            //document.location.href = 'taskbar.html'
         });
 }
-
 function endFlow() {
+    updateThermometer()
     var docRef = db.collection("teams").doc(teamName).collection(uid).doc("status")
     //initialize the things to be pushed
     var obj = {
@@ -119,30 +150,100 @@ function endFlow() {
             else if (dict[i][b] == 0)
                 obj[taskStatus] = 3;
 
-            if(obj[taskStatus] == 0)
+            if (obj[taskStatus] == 0)
                 obj[taskId] = "";
             else
                 obj[taskId] = t;
-        }
-        else {
+        } else {
             obj[taskId] = "";
         }
 
     }
     docRef.set(obj)
-        .then(function () {
+        .then(function() {
             console.log("Document written");
             document.location.href = 'taskbar.html'
         })
-        .catch(function (error) {
+        .catch(function(error) {
             dialog.showMessageBox({
                 type: 'error',
                 title: 'Error',
                 message: error.message
             });
             console.error("Error adding document: ", error);
-            document.location.href = 'taskbar.html'
+            //document.location.href = 'taskbar.html'
         });
 }
+function updateThermometer() {
+    console.log(dict)
+    var line1 = document.getElementById("h1")
+    var line2 = document.getElementById("h2")
+    var line3 = document.getElementById("h3")
+    var line1Valid = false,
+        line2Valid = false,
+        line3Valid = false
+    if (window.getComputedStyle(line1).display === "block")
+        line1Valid = true
+    if (window.getComputedStyle(line2).display === "block")
+        line2Valid = true
+    if (window.getComputedStyle(line3).display === "block")
+        line3Valid = true
+    var tasksCompleted = 0
+    if (line1Valid) {
+        if (dict[1]["completedBtn"] == 0)
+            tasksCompleted++
+        else
+            console.log("Task 1 not completed")
+    }
+    if (line2Valid) {
+        if (dict[2]["completedBtn"] == 0)
+            tasksCompleted++
+        else
+            console.log("Task 2 not completed")
+    }
+    if (line3Valid) {
+        if (dict[3]["completedBtn"] == 0)
+            tasksCompleted++
+    }
+    console.log(tasksCompleted)
+    console.log(teamName)
+    db.collection("thermometers").doc(teamName)
+        .get()
+        .then(function(querySnapshot) {
+            var timeDiff = (new Date()).getTime() - querySnapshot.data().lastEpoch
+            timeDiff = Math.round(timeDiff / 1000)
+            console.log(timeDiff)
+            var day = 24 * 60 * 60
+            var newDay = new Date()
+            newDay.setHours(0)
+            newDay.setMinutes(0)
+            newDay.setSeconds(0)
+            if (timeDiff > day) {
+                db.collection("thermomemters").doc(teamName).set({
+                    progress: (tasksCompleted * 10),
+                    lastEpoch: newDay.getTime()
+                }).then(function() {
+                    console.log("Document written")
+                }).catch(function(err) {
+                    console.log(err)
+                })
+            } else {
+                var currProgress = querySnapshot.data().progress
+                currProgress += (tasksCompleted * 10)
+                db.collection("thermometers").doc(teamName).set({
+                    "progress": currProgress,
+                    "lastEpoch": querySnapshot.data().lastEpoch
+                }).then(function() {
+                    console.log("Document written")
+                }).catch(function(err) {
+                    console.log(err)
+                })
+            }
+        })
+        .catch(function(error) {
+            console.log("Error getting documents: ", error);
+        });
+}
+function cancel() { document.location.href = "taskbar.html" }
 
-module.exports = {checkTeams, createGoalList, updateGoal, endFlow};
+module.exports = {checkTeams, createGoalList, updateGoal, endFlow, updateThermometer, cancel};
