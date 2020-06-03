@@ -1,7 +1,7 @@
 var sinon = require('sinon')
 var fs = require('fs');
 const LocalStorageMock = require('./localStorageMock');
-const path = require('../../app/js/checkin_functions');
+const path = require('../../app/js/js_functions/checkin_functions');
 const {startFlow} = path;
 var html;
 
