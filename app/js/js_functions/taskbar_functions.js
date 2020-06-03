@@ -32,24 +32,6 @@ function checkTeams() {
             //console.log("Error getting documents: ", error);
             document.location.href = 'signin.html'
         });
-    teamExistsDiv.style.display = 'block';
-    const h2 = document.getElementById('teamName');
-    h2.innerHTML = teamName;
-    getTeam();
-} else {
-    teamNoneDiv.style.display = 'block';
-    console.log('Team not found');
-}
-})
-.catch((error) => {
-    dialog.showMessageBox({
-        type: 'error',
-        title: 'Error',
-        message: error.message,
-    });
-    console.log('Error getting documents: ', error);
-    document.location.href = 'signin.html';
-});
 }
 
 // Get the team members, and add listeners to their status change

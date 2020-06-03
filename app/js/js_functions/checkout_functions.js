@@ -1,4 +1,5 @@
 function checkTeams() {
+
     db.collection("teams").where(uid, "==", true)
         .get()
         .then(function(querySnapshot) {
@@ -28,43 +29,10 @@ function checkTeams() {
             console.log("Error getting documents: ", error);
             //document.location.href = 'taskbar.html'
         });
-    updateGoal();
-} else {
-    dialog.showMessageBox({
-        type: 'error',
-        title: 'Error',
-        message: errorMessage,
-    });
-    console.log('Team not found');
-    document.location.href = 'taskbar.html';
-}
-})
-.catch((error) => {
-    dialog.showMessageBox({
-        type: 'error',
-        title: 'Error',
-        message: errorMessage,
-    });
-    console.log('Error getting documents: ', error);
-    document.location.href = 'taskbar.html';
-});
 }
 
 // create a list of goals that user saved in check-in
 function createGoalList(goal, n) {
-    // Assigning the attributes
-    const id = n.toString();
-    const form = document.getElementById(`line${id}`);
-    const label = document.createElement('label');
-    const labelId = `task${id}`;
-    const con = document.getElementById(`container${id}`);
-
-
-    // appending the created text to
-    // the created label tag
-    const s = '';
-    label.appendChild(document.createTextNode(goal + s));
-    label.id = labelId;
 
     // Assigning the attributes
     var id = n.toString();
@@ -91,6 +59,7 @@ function createGoalList(goal, n) {
     form.appendChild(label);
     form.appendChild(con);
 }
+
 function updateGoal() {
     var n = 1;
     var goalText = document.getElementById("goalText");
