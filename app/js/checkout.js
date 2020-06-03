@@ -1,14 +1,14 @@
 const { dialog } = require('electron').remote;
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyBmn_tDSlm4lLdrvSqj8Yb00KkYae8cL-Y',
-  authDomain: 'neon-pulse-development.firebaseapp.com',
-  databaseURL: 'https://neon-pulse-development.firebaseio.com',
-  projectId: 'neon-pulse-development',
-  storageBucket: 'neon-pulse-development.appspot.com',
-  messagingSenderId: '240091062123',
-  appId: '1:240091062123:web:babe11f5f03ced38fbb62e',
-  measurementId: 'G-VMS6JL8H4S',
+    apiKey: 'AIzaSyBmn_tDSlm4lLdrvSqj8Yb00KkYae8cL-Y',
+    authDomain: 'neon-pulse-development.firebaseapp.com',
+    databaseURL: 'https://neon-pulse-development.firebaseio.com',
+    projectId: 'neon-pulse-development',
+    storageBucket: 'neon-pulse-development.appspot.com',
+    messagingSenderId: '240091062123',
+    appId: '1:240091062123:web:babe11f5f03ced38fbb62e',
+    measurementId: 'G-VMS6JL8H4S',
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
@@ -20,6 +20,7 @@ checkTeams()
 var errorMessage = "An error occurred when trying to find your team, returning to main page."
 
 function checkTeams() {
+
     db.collection("teams").where(uid, "==", true)
         .get()
         .then(function(querySnapshot) {
@@ -49,44 +50,11 @@ function checkTeams() {
             console.log("Error getting documents: ", error);
             //document.location.href = 'taskbar.html'
         });
-        updateGoal();
-      } else {
-        dialog.showMessageBox({
-          type: 'error',
-          title: 'Error',
-          message: errorMessage,
-        });
-        console.log('Team not found');
-        document.location.href = 'taskbar.html';
-      }
-    })
-    .catch((error) => {
-      dialog.showMessageBox({
-        type: 'error',
-        title: 'Error',
-        message: errorMessage,
-      });
-      console.log('Error getting documents: ', error);
-      document.location.href = 'taskbar.html';
-    });
 }
 
 
 // create a list of goals that user saved in check-in
 function createGoalList(goal, n) {
-  // Assigning the attributes
-  const id = n.toString();
-  const form = document.getElementById(`line${id}`);
-  const label = document.createElement('label');
-  const labelId = `task${id}`;
-  const con = document.getElementById(`container${id}`);
-
-
-  // appending the created text to
-  // the created label tag
-  const s = '';
-  label.appendChild(document.createTextNode(goal + s));
-  label.id = labelId;
 
     // Assigning the attributes 
     var id = n.toString();
@@ -160,6 +128,9 @@ endFlowButton.addEventListener('click', () => endFlow());
 
 function endFlow() {
     updateThermometer()
+}
+
+function handleEndFlow() {
     var docRef = db.collection("teams").doc(teamName).collection(uid).doc("status")
         //initialize the things to be pushed
     var obj = {
@@ -209,6 +180,7 @@ function endFlow() {
 
 var cancelButton = document.getElementById("cancelBtn")
 cancelButton.addEventListener("click", () => cancel())
+
 function cancel() { document.location.href = "taskbar.html" }
 
 function updateThermometer() {
@@ -256,13 +228,15 @@ function updateThermometer() {
             newDay.setMinutes(0)
             newDay.setSeconds(0)
             if (timeDiff > day) {
-                db.collection("thermomemters").doc(teamName).set({
+                db.collection("thermometers").doc(teamName).set({
                     progress: (tasksCompleted * 10),
                     lastEpoch: newDay.getTime()
                 }).then(function() {
                     console.log("Document written")
+                    handleEndFlow()
                 }).catch(function(err) {
                     console.log(err)
+                    handleEndFlow()
                 })
             } else {
                 var currProgress = querySnapshot.data().progress
@@ -272,12 +246,15 @@ function updateThermometer() {
                     "lastEpoch": querySnapshot.data().lastEpoch
                 }).then(function() {
                     console.log("Document written")
+                    handleEndFlow()
                 }).catch(function(err) {
                     console.log(err)
+                    handleEndFlow()
                 })
             }
         })
         .catch(function(error) {
             console.log("Error getting documents: ", error);
+            handleEndFlow()
         });
 }
