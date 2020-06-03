@@ -1,8 +1,8 @@
 var sinon = require('sinon')
 var fs = require('fs');
-const LocalStorageMock = require('./localStorageMock');
-const path = require('../../app/js/js_functions/checkin_functions');
-const {startFlow} = path;
+const LocalStorageMock = require('./testing_modules/localStorageMock');
+var module = require('../../app/js/js_functions/checkin_functions');
+var {startFlow} = module;
 var html;
 
 

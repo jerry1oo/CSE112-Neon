@@ -49,6 +49,7 @@ function checkTeams() {
     document.location.href = 'taskbar.html';
 });
 }
+
 // create a list of goals that user saved in check-in
 function createGoalList(goal, n) {
     // Assigning the attributes
