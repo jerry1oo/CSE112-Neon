@@ -105,21 +105,3 @@ const leaveTeamButton = document.getElementById('leaveTeamButton');
 leaveTeamButton.addEventListener('click', () => leaveTeam());
 
 checkTeams();
-
-var logoutButton = document.getElementById("logOutBtn")
-logoutButton.addEventListener("click", function() {
-    firebase.auth().signOut().then(function() {
-        localStorage.removeItem('userid')
-        localStorage.removeItem('email')
-        localStorage.removeItem('displayName')
-        document.location.href = 'signin.html'
-    }).catch(function(error) {
-        // Handle errors
-        dialog.showMessageBox({
-            type: 'error',
-            title: 'Error',
-            message: error.message
-        });
-        console.log(error);
-    })
-})
